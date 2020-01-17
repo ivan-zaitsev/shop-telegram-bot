@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hibernate-configuration>
+
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/shop_telegram_bot</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+
+        <property name="hibernate.c3p0.validate">true</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">600</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.preferredTestQuery">SELECT 1;</property>
+        <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+        <property name="hibernate.c3p0.idle_test_period">3000</property>
+    </session-factory>
+
+</hibernate-configuration>
