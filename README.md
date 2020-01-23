@@ -5,9 +5,10 @@ Shop in the telegram with the admin panel
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Postgresql, Freemarker, HTML, Telegram Bots, Hibernate
 
 ## Quick start guide
-1. Create a database, import `db_schema.sql` and `db_data.sql`
-2. Change the fields in the properties `telegram-bot/src/main/resources/application.properties` and `admin-panel/src/main/resources/application.properties`
-3. Run the admin-panel and telegram-bot, web UI is accessible on `http://localhost:8080`
+1. Create postgres database and change the configuration in the properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
+2. Import the database schema `resources/db_schema.sql` and database data `resources/db_data.sql`
+3. Set up the telegram bot username and token in the properties for telegram bot `telegram-bot/src/main/resources/application.properties`
+4. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080`
 
 ## Screenshots
 #### Chatbot
