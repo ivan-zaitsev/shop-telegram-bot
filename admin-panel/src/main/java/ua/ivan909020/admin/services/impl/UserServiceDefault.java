@@ -10,11 +10,11 @@ import ua.ivan909020.admin.services.UserService;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceDefault implements UserService {
 
     private final UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceDefault(UserRepository repository) {
         this.repository = repository;
     }
 
