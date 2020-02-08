@@ -7,12 +7,12 @@ import ua.ivan909020.bot.domain.entities.*;
 
 final class HibernateFactory {
 
-    private static final SessionFactory SESSION_FACTORY = createSessionFactory();
+    private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
 
     private HibernateFactory() {
     }
 
-    private static SessionFactory createSessionFactory() {
+    private static SessionFactory buildSessionFactory() {
         Configuration configuration = new Configuration();
         configuration.configure();
         configuration.addAnnotatedClass(Category.class);
