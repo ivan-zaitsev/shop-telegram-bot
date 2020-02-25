@@ -12,7 +12,7 @@
       <tr>
         <th>Client</th>
         <input type="hidden" name="client" value="${order.client.id?c}">
-        <td>${order.client.name} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)<br></td>
+        <td>${order.client.name!} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)<br></td>
       </tr>
       <tr>
         <th>Date</th>

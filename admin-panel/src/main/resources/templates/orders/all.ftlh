@@ -19,7 +19,7 @@
       <#list orders as order>
         <tr>
           <td>${order.id?c}</td>
-          <td>${order.client.name} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)</td>
+          <td>${order.client.name!} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)</td>
           <td>${formatDateTime(order.createdDate, 'dd.MM.yyyy HH:mm')}</td>
           <td>${order.state.state}</td>
           <td>${order.amount} $</td>
