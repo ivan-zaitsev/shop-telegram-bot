@@ -40,6 +40,7 @@ public class OrderCreateCommand implements Command {
         if (client != null) {
             orderService.save(build(client, cartService.findAllCartItemsByChatId(chatId)));
         }
+        clientService.setActionForChatId(chatId, null);
         cartService.deleteAllCartItemsByChatId(chatId);
         telegramService.sendMessage(new MessageSend(chatId,
                 "Order success created.", StartCommand.createGeneralMenuKeyboard()));
