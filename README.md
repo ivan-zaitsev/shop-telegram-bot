@@ -12,14 +12,14 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Postgresql
 
 ## Screenshots
 #### Chatbot
-![](images/1.jpg)
-![](images/2.jpg)
-![](images/3.jpg)
-![](images/4.jpg)
-![](images/5.jpg)
+![](resources/images/1.jpg)
+![](resources/images/2.jpg)
+![](resources/images/3.jpg)
+![](resources/images/4.jpg)
+![](resources/images/5.jpg)
 #### Admin panel
-![](images/6.jpg)
-![](images/7.jpg)
-![](images/8.jpg)
-![](images/9.jpg)
-![](images/10.jpg)
+![](resources/images/6.jpg)
+![](resources/images/7.jpg)
+![](resources/images/8.jpg)
+![](resources/images/9.jpg)
+![](resources/images/10.jpg)
