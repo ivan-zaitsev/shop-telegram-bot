@@ -1,27 +1,17 @@
 package ua.ivan909020.bot.services.impl;
 
+import java.util.Map;
+
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.commands.impl.*;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
 import ua.ivan909020.bot.repositories.impl.OrderStepRepositoryDefault;
 import ua.ivan909020.bot.services.OrderStepService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class OrderStepServiceDefault implements OrderStepService {
 
     private static final OrderStepService INSTANCE = new OrderStepServiceDefault();
 
     private final OrderStepRepository repository = new OrderStepRepositoryDefault();
-
-    private final Map<Integer, Command> orderSteps = new HashMap<Integer, Command>() {{
-        put(1, OrderEnterNameCommand.getInstance());
-        put(2, OrderEnterPhoneNumberCommand.getInstance());
-        put(3, OrderEnterCityCommand.getInstance());
-        put(4, OrderEnterAddressCommand.getInstance());
-        put(5, OrderCreateCommand.getInstance());
-    }};
 
     private OrderStepServiceDefault() {
     }
@@ -38,6 +28,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     @Override
     public void previousOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
+        Map<Integer, Command> orderSteps = repository.getOrderSteps();
         if (orderStep > 1) {
             orderStep--;
             repository.setOrderStepNumber(chatId, orderStep);
@@ -48,6 +39,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     @Override
     public void nextOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
+        Map<Integer, Command> orderSteps = repository.getOrderSteps();
         if (orderStep < orderSteps.size()) {
             orderStep++;
             repository.setOrderStepNumber(chatId, orderStep);

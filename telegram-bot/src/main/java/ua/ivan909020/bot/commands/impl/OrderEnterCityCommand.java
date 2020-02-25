@@ -7,8 +7,10 @@ import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
+import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientServiceDefault;
+import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 import ua.ivan909020.bot.utils.KeyboardUtils;
 
@@ -22,6 +24,7 @@ public class OrderEnterCityCommand implements Command {
 
     private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final ClientService clientService = ClientServiceDefault.getInstance();
+    private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
 
     private static final Pattern CITY_PATTERN = Pattern.compile("[a-zA-Z]");
 
@@ -61,18 +64,18 @@ public class OrderEnterCityCommand implements Command {
         }});
     }
 
-    public boolean doEnterCity(Long chatId, String city) {
+    public void doEnterCity(Long chatId, String city) {
         Matcher matcher = CITY_PATTERN.matcher(city);
         if (!matcher.find()) {
             telegramService.sendMessage(new MessageSend(chatId, "Enter your city!"));
-            return false;
+            return;
         }
         Client client = clientService.findByChatId(chatId);
         if (client != null) {
             client.setCity(city);
             clientService.update(client);
         }
-        return true;
+        orderStepService.nextOrderStep(chatId);
     }
 
 }
