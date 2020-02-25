@@ -28,17 +28,21 @@ class ActionHandler implements Handler<Message> {
         String action = clientService.findActionByChatId(chatId);
 
         if ("order=enter-client-name".equals(action)) {
-            enterNameCommand.doEnterName(chatId, text);
-            orderStepService.nextOrderStep(chatId);
+            if (enterNameCommand.doEnterName(chatId, text)) {
+            	orderStepService.nextOrderStep(chatId);
+            }
         } else if ("order=enter-client-phone-number".equals(action)) {
-            enterPhoneNumberCommand.doEnterPhoneNumber(chatId, text);
-            orderStepService.nextOrderStep(chatId);
+            if(enterPhoneNumberCommand.doEnterPhoneNumber(chatId, text)) {
+            	orderStepService.nextOrderStep(chatId);
+            }
         } else if ("order=enter-client-city".equals(action)) {
-            enterCityNameCommand.doEnterCity(chatId, text);
-            orderStepService.nextOrderStep(chatId);
+            if (enterCityNameCommand.doEnterCity(chatId, text)) {
+            	orderStepService.nextOrderStep(chatId);
+            }
         } else if ("order=enter-client-address".equals(action)) {
-            orderEnterAddressCommand.doEnterAddress(chatId, text);
-            orderStepService.nextOrderStep(chatId);
+            if (orderEnterAddressCommand.doEnterAddress(chatId, text)) {
+            	orderStepService.nextOrderStep(chatId);
+            }
         }
     }
 

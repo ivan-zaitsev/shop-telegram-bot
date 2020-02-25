@@ -60,17 +60,18 @@ public class OrderEnterNameCommand implements Command {
         }});
     }
 
-    public void doEnterName(Long chatId, String name) {
+    public boolean doEnterName(Long chatId, String name) {
         Matcher matcher = NAME_PATTERN.matcher(name);
         if (!matcher.find()) {
             telegramService.sendMessage(new MessageSend(chatId, "Enter your name!"));
-            return;
+            return false;
         }
         Client client = clientService.findByChatId(chatId);
         if (client != null) {
             client.setName(name);
             clientService.update(client);
         }
+        return true;
     }
 
 }

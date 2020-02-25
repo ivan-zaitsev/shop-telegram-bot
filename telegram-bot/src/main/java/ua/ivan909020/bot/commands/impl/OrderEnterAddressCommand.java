@@ -61,17 +61,18 @@ public class OrderEnterAddressCommand implements Command {
         }});
     }
 
-    public void doEnterAddress(Long chatId, String address) {
+    public boolean doEnterAddress(Long chatId, String address) {
         Matcher matcher = ADDRESS_PATTERN.matcher(address);
         if (!matcher.find()) {
             telegramService.sendMessage(new MessageSend(chatId, "Enter your address!"));
-            return;
+            return false;
         }
         Client client = clientService.findByChatId(chatId);
         if (client != null) {
             client.setAddress(address);
             clientService.update(client);
         }
+        return true;
     }
 
 }

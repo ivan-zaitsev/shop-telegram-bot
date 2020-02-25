@@ -61,17 +61,18 @@ public class OrderEnterCityCommand implements Command {
         }});
     }
 
-    public void doEnterCity(Long chatId, String city) {
+    public boolean doEnterCity(Long chatId, String city) {
         Matcher matcher = CITY_PATTERN.matcher(city);
         if (!matcher.find()) {
             telegramService.sendMessage(new MessageSend(chatId, "Enter your city!"));
-            return;
+            return false;
         }
         Client client = clientService.findByChatId(chatId);
         if (client != null) {
             client.setCity(city);
             clientService.update(client);
         }
+        return true;
     }
 
 }

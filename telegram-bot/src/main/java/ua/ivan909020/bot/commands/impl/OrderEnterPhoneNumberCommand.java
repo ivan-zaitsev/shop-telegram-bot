@@ -66,17 +66,18 @@ public class OrderEnterPhoneNumberCommand implements Command {
         }});
     }
 
-    public void doEnterPhoneNumber(Long chatId, String phoneNumber) {
+    public boolean doEnterPhoneNumber(Long chatId, String phoneNumber) {
         Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
         if (!matcher.find()) {
             telegramService.sendMessage(new MessageSend(chatId, "Enter your phone number or press button!"));
-            return;
+            return false;
         }
         Client client = clientService.findByChatId(chatId);
         if (client != null) {
             client.setPhoneNumber(phoneNumber);
             clientService.update(client);
         }
+        return true;
     }
 
 }
