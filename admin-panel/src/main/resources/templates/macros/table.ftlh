@@ -25,7 +25,8 @@
                         "sNext":     "Next",
                         "sPrevious": "Previous"
                     }
-                }
+                },
+        		responsive: true
             });
         });
     </script>
