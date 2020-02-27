@@ -26,7 +26,7 @@
                         "sPrevious": "Previous"
                     }
                 },
-        		responsive: true
+		responsive: true
             });
         });
     </script>
