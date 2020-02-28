@@ -44,6 +44,7 @@ public class OrderCreateCommand implements Command {
         cartService.deleteAllCartItemsByChatId(chatId);
         telegramService.sendMessage(new MessageSend(chatId,
                 "Order success created.", StartCommand.createGeneralMenuKeyboard()));
+        notificationService.notifyAdmin(client); // called to inform admin about new order
     }
 
     private Order build(Client client, List<CartItem> cartItems) {
