@@ -6,14 +6,8 @@ import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.entities.OrderState;
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.domain.models.MessageSend;
-import ua.ivan909020.bot.services.CartService;
-import ua.ivan909020.bot.services.ClientService;
-import ua.ivan909020.bot.services.OrderService;
-import ua.ivan909020.bot.services.TelegramService;
-import ua.ivan909020.bot.services.impl.CartServiceDefault;
-import ua.ivan909020.bot.services.impl.ClientServiceDefault;
-import ua.ivan909020.bot.services.impl.OrderServiceDefault;
-import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
+import ua.ivan909020.bot.services.*;
+import ua.ivan909020.bot.services.impl.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +20,7 @@ public class OrderCreateCommand implements Command {
     private final ClientService clientService = ClientServiceDefault.getInstance();
     private final CartService cartService = CartServiceDefault.getInstance();
     private final OrderService orderService = OrderServiceDefault.getInstance();
+    private final NotificationService notificationService = NotificationServiceDefault.getInstanse();
 
     private OrderCreateCommand() {
     }
