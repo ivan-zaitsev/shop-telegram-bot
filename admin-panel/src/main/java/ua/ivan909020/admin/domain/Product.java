@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -38,6 +40,8 @@ public class Product {
 
     @Column(nullable = false)
     @NotNull(message = "Fill in the price")
+    @DecimalMin(value = "1.00", message = "Minimum price is 1.00 $")
+    @DecimalMax(value = "1000.00", message = "Maximum price is 1,000.00 $")
     private Float price;
 
     public Product() {

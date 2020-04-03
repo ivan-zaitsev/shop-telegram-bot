@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,6 +37,8 @@ public class Order {
 
     @Column(nullable = false)
     @NotNull(message = "Fill in the amount")
+    @DecimalMin(value = "1.00", message = "Minimum amount is 1.00 $")
+    @DecimalMax(value = "100000.00", message = "Maximum amount is 100,000.00 $")
     private Float amount;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
