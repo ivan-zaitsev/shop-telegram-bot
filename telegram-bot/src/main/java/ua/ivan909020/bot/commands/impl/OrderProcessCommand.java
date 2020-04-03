@@ -13,9 +13,9 @@ import ua.ivan909020.bot.services.impl.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderCreateCommand implements Command {
+public class OrderProcessCommand implements Command {
 
-    private static final OrderCreateCommand INSTANCE = new OrderCreateCommand();
+    private static final OrderProcessCommand INSTANCE = new OrderProcessCommand();
 
     private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final ClientService clientService = ClientServiceDefault.getInstance();
@@ -23,29 +23,31 @@ public class OrderCreateCommand implements Command {
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
     private final OrderService orderService = OrderServiceDefault.getInstance();
 
-    private OrderCreateCommand() {
+    private OrderProcessCommand() {
     }
 
-    public static OrderCreateCommand getInstance() {
+    public static OrderProcessCommand getInstance() {
         return INSTANCE;
     }
 
     @Override
     public void execute(Long chatId) {
-        Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            clientService.update(order.getClient());
-            orderService.save(order);
+        Client client = clientService.findByChatId(chatId);
+        if (client == null) {
+            telegramService.sendMessage(new MessageSend(chatId, "Error processing order. Press /start and try again."));
         }
-        clearClientCache(chatId);
-        telegramService.sendMessage(new MessageSend(chatId, "Order created.", Commands.createGeneralMenuKeyboard()));
+        orderStepService.saveCachedOrder(chatId, buildOrder(client, cartService.findAllCartItemsByChatId(chatId)));
+        orderStepService.nextOrderStep(chatId);
     }
 
-
-    private void clearClientCache(Long chatId) {
-        clientService.setActionForChatId(chatId, null);
-        cartService.deleteAllCartItemsByChatId(chatId);
-        orderStepService.deleteCachedOrderByChatId(chatId);
+    private Order buildOrder(Client client, List<CartItem> cartItems) {
+        Order order = new Order();
+        order.setClient(client);
+        order.setCreatedDate(LocalDateTime.now());
+        order.setState(OrderState.WAITING);
+        order.setAmount(cartService.calculateTotalPrice(cartItems));
+        order.setItems(orderService.from(cartItems));
+        return order;
     }
 
 }

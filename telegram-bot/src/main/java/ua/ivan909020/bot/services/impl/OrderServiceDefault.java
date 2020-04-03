@@ -32,7 +32,7 @@ public class OrderServiceDefault implements OrderService {
     }
 
     @Override
-    public List<OrderItem> from(List<CartItem> cartItems) {
+    public List<OrderItem> toOrderItems(List<CartItem> cartItems) {
         List<OrderItem> orderItems = new ArrayList<>();
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();

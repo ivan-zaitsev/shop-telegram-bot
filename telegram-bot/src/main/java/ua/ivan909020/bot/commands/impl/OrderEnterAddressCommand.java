@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
+import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
@@ -44,10 +45,10 @@ public class OrderEnterAddressCommand implements Command {
     }
 
     private void sendCurrentAddress(Long chatId) {
-        Client client = clientService.findByChatId(chatId);
-        if (client != null && client.getAddress() != null && !client.getAddress().isEmpty()) {
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null && order.getClient().getAddress() != null) {
             telegramService.sendMessage(new MessageSend(chatId,
-                    "Current address: " + client.getAddress(), createKeyboard(true)));
+                    "Current address: " + order.getClient().getAddress(), createKeyboard(true)));
         }
     }
 
@@ -68,13 +69,13 @@ public class OrderEnterAddressCommand implements Command {
     public void doEnterAddress(Long chatId, String address) {
         Matcher matcher = ADDRESS_PATTERN.matcher(address);
         if (!matcher.find()) {
-            telegramService.sendMessage(new MessageSend(chatId, "Enter your address!"));
+            telegramService.sendMessage(new MessageSend(chatId, "You entered the incorrect address, try again."));
             return;
         }
-        Client client = clientService.findByChatId(chatId);
-        if (client != null) {
-            client.setAddress(address);
-            clientService.update(client);
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null) {
+            order.getClient().setAddress(address);
+            orderStepService.updateCachedOrder(chatId, order);
         }
         orderStepService.nextOrderStep(chatId);
     }

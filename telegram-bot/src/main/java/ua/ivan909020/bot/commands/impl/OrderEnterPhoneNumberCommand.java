@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
+import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
@@ -46,10 +47,10 @@ public class OrderEnterPhoneNumberCommand implements Command {
     }
 
     private void sendCurrentPhoneNumber(Long chatId) {
-        Client client = clientService.findByChatId(chatId);
-        if (client != null && client.getPhoneNumber() != null && !client.getPhoneNumber().isEmpty()) {
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null && order.getClient().getPhoneNumber() != null) {
             telegramService.sendMessage(new MessageSend(chatId,
-                    "Current phone number: " + client.getPhoneNumber(), createKeyboard(true)));
+                    "Current phone number: " + order.getClient().getPhoneNumber(), createKeyboard(true)));
         }
     }
 
@@ -73,13 +74,14 @@ public class OrderEnterPhoneNumberCommand implements Command {
     public void doEnterPhoneNumber(Long chatId, String phoneNumber) {
         Matcher matcher = PHONE_NUMBER_PATTERN.matcher(phoneNumber);
         if (!matcher.find()) {
-            telegramService.sendMessage(new MessageSend(chatId, "Enter your phone number or press button!"));
+            telegramService.sendMessage(new MessageSend(chatId,
+                    "You entered the incorrect phone number, try again or press button."));
             return;
         }
-        Client client = clientService.findByChatId(chatId);
-        if (client != null) {
-            client.setPhoneNumber(phoneNumber);
-            clientService.update(client);
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null) {
+            order.getClient().setPhoneNumber(phoneNumber);
+            orderStepService.updateCachedOrder(chatId, order);
         }
         orderStepService.nextOrderStep(chatId);
     }

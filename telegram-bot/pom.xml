@@ -67,6 +67,11 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.4.10.Final</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.kostaskougios</groupId>
+            <artifactId>cloning</artifactId>
+            <version>1.10.3</version>
+        </dependency>
     </dependencies>
 
 </project>

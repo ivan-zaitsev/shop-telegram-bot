@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
+import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
@@ -44,10 +45,10 @@ public class OrderEnterCityCommand implements Command {
     }
 
     private void sendCurrentCity(Long chatId) {
-        Client client = clientService.findByChatId(chatId);
-        if (client != null && client.getCity() != null && !client.getCity().isEmpty()) {
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null && order.getClient().getCity() != null) {
             telegramService.sendMessage(new MessageSend(chatId,
-                    "Current city: " + client.getCity(), createKeyboard(true)));
+                    "Current city: " + order.getClient().getCity(), createKeyboard(true)));
         }
     }
 
@@ -68,13 +69,13 @@ public class OrderEnterCityCommand implements Command {
     public void doEnterCity(Long chatId, String city) {
         Matcher matcher = CITY_PATTERN.matcher(city);
         if (!matcher.find()) {
-            telegramService.sendMessage(new MessageSend(chatId, "Enter your city!"));
+            telegramService.sendMessage(new MessageSend(chatId, "You entered the incorrect city, try again."));
             return;
         }
-        Client client = clientService.findByChatId(chatId);
-        if (client != null) {
-            client.setCity(city);
-            clientService.update(client);
+        Order order = orderStepService.findCachedOrderByChatId(chatId);
+        if (order != null && order.getClient() != null) {
+            order.getClient().setCity(city);
+            orderStepService.updateCachedOrder(chatId, order);
         }
         orderStepService.nextOrderStep(chatId);
     }
