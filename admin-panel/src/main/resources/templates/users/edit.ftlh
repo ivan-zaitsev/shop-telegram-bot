@@ -3,7 +3,7 @@
 <@h.home "User editing">
 
   <#if Error??>
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-warning" role="alert">
       <h4 class="alert-heading">Error</h4>
       <hr>${Error}
     </div>

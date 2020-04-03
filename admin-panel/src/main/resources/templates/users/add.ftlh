@@ -2,7 +2,6 @@
 
 <@h.home "User adding">
 
-
   <form method="post" action="users/create">
     <div class="form-group row">
       <label class="col-sm-2">Name:</label>
