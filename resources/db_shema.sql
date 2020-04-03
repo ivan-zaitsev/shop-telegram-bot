@@ -30,11 +30,6 @@ create table products(
     price real not null
 );
 
-create table order_states(
-    id serial primary key,
-    state varchar(255) not null
-);
-
 create table orders(
     id serial primary key,
     client_id integer references clients(id) not null,
