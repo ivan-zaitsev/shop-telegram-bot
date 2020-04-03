@@ -291,20 +291,21 @@
 
         // part of this is duplicated in i18n/defaults-en_US.js. Make sure to update both.
         Selectpicker.DEFAULTS = {
-            noneSelectedText: 'Ничего не выбрано',
-            noneResultsText: 'Результаты не найдены {0}',
+            noneSelectedText: 'Nothing selected',
+            noneResultsText: 'No results matched {0}',
             countSelectedText: function (numSelected, numTotal) {
-                return "{0} шт. выбрано";
+                return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
             },
             maxOptionsText: function (numAll, numGroup) {
                 return [
-                    'Достигнуто ограничение ({n} шт. максимально)', 'Достигнут лимит группы ({n} шт. максимально)'
+                    (numAll == 1) ? 'Limit reached ({n} item max)' : 'Limit reached ({n} items max)',
+                    (numGroup == 1) ? 'Group limit reached ({n} item max)' : 'Group limit reached ({n} items max)'
                 ];
             },
-            selectAllText: 'Выбрать все',
-            deselectAllText: 'Убрать выделение со всего',
+            selectAllText: 'Select All',
+            deselectAllText: 'Deselect All',
             doneButton: false,
-            doneButtonText: 'Закрыть',
+            doneButtonText: 'Close',
             multipleSeparator: ', ',
             styleBase: 'btn',
             style: 'btn-default',

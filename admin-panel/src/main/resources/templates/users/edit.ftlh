@@ -3,62 +3,69 @@
 <@h.home "User editing">
 
   <#if Error??>
-    <center>
-      <div class="alert alert-danger" role="alert">
-        <h4 class="alert-heading">Error</h4>
-        <hr>${Error}
-      </div>
-    </center>
+    <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Error</h4>
+      <hr>${Error}
+    </div>
   </#if>
 
   <#if user??>
-  <form method="post" action="users/update">
-    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <input type="hidden" name="id" value="${user.id?c}">
-      <tr>
-        <th>Name</th>
-        <td>
+    <form method="post" action="users/update">
+      <div class="form-group row">
+        <label class="col-sm-2">Id:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="number" name="id" value="${user.id?c}" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Name:</label>
+        <div class="col-sm-10">
           <input class="form-control" name="name" value="${user.name}">
-          <#if nameError??><div style="color:red;">${nameError}</div></#if>
-        </td>
-      </tr>
-      <tr>
-        <th>Username</th>
-        <td>
+          <#if nameError??><div class="text-warning">${nameError}</div></#if>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Username:</label>
+        <div class="col-sm-10">
           <input class="form-control" name="username" value="${user.username}">
-          <#if usernameError??><div style="color:red;">${usernameError}</div></#if>
-        </td>
-      </tr>
-      <tr>
-        <th>Password</th>
-        <td>
+          <#if usernameError??><div class="text-warning">${usernameError}</div></#if>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Password:</label>
+        <div class="col-sm-10">
           <input class="form-control" name="password">
-          <#if passwordError??><div style="color:red;">${passwordError}</div></#if>
-        </td>
-      </tr>
-      <tr>
-        <th>Role</th>
-        <td>
+          <#if passwordError??><div class="text-warning">${passwordError}</div></#if>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Role:</label>
+        <div class="col-sm-10">
           <select class="form-control" name="role">
             <#list user.role.values() as role>
               <option value="${role.name()}" <#if user.role.name() == role>selected</#if>>${role.value}</option>
             </#list>
           </select>
-        </td>
-      </tr>
-    </table>
+        </div>
+      </div>
 
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-success ml-1" style="float:right;" type="submit" value="Update">
-  </form>
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-success" type="submit">Update</button>
+    </form>
 
-  <a class="btn btn-info ml-1" style="float:right;" href="users">Back</a>
+    <form method="get" action="users">
+      <button class="btn btn-info" type="submit">Back</button>
+    </form>
 
-  <form method="post" action="users/delete">
-    <input type="hidden" name="id" value="${user.id?c}">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-danger" style="float:right;" type="submit" value="Delete">
-  </form>
+    <form method="post" action="users/delete">
+      <input type="hidden" name="id" value="${user.id?c}">
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
 
   <#else>
     <div class="alert alert-danger" role="alert">

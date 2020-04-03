@@ -2,10 +2,13 @@
 <#import "../macros/table.ftlh" as t>
 
 <@h.home "Category list">
-  <center class="mb-2"><a class="btn btn-sm btn-info" href="categories/add">Add category</a></center>
+
+  <center class="mb-4">
+    <a class="btn btn-sm btn-info" href="categories/add">Add category</a>
+  </center>
 
   <@t.table "categories" />
-  <table id="categories" class="table table-striped table-bordered mb-5" cellspacing="0" width="100%">
+  <table id="categories" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>Id</th>

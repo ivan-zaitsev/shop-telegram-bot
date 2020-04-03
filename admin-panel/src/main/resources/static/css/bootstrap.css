@@ -117,8 +117,15 @@ textarea {
   font: inherit;
   color: inherit;
 }
+textarea {
+  resize: vertical;
+}
 button {
   overflow: visible;
+}
+button[type=submit] {
+  float: right;
+  margin: 5px 5px 5px 5px !important;
 }
 button,
 select {
@@ -2263,6 +2270,7 @@ th {
 .table {
   width: 100%;
   max-width: 100%;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 .table > thead > tr > th,

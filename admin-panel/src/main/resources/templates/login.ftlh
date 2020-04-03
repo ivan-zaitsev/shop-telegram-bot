@@ -16,25 +16,21 @@
 
   <form action="login" method="post">
     <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Username:</label>
-      <div class="col-sm-6">
-        <input type="text" class="form-control" name="username"/>
+      <label class="col-sm-2">Username:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="username">
       </div>
     </div>
 
     <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Password:</label>
-      <div class="col-sm-6">
-        <input type="password" class="form-control" name="password"/>
+      <label class="col-sm-2">Password:</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" name="password">
       </div>
     </div>
 
     <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <button type="submit" class="btn btn-primary">Sign In</button>
-        </div>
-    </div>
+    <button type="submit" class="btn btn-primary">Sign In</button>
   </form>
 
 </@h.home>

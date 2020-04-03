@@ -4,7 +4,7 @@
 <@h.home "Client list">
 
   <@t.table "clients" />
-  <table id="clients" class="table table-striped table-bordered mb-5" cellspacing="0" width="100%">
+  <table id="clients" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>Id</th>

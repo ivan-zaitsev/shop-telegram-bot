@@ -3,54 +3,62 @@
 <@h.home "Order editing">
 
   <#if order??>
-  <form method="post" action="orders/update">
-    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <tr>
-        <th>Id</th>
-        <td><input type="number" class="form-control" name="id" value="${order.id?c}" readonly></td>
-      </tr>
-      <tr>
-        <th>Client</th>
-        <input type="hidden" name="client" value="${order.client.id?c}">
-        <td>${order.client.name!} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)<br></td>
-      </tr>
-      <tr>
-        <th>Date</th>
-        <td>
-          <input class="form-control" type="datetime-local" name="createdDate" value="${order.createdDate!}">
-          <#if createdDateError??><div style="color:red;">${createdDateError}</div></#if>
-        </td>
-      </tr>
-      <tr>
-        <th>State</th>
-        <td>
-          <select class="form-control" name="state">
-            <#list orderStates as state>
-              <option value="${state.id?c}" <#if state == order.state>selected</#if>>${state.state}</option>
+    <form method="post" action="orders/update">
+      <div class="form-group row">
+        <label class="col-sm-2">Id:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="number" name="id" value="${order.id?c}" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Client:</label>
+        <div class="col-sm-10">
+          <input type="hidden" name="client" value="${order.client.id?c}">
+          ${order.client.name!} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Date:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="datetime-local" name="createdDate" value="${order.createdDate!}" readonly>
+          <#if createdDateError??><div class="text-warning">${createdDateError}</div></#if>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">State:</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="status">
+            <#list order.status.values() as status>
+              <option value="${status.name()}" <#if order.status.name() == status>selected</#if>>${status.value}</option>
             </#list>
           </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Amount</th>
-        <td>
-          <input class="form-control" type="number" name="amount" value="<#if order.amount??>${order.amount?c}</#if>">
-          <#if amountError??><div style="color:red;">${amountError}</div></#if>
-        </td>
-      </tr>
-    </table>
+        </div>
+      </div>
 
-    <div class="mt-5">
-      <h1>Order items</h1>
-      <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
+      <div class="form-group row">
+        <label class="col-sm-2">Amount:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="number" name="amount" step="any"
+                 value="<#if order.amount??>${order.amount?string["0.00;; decimalSeparator='.'"]}</#if>">
+          <#if amountError??><div class="text-warning">${amountError}</div></#if>
+        </div>
+      </div>
+
+      <div class="mt-5">
+        <h1>Order items</h1>
+        <@t.table "items" />
+        <table id="items" class="table table-striped table-bordered" cellspacing="0" width="100%">
+          <thead>
           <tr>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <#list order.items as item>
             <input type="hidden" name="items[${item?index}].id" value="${item.id?c}">
             <input type="hidden" name="items[${item?index}].order" value="${order.id?c}">
@@ -66,21 +74,23 @@
               <td>${item.productPrice} $</td>
             </tr>
           </#list>
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
 
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-success ml-1" style="float:right;" type="submit" value="Update">
-  </form>
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-success" type="submit">Update</button>
+    </form>
 
-  <a class="btn btn-info ml-1" style="float:right;" href="orders">Back</a>
+    <form method="get" action="orders">
+      <button class="btn btn-info" type="submit">Back</button>
+    </form>
 
-  <form method="post" action="orders/delete">
-    <input type="hidden" name="id" value="${order.id}">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-danger" style="float:right;" type="submit" value="Delete">
-  </form>
+    <form method="post" action="orders/delete">
+      <input type="hidden" name="id" value="${order.id?c}">
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
 
   <#else>
     <div class="alert alert-danger" role="alert">

@@ -3,31 +3,35 @@
 <@h.home "Category editing">
 
   <#if category??>
-  <form method="post" action="categories/update">
-    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <tr>
-        <th>Id</th>
-        <td><input type="number" class="form-control" name="id" value="${category.id?c}" readonly></td>
-      </tr>
-      <tr>
-        <th>Name</th>
-        <td>
+    <form method="post" action="categories/update">
+      <div class="form-group row">
+        <label class="col-sm-2">Id:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="number" name="id" value="${category.id?c}" readonly>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2">Name:</label>
+        <div class="col-sm-10">
           <input class="form-control" name="name" value="${category.name!}">
-          <#if nameError??><div style="color:red;">${nameError}</div></#if>
-        </td>
-      </tr>
-    </table>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-success ml-1" style="float:right;" type="submit" value="Update">
-  </form>
+          <#if nameError??><div class="text-warning">${nameError}</div></#if>
+        </div>
+      </div>
 
-  <a class="btn btn-info ml-1" style="float:right;" href="categories">Back</a>
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-success" type="submit">Update</button>
+    </form>
 
-  <form method="post" action="categories/delete">
-    <input type="hidden" name="id" value="${category.id}">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-danger" style="float:right;" type="submit" value="Delete">
-  </form>
+    <form method="get" action="categories">
+      <button class="btn btn-info" type="submit">Back</button>
+    </form>
+
+    <form method="post" action="categories/delete">
+      <input type="hidden" name="id" value="${category.id?c}">
+      <input type="hidden" name="_csrf" value="${_csrf.token}">
+      <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
 
   <#else>
     <div class="alert alert-danger" role="alert">

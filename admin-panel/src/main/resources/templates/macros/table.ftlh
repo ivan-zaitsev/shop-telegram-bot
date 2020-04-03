@@ -1,4 +1,5 @@
 <#macro table name>
+
     <link rel="stylesheet" href="static/css/dataTables.bootstrap.css">
     <script src="static/js/jquery.dataTables.js"></script>
     <script src="static/js/dataTables.responsive.js"></script>
@@ -30,4 +31,5 @@
             });
         });
     </script>
+
 </#macro>

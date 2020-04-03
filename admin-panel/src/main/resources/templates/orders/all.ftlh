@@ -4,7 +4,7 @@
 <@h.home "Orders list">
 
   <@t.table "orders" />
-  <table id="orders" class="table table-striped table-bordered mb-5" cellspacing="0" width="100%">
+  <table id="orders" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>Id</th>

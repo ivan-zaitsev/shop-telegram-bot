@@ -3,19 +3,20 @@
 <@h.home "Category adding">
 
   <form method="post" action="categories/create">
-    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <tr>
-        <th>Name</th>
-        <td>
-          <input class="form-control" name="name" value="<#if category??>${category.name!}</#if>">
-          <#if nameError??><div style="color:red;">${nameError}</div></#if>
-        </td>
-      </tr>
-    </table>
+    <div class="form-group row">
+      <label class="col-sm-2">Name:</label>
+      <div class="col-sm-10">
+        <input class="form-control" name="name" value="<#if category??>${category.name!}</#if>">
+        <#if nameError??><div class="text-warning">${nameError}</div></#if>
+      </div>
+    </div>
+
     <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input class="btn btn-success ml-1" style="float:right;" type="submit" value="Create">
+    <button class="btn btn-success" type="submit">Create</button>
   </form>
 
-  <a class="btn btn-info ml-1" style="float:right;" href="categories">Back</a>
+  <form method="get" action="categories">
+    <button class="btn btn-info" type="submit">Back</button>
+  </form>
 
 </@h.home>
