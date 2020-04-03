@@ -77,6 +77,10 @@ public class UserController {
             model.addAttribute("user", user);
             return "users/edit";
         }
+        if (authUser.getId().equals(user.getId()) && !authUser.getRole().equals(user.getRole())) {
+            model.addAttribute("Error", "You cannot change the role for your account!");
+            return "users/edit";
+        }
 
         User receivedUser = userService.findById(user.getId());
         receivedUser.setName(user.getName());
@@ -84,9 +88,7 @@ public class UserController {
         if (!user.getPassword().isEmpty()) {
             receivedUser.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        if (!authUser.getId().equals(user.getId())) {
-            receivedUser.setRole(user.getRole());
-        }
+        receivedUser.setRole(user.getRole());
         userService.update(receivedUser);
         return "redirect:/users/edit/" + user.getId();
     }
@@ -95,7 +97,7 @@ public class UserController {
     public String deleteUser(@AuthenticationPrincipal User user, @RequestParam Integer id, Model model) {
         if (user.getId().equals(id)) {
             model.addAttribute("user", user);
-            model.addAttribute("Error", "You cannot delete yourself!");
+            model.addAttribute("Error", "You cannot delete your account!");
             return "users/edit";
         }
 
