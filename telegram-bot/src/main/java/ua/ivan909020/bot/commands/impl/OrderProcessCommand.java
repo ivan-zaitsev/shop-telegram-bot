@@ -1,7 +1,6 @@
 package ua.ivan909020.bot.commands.impl;
 
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.entities.OrderState;

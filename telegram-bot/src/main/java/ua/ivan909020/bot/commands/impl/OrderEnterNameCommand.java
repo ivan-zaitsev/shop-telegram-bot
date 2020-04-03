@@ -5,7 +5,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
-import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
