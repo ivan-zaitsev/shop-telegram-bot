@@ -31,8 +31,8 @@ public class Order {
     @NotNull(message = "Fill in the created date")
     private LocalDateTime createdDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_state_id", nullable = false)
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private OrderState state;
 
     @Column(nullable = false)
@@ -107,7 +107,7 @@ public class Order {
         return Objects.equals(id, order.id) &&
                 Objects.equals(client, order.client) &&
                 Objects.equals(createdDate, order.createdDate) &&
-                Objects.equals(state, order.state) &&
+                state == order.state &&
                 Objects.equals(amount, order.amount) &&
                 Objects.equals(items, order.items);
     }

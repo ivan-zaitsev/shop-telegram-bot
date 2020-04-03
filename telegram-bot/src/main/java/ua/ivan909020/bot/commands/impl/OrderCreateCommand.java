@@ -50,7 +50,7 @@ public class OrderCreateCommand implements Command {
         Order order = new Order();
         order.setClient(client);
         order.setCreatedDate(LocalDateTime.now());
-        order.setState(new OrderState(1));
+        order.setState(OrderState.WAITING);
         order.setAmount(cartService.calculateTotalPrice(cartItems));
         order.setItems(orderService.from(cartItems));
         return order;

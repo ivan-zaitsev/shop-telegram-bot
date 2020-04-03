@@ -2,11 +2,6 @@ insert into users(id, name, username, password, is_active, role) values
 (nextval('users_id_seq'), 'Administrator', 'admin', '$2a$08$xDJ4lsYKSRLNmI6txqK2a.08NraFv2326pW/1pILqGFMvrzsnqnXu', true, 'ADMIN'),
 (nextval('users_id_seq'), 'Moderator', 'moder', '$2a$08$q5k05Qx5kx0wc07SHgMxYeu1CMNkr65Fp.qhc50zavkmPi5e4.Cxu', true, 'MODER');
 
-insert into order_states(id, state) values
-(nextval('order_states_id_seq'), 'Waiting'),
-(nextval('order_states_id_seq'), 'Processed'),
-(nextval('order_states_id_seq'), 'Completed');
-
 insert into categories(id, name) values
 (nextval('categories_id_seq'), 'Food'),
 (nextval('categories_id_seq'), 'Other');

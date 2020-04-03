@@ -21,7 +21,7 @@
           <td>${order.id?c}</td>
           <td>${order.client.name!} (<a target="_blank" href="clients/edit/${order.client.id?c}">view</a>)</td>
           <td>${formatDateTime(order.createdDate, 'dd.MM.yyyy HH:mm')}</td>
-          <td>${order.state.state}</td>
+          <td>${order.state.value}</td>
           <td>${order.amount} $</td>
           <td>
             <a class="btn btn-xs btn-info command-edit" href="orders/edit/${order.id?c}">
