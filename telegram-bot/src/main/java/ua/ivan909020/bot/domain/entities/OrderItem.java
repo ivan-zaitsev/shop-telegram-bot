@@ -21,7 +21,6 @@ public class OrderItem {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
     @Column(nullable = false)

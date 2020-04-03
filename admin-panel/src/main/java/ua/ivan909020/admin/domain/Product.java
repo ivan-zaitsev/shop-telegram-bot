@@ -22,7 +22,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
     @Column(name = "photo_url", nullable = false)
