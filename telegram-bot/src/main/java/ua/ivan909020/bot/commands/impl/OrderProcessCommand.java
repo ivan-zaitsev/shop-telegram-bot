@@ -46,7 +46,7 @@ public class OrderProcessCommand implements Command {
         order.setCreatedDate(LocalDateTime.now());
         order.setState(OrderState.WAITING);
         order.setAmount(cartService.calculateTotalPrice(cartItems));
-        order.setItems(orderService.from(cartItems));
+        order.setItems(orderService.fromCartItems(cartItems));
         return order;
     }
 

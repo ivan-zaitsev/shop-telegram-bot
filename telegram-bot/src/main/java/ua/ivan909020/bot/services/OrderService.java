@@ -10,6 +10,6 @@ public interface OrderService {
 
     void save(Order order);
 
-    List<OrderItem> from(List<CartItem> cartItems);
+    List<OrderItem> fromCartItems(List<CartItem> cartItems);
 
 }
