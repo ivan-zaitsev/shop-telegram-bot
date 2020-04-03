@@ -1,6 +1,7 @@
 package ua.ivan909020.bot.services.impl;
 
 import ua.ivan909020.bot.domain.models.CartItem;
+import ua.ivan909020.bot.exceptions.ValidationException;
 import ua.ivan909020.bot.repositories.CartRepository;
 import ua.ivan909020.bot.repositories.impl.CartRepositoryDefault;
 import ua.ivan909020.bot.services.CartService;
@@ -29,7 +30,7 @@ public class CartServiceDefault implements CartService {
             throw new IllegalArgumentException("CartItem should not be NULL");
         }
         if (cartItem.getProduct() == null) {
-            throw new IllegalArgumentException("Product of CartItem should not be NULL");
+            throw new ValidationException("Product of CartItem should not be NULL");
         }
         repository.saveCartItem(chatId, cartItem);
     }
@@ -43,7 +44,7 @@ public class CartServiceDefault implements CartService {
             throw new IllegalArgumentException("CartItem should not be NULL");
         }
         if (cartItem.getProduct() == null) {
-            throw new IllegalArgumentException("Product of CartItem should not be NULL");
+            throw new ValidationException("Product of CartItem should not be NULL");
         }
         repository.updateCartItem(chatId, cartItem);
     }

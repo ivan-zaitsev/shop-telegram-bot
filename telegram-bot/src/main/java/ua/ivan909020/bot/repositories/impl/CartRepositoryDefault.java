@@ -2,10 +2,12 @@ package ua.ivan909020.bot.repositories.impl;
 
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.repositories.CartRepository;
+import ua.ivan909020.bot.utils.ClonerUtils;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CartRepositoryDefault implements CartRepository {
 
@@ -18,24 +20,27 @@ public class CartRepositoryDefault implements CartRepository {
     public void saveCartItem(Long chatId, CartItem cartItem) {
         cartItems.computeIfAbsent(chatId, orderItems -> new ArrayList<>());
         cartItem.setId(lastCartItemId.incrementAndGet());
-        cartItems.get(chatId).add(copy(cartItem));
+        cartItems.get(chatId).add(ClonerUtils.cloneObject(cartItem));
     }
 
     @Override
     public void updateCartItem(Long chatId, CartItem cartItem) {
         cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
-        Optional<CartItem> receivedCartItem = cartItems.get(chatId).stream()
-                .filter(item -> cartItem.getId().equals(item.getId()))
-                .findFirst();
-        receivedCartItem.ifPresent(item -> item.setQuantity(cartItem.getQuantity()));
+        List<CartItem> receivedCartItems = cartItems.get(chatId);
+        IntStream.range(0, receivedCartItems.size())
+                .filter(i -> cartItem.getId().equals(receivedCartItems.get(i).getId()))
+                .findFirst()
+                .ifPresent(i -> receivedCartItems.set(i, ClonerUtils.cloneObject(cartItem)));
     }
 
     @Override
     public void deleteCartItem(Long chatId, Integer cartItemId) {
         cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
-        cartItems.get(chatId).stream()
+        List<CartItem> receivedCartItems = cartItems.get(chatId);
+        receivedCartItems.stream()
                 .filter(cartItem -> cartItem.getId().equals(cartItemId))
-                .findFirst().ifPresent(receivedCartItem -> cartItems.get(chatId).remove(receivedCartItem));
+                .findFirst()
+                .ifPresent(receivedCartItems::remove);
     }
 
     @Override
@@ -43,14 +48,17 @@ public class CartRepositoryDefault implements CartRepository {
         cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
         return cartItems.get(chatId).stream()
                 .filter(cartItem -> cartItem.getProduct().getId().equals(productId))
-                .findFirst().map(this::copy).orElse(null);
+                .findFirst()
+                .map(ClonerUtils::cloneObject)
+                .orElse(null);
     }
 
     @Override
     public List<CartItem> findAllCartItemsByChatId(Long chatId) {
         cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
         return cartItems.get(chatId).stream()
-                .map(this::copy).collect(Collectors.toList());
+                .map(ClonerUtils::cloneObject)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -66,17 +74,6 @@ public class CartRepositoryDefault implements CartRepository {
     @Override
     public Integer findPageNumberByChatId(Long chatId) {
         return cartPageNumbers.getOrDefault(chatId, 0);
-    }
-
-    private CartItem copy(CartItem cartItem) {
-        if (cartItem == null) {
-            return null;
-        }
-        CartItem copiedCartItem = new CartItem();
-        copiedCartItem.setId(cartItem.getId());
-        copiedCartItem.setProduct(cartItem.getProduct());
-        copiedCartItem.setQuantity(cartItem.getQuantity());
-        return copiedCartItem;
     }
 
 }
