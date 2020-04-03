@@ -1,6 +1,7 @@
 package ua.ivan909020.bot.commands.impl;
 
 import ua.ivan909020.bot.commands.Command;
+import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.entities.OrderState;
@@ -43,7 +44,7 @@ public class OrderCreateCommand implements Command {
         clientService.setActionForChatId(chatId, null);
         cartService.deleteAllCartItemsByChatId(chatId);
         telegramService.sendMessage(new MessageSend(chatId,
-                "Order success created.", StartCommand.createGeneralMenuKeyboard()));
+                "Order success created.", Commands.createGeneralMenuKeyboard()));
     }
 
     private Order build(Client client, List<CartItem> cartItems) {

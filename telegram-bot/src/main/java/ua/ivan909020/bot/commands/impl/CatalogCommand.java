@@ -13,17 +13,17 @@ import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuCommand implements Command {
+public class CatalogCommand implements Command {
 
-    private static final MenuCommand INSTANCE = new MenuCommand();
+    private static final CatalogCommand INSTANCE = new CatalogCommand();
 
     private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final CategoryService categoryService = CategoryServiceDefault.getInstance();
 
-    private MenuCommand() {
+    private CatalogCommand() {
     }
 
-    public static MenuCommand getInstance() {
+    public static CatalogCommand getInstance() {
         return INSTANCE;
     }
 

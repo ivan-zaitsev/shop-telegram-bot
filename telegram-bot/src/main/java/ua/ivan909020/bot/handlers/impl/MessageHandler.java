@@ -1,8 +1,9 @@
 package ua.ivan909020.bot.handlers.impl;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
+import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.commands.impl.CartCommand;
-import ua.ivan909020.bot.commands.impl.MenuCommand;
+import ua.ivan909020.bot.commands.impl.CatalogCommand;
 import ua.ivan909020.bot.commands.impl.StartCommand;
 import ua.ivan909020.bot.handlers.Handler;
 import ua.ivan909020.bot.services.ClientService;
@@ -18,7 +19,7 @@ class MessageHandler implements Handler<Message> {
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
 
     private final StartCommand startCommand = StartCommand.getInstance();
-    private final MenuCommand menuCommand = MenuCommand.getInstance();
+    private final CatalogCommand catalogCommand = CatalogCommand.getInstance();
     private final CartCommand cartCommand = CartCommand.getInstance();
 
     @Override
@@ -26,31 +27,19 @@ class MessageHandler implements Handler<Message> {
         Long chatId = message.getChatId();
         String text = message.getText();
 
-        if (text.startsWith("/start")) {
+        if (text.startsWith(Commands.START_COMMAND)) {
             startCommand.execute(chatId);
-            return;
-        }
-
-        if (text.endsWith("Menu")) {
-            menuCommand.execute(chatId);
-            return;
-        } else if (text.endsWith("Cart")) {
+        } else if (text.equals(Commands.CATALOG_COMMAND)) {
+            catalogCommand.execute(chatId);
+        } else if (text.equals(Commands.CART_COMMAND)) {
             cartCommand.execute(chatId);
-            return;
-        }
-
-        if (text.endsWith("Correct")) {
+        } else if (text.equals(Commands.ORDER_NEXT_STEP_COMMAND)) {
             orderStepService.nextOrderStep(chatId);
-            return;
-        } else if (text.endsWith("Back")) {
+        } else if (text.equals(Commands.ORDER_PREVIOUS_STEP_COMMAND)) {
             orderStepService.previousOrderStep(chatId);
-            return;
-        } else if (text.endsWith("Cancel order")) {
+        } else if (text.equals(Commands.ORDER_CANCEL_COMMAND)) {
             startCommand.execute(chatId);
-            return;
-        }
-
-        if (clientService.findActionByChatId(chatId) != null) {
+        } else if (clientService.findActionByChatId(chatId) != null) {
             actionHandler.handle(message);
         }
     }

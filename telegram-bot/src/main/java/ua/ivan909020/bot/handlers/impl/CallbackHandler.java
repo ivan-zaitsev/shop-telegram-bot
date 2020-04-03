@@ -3,14 +3,14 @@ package ua.ivan909020.bot.handlers.impl;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ua.ivan909020.bot.commands.impl.CartCommand;
-import ua.ivan909020.bot.commands.impl.MenuCommand;
+import ua.ivan909020.bot.commands.impl.CatalogCommand;
 import ua.ivan909020.bot.commands.impl.ShowProductsCommand;
 import ua.ivan909020.bot.handlers.Handler;
 
 class CallbackHandler implements Handler<CallbackQuery> {
 
     private final ShowProductsCommand showProductsCommand = ShowProductsCommand.getInstance();
-    private final MenuCommand menuCommand = MenuCommand.getInstance();
+    private final CatalogCommand catalogCommand = CatalogCommand.getInstance();
     private final CartCommand cartCommand = CartCommand.getInstance();
 
     @Override
@@ -32,7 +32,7 @@ class CallbackHandler implements Handler<CallbackQuery> {
         } else if (data.startsWith("show-products=minus-product")) {
             showProductsCommand.doMinusProduct(chatId, inlineMessageId, data);
         } else if (data.equals("show-products=open-menu")) {
-            menuCommand.execute(chatId);
+            catalogCommand.execute(chatId);
         } else if (data.equals("show-products=open-cart")) {
             cartCommand.execute(chatId);
         }

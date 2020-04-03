@@ -59,7 +59,7 @@ public class ShowProductsCommand implements Command {
         telegramService.sendInlineQuery(new InlineQuerySend(inlineQueryId,
                 new ArrayList<InlineQueryResult>() {{
                     add(new InlineQueryResultArticle().setId("0")
-                            .setTitle("Goods not found in this category.")
+                            .setTitle("Products not found in this category.")
                             .setInputMessageContent(new InputTextMessageContent()
                                     .setMessageText("...")));
                 }}));

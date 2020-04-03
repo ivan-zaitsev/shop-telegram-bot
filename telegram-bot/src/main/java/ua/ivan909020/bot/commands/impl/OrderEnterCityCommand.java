@@ -4,6 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import ua.ivan909020.bot.commands.Command;
+import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
@@ -54,12 +55,12 @@ public class OrderEnterCityCommand implements Command {
         return KeyboardUtils.create(new ArrayList<KeyboardRow>() {{
             if (skipStep) {
                 add(new KeyboardRow() {{
-                    add(new KeyboardButton("\u2714\uFE0F Correct"));
+                    add(new KeyboardButton(Commands.ORDER_NEXT_STEP_COMMAND));
                 }});
             }
             add(new KeyboardRow() {{
-                add(new KeyboardButton("\u274C Cancel order"));
-                add(new KeyboardButton("\u25C0 Back"));
+                add(new KeyboardButton(Commands.ORDER_CANCEL_COMMAND));
+                add(new KeyboardButton(Commands.ORDER_PREVIOUS_STEP_COMMAND));
             }});
         }});
     }
