@@ -25,11 +25,13 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Long chatId) {
-        createClient(chatId);
-        telegramService.sendMessage(new MessageSend(chatId, "Online shop", Commands.createGeneralMenuKeyboard()));
+        if (clientService.findByChatId(chatId) == null) {
+            saveClient(chatId);
+        }
+        telegramService.sendMessage(new MessageSend(chatId, "Online shop :)", Commands.createGeneralMenuKeyboard()));
     }
 
-    private void createClient(Long chatId) {
+    private void saveClient(Long chatId) {
         Client client = new Client();
         client.setChatId(chatId);
         clientService.save(client);

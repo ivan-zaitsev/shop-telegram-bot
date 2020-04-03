@@ -1,6 +1,7 @@
 package ua.ivan909020.bot.services.impl;
 
 import ua.ivan909020.bot.domain.entities.Client;
+import ua.ivan909020.bot.exceptions.ValidationException;
 import ua.ivan909020.bot.repositories.ClientRepository;
 import ua.ivan909020.bot.repositories.impl.ClientRepositoryDefault;
 import ua.ivan909020.bot.services.ClientService;
@@ -49,10 +50,10 @@ public class ClientServiceDefault implements ClientService {
         if (client == null) {
             throw new IllegalArgumentException("Client should not be NULL");
         }
-        Client receivedClient = findByChatId(client.getChatId());
-        if (receivedClient == null) {
-            repository.save(client);
+        if (client.getChatId() == null) {
+            throw new ValidationException("ChatId of Client should not be NULL");
         }
+        repository.save(client);
     }
 
     @Override
