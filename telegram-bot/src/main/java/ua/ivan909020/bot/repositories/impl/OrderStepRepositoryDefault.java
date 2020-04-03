@@ -1,11 +1,7 @@
 package ua.ivan909020.bot.repositories.impl;
 
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.commands.impl.OrderCreateCommand;
-import ua.ivan909020.bot.commands.impl.OrderEnterAddressCommand;
-import ua.ivan909020.bot.commands.impl.OrderEnterCityCommand;
-import ua.ivan909020.bot.commands.impl.OrderEnterNameCommand;
-import ua.ivan909020.bot.commands.impl.OrderEnterPhoneNumberCommand;
+import ua.ivan909020.bot.commands.impl.*;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
 
 import java.util.HashMap;

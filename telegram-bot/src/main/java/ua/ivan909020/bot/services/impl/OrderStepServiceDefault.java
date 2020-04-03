@@ -1,11 +1,11 @@
 package ua.ivan909020.bot.services.impl;
 
-import java.util.Map;
-
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
 import ua.ivan909020.bot.repositories.impl.OrderStepRepositoryDefault;
 import ua.ivan909020.bot.services.OrderStepService;
+
+import java.util.Map;
 
 public class OrderStepServiceDefault implements OrderStepService {
 
