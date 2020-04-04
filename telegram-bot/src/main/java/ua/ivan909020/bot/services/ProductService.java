@@ -8,6 +8,6 @@ public interface ProductService {
 
     Product findById(Integer productId);
 
-    List<Product> findAllByCategoryName(String categoryName);
+    List<Product> findAllByCategoryName(String categoryName, int offset, int size);
 
 }

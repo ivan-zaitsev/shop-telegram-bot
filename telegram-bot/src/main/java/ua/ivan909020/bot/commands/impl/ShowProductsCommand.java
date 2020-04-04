@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.commands.impl;
 
+import com.mchange.lang.IntegerUtils;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.inputmessagecontent.InputTextMessageContent;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
@@ -29,6 +30,7 @@ public class ShowProductsCommand implements Command {
     private final ProductService productService = ProductServiceDefault.getInstance();
     private final CartService cartService = CartServiceDefault.getInstance();
 
+    private final static int PRODUCTS_QUANTITY_PER_PAGE = 50;
     private final static int MAX_QUANTITY_PER_PRODUCT = 50;
 
     private ShowProductsCommand() {
@@ -47,29 +49,20 @@ public class ShowProductsCommand implements Command {
         String inlineQueryId = inlineQuery.getId();
         String categoryName = inlineQuery.getQuery();
 
-        List<Product> products = productService.findAllByCategoryName(categoryName);
-        if (products.isEmpty()) {
-            sendNoFoundProductsQuery(inlineQueryId);
-        } else {
-            sendProductsQuery(chatId, inlineQueryId, products);
+        int offset = IntegerUtils.parseInt(inlineQuery.getOffset(), 0);
+        List<Product> products = productService.findAllByCategoryName(categoryName, offset, PRODUCTS_QUANTITY_PER_PAGE);
+        if (!products.isEmpty()) {
+            int nextOffset = offset + PRODUCTS_QUANTITY_PER_PAGE;
+            sendProductsQuery(chatId, inlineQueryId, products, nextOffset);
         }
     }
 
-    private void sendNoFoundProductsQuery(String inlineQueryId) {
-        telegramService.sendInlineQuery(new InlineQuerySend(inlineQueryId,
-                new ArrayList<InlineQueryResult>() {{
-                    add(new InlineQueryResultArticle().setId("0")
-                            .setTitle("Products not found in this category.")
-                            .setInputMessageContent(new InputTextMessageContent()
-                                    .setMessageText("...")));
-                }}));
+    private void sendProductsQuery(Long chatId, String inlineQueryId, List<Product> products, Integer nextOffset) {
+        telegramService.sendInlineQuery(
+                new InlineQuerySend(inlineQueryId, createProductsInlineQuery(chatId, products), nextOffset));
     }
 
-    private void sendProductsQuery(Long chatId, String inlineQueryId, List<Product> products) {
-        telegramService.sendInlineQuery(new InlineQuerySend(inlineQueryId, createProductsResult(chatId, products)));
-    }
-
-    private List<InlineQueryResult> createProductsResult(Long chatId, List<Product> products) {
+    private List<InlineQueryResult> createProductsInlineQuery(Long chatId, List<Product> products) {
         List<InlineQueryResult> productsResult = new ArrayList<>();
         for (Product product : products) {
             productsResult.add(new InlineQueryResultArticle().setId(product.getId().toString())

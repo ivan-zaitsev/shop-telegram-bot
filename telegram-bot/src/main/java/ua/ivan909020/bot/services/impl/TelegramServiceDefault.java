@@ -89,6 +89,9 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         answerInlineQuery.setInlineQueryId(inlineQuery.getInlineQueryId());
         answerInlineQuery.setResults(inlineQuery.getInlineQueryResults());
         answerInlineQuery.setCacheTime(1);
+        if (inlineQuery.getOffset() != null) {
+            answerInlineQuery.setNextOffset(Integer.toString(inlineQuery.getOffset()));
+        }
         try {
             execute(answerInlineQuery);
         } catch (TelegramApiException e) {

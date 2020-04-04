@@ -9,10 +9,18 @@ public class InlineQuerySend {
 
     private final String inlineQueryId;
     private final List<InlineQueryResult> inlineQueryResults;
+    private final Integer offset;
 
     public InlineQuerySend(String inlineQueryId, List<InlineQueryResult> inlineQueryResults) {
         this.inlineQueryId = inlineQueryId;
         this.inlineQueryResults = inlineQueryResults;
+        this.offset = null;
+    }
+
+    public InlineQuerySend(String inlineQueryId, List<InlineQueryResult> inlineQueryResults, Integer offset) {
+        this.inlineQueryId = inlineQueryId;
+        this.inlineQueryResults = inlineQueryResults;
+        this.offset = offset;
     }
 
     public String getInlineQueryId() {
@@ -23,18 +31,23 @@ public class InlineQuerySend {
         return inlineQueryResults;
     }
 
+    public Integer getOffset() {
+        return offset;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InlineQuerySend that = (InlineQuerySend) o;
         return Objects.equals(inlineQueryId, that.inlineQueryId) &&
-                Objects.equals(inlineQueryResults, that.inlineQueryResults);
+                Objects.equals(inlineQueryResults, that.inlineQueryResults) &&
+                Objects.equals(offset, that.offset);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inlineQueryId, inlineQueryResults);
+        return Objects.hash(inlineQueryId, inlineQueryResults, offset);
     }
 
     @Override
@@ -42,6 +55,7 @@ public class InlineQuerySend {
         return "InlineQuerySend{" +
                 "inlineQueryId='" + inlineQueryId + '\'' +
                 ", inlineQueryResults=" + inlineQueryResults +
+                ", offset=" + offset +
                 '}';
     }
 

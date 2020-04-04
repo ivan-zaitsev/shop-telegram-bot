@@ -20,10 +20,12 @@ public class ProductRepositoryDefault implements ProductRepository {
     }
 
     @Override
-    public List<Product> findAllByCategoryName(String categoryName) {
+    public List<Product> findAllByCategoryName(String categoryName, int offset, int size) {
         Session session = sessionFactory.openSession();
         List<Product> products = session.createQuery("from Product where category.name = :categoryName", Product.class)
                 .setParameter("categoryName", categoryName)
+                .setFirstResult(offset)
+                .setMaxResults(size)
                 .getResultList();
         session.close();
         return products;

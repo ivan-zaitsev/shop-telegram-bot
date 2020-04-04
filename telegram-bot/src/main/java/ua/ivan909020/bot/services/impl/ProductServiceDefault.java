@@ -29,11 +29,17 @@ public class ProductServiceDefault implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryName(String categoryName) {
+    public List<Product> findAllByCategoryName(String categoryName, int offset, int size) {
         if (categoryName == null) {
             throw new IllegalArgumentException("Name of Category should not be NULL");
         }
-        return repository.findAllByCategoryName(categoryName);
+        if (offset < 0) {
+            throw new IllegalArgumentException("Offset should be more than 0");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size should be more than 1");
+        }
+        return repository.findAllByCategoryName(categoryName, offset, size);
     }
 
 }
