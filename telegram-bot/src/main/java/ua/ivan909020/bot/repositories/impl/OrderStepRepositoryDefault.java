@@ -12,7 +12,7 @@ import java.util.Map;
 public class OrderStepRepositoryDefault implements OrderStepRepository {
 
     private Map<Long, Integer> orderStepNumbers = new HashMap<>();
-    private Map<Integer, Command> orderSteps = new HashMap<>();
+    private Map<Integer, Command<Long>> orderSteps = new HashMap<>();
 
     private final Map<Long, Order> cachedOrders = new HashMap<>();
 
@@ -27,7 +27,7 @@ public class OrderStepRepositoryDefault implements OrderStepRepository {
     }
 
     @Override
-    public Map<Integer, Command> getOrderSteps() {
+    public Map<Integer, Command<Long>> getOrderSteps() {
         if (orderSteps.isEmpty()) {
             orderSteps.put(1, OrderProcessCommand.getInstance());
             orderSteps.put(2, OrderEnterNameCommand.getInstance());

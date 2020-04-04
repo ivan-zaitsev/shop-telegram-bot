@@ -1,7 +1,7 @@
 package ua.ivan909020.bot.commands;
 
-public interface Command {
+public interface Command<T> {
 
-    void execute(Long chatId);
+    void execute(T t);
 
 }

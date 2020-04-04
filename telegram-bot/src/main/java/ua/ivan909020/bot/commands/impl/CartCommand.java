@@ -17,7 +17,7 @@ import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartCommand implements Command {
+public class CartCommand implements Command<Long> {
 
     private static final CartCommand INSTANCE = new CartCommand();
 

@@ -12,7 +12,7 @@ import ua.ivan909020.bot.services.impl.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderProcessCommand implements Command {
+public class OrderProcessCommand implements Command<Long> {
 
     private static final OrderProcessCommand INSTANCE = new OrderProcessCommand();
 

@@ -13,7 +13,7 @@ import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogCommand implements Command {
+public class CatalogCommand implements Command<Long> {
 
     private static final CatalogCommand INSTANCE = new CatalogCommand();
 

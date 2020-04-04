@@ -22,7 +22,7 @@ import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowProductsCommand implements Command {
+public class ShowProductsCommand implements Command<InlineQuery> {
 
     private static final ShowProductsCommand INSTANCE = new ShowProductsCommand();
 
@@ -41,9 +41,6 @@ public class ShowProductsCommand implements Command {
     }
 
     @Override
-    public void execute(Long chatId) {
-    }
-
     public void execute(InlineQuery inlineQuery) {
         Long chatId = inlineQuery.getFrom().getId().longValue();
         String inlineQueryId = inlineQuery.getId();

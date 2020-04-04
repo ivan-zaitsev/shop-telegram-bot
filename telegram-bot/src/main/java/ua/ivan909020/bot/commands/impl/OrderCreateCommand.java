@@ -7,7 +7,7 @@ import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.*;
 import ua.ivan909020.bot.services.impl.*;
 
-public class OrderCreateCommand implements Command {
+public class OrderCreateCommand implements Command<Long> {
 
     private static final OrderCreateCommand INSTANCE = new OrderCreateCommand();
 

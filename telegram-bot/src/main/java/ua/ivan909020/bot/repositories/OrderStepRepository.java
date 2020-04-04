@@ -11,7 +11,7 @@ public interface OrderStepRepository {
 
     Integer findOrderStepNumberByChatId(Long chatId);
 
-    Map<Integer, Command> getOrderSteps();
+    Map<Integer, Command<Long>> getOrderSteps();
 
     Order findCachedOrderByChatId(Long chatId);
 

@@ -30,7 +30,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     @Override
     public void previousOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
-        Map<Integer, Command> orderSteps = repository.getOrderSteps();
+        Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
         if (orderStep > 1) {
             orderStep--;
             repository.setOrderStepNumber(chatId, orderStep);
@@ -41,7 +41,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     @Override
     public void nextOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
-        Map<Integer, Command> orderSteps = repository.getOrderSteps();
+        Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
         if (orderStep < orderSteps.size()) {
             orderStep++;
             repository.setOrderStepNumber(chatId, orderStep);

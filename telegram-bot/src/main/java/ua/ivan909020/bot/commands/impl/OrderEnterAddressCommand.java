@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OrderEnterAddressCommand implements Command {
+public class OrderEnterAddressCommand implements Command<Long> {
 
     private static final OrderEnterAddressCommand INSTANCE = new OrderEnterAddressCommand();
 

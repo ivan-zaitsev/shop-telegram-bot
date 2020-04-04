@@ -9,7 +9,7 @@ import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
-public class StartCommand implements Command {
+public class StartCommand implements Command<Long> {
 
     private static final StartCommand INSTANCE = new StartCommand();
 
