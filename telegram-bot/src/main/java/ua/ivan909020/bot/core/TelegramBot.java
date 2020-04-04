@@ -9,6 +9,8 @@ public class TelegramBot extends TelegramLongPollingBot {
     private final UpdateHandler updateHandler = new UpdateHandler();
 
     private static final ConfigReader CONFIG = ConfigReader.getInstance();
+    public static final String TELEGRAM_BOT_USERNAME = CONFIG.get("telegram.bot.username");
+    public static final String TELEGRAM_BOT_TOKEN = CONFIG.get("telegram.bot.token");
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -17,12 +19,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return CONFIG.get("telegram.bot.username");
+        return TELEGRAM_BOT_USERNAME;
     }
 
     @Override
     public String getBotToken() {
-        return CONFIG.get("telegram.bot.token");
+        return TELEGRAM_BOT_TOKEN;
     }
 
 }

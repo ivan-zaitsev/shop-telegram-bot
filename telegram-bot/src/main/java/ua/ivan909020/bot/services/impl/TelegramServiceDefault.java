@@ -8,7 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ua.ivan909020.bot.core.ConfigReader;
+import ua.ivan909020.bot.core.TelegramBot;
 import ua.ivan909020.bot.domain.models.InlineQuerySend;
 import ua.ivan909020.bot.domain.models.MessageEdit;
 import ua.ivan909020.bot.domain.models.MessageSend;
@@ -18,8 +18,6 @@ import ua.ivan909020.bot.services.TelegramService;
 public class TelegramServiceDefault extends DefaultAbsSender implements TelegramService {
 
     private static final TelegramService INSTANCE = new TelegramServiceDefault();
-
-    private static final ConfigReader CONFIG = ConfigReader.getInstance();
 
     private TelegramServiceDefault() {
         super(ApiContext.getInstance(DefaultBotOptions.class));
@@ -101,7 +99,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
 
     @Override
     public String getBotToken() {
-        return CONFIG.get("telegram.bot.token");
+        return TelegramBot.TELEGRAM_BOT_TOKEN;
     }
 
 }
