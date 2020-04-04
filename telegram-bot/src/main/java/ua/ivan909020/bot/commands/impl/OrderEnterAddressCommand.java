@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.commands.impl;
 
+import com.mchange.v2.lang.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -45,9 +46,11 @@ public class OrderEnterAddressCommand implements Command<Long> {
 
     private void sendCurrentAddress(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null && order.getClient().getAddress() != null) {
-            telegramService.sendMessage(new MessageSend(chatId,
-                    "Current address: " + order.getClient().getAddress(), createKeyboard(true)));
+        if (order != null && order.getClient() != null) {
+            if (StringUtils.nonWhitespaceString(order.getClient().getAddress())) {
+                telegramService.sendMessage(new MessageSend(chatId,
+                        "Current address: " + order.getClient().getAddress(), createKeyboard(true)));
+            }
         }
     }
 
