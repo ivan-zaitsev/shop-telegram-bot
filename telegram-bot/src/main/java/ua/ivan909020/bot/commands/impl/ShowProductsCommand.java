@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQuery
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ua.ivan909020.bot.commands.Command;
+import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Product;
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.domain.models.InlineQuerySend;
@@ -85,8 +86,10 @@ public class ShowProductsCommand implements Command<InlineQuery> {
                             .setCallbackData("show-products=plus-product_" + product.getId()));
                 }});
                 add(new ArrayList<InlineKeyboardButton>() {{
-                    add(new InlineKeyboardButton("\ud83c\udf7d Menu").setCallbackData("show-products=open-menu"));
-                    add(new InlineKeyboardButton("\ud83d\udecd Cart").setCallbackData("show-products=open-cart"));
+                    add(new InlineKeyboardButton(Commands.CATALOG_COMMAND)
+                            .setCallbackData("show-products=open-catalog"));
+                    add(new InlineKeyboardButton(Commands.CART_COMMAND)
+                            .setCallbackData("show-products=open-cart"));
                 }});
             } else {
                 add(new ArrayList<InlineKeyboardButton>() {{

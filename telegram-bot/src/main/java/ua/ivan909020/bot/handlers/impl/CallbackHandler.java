@@ -31,7 +31,7 @@ class CallbackHandler implements Handler<CallbackQuery> {
             showProductsCommand.doPlusProduct(chatId, inlineMessageId, data);
         } else if (data.startsWith("show-products=minus-product")) {
             showProductsCommand.doMinusProduct(chatId, inlineMessageId, data);
-        } else if (data.equals("show-products=open-menu")) {
+        } else if (data.equals("show-products=open-catalog")) {
             catalogCommand.execute(chatId);
         } else if (data.equals("show-products=open-cart")) {
             cartCommand.execute(chatId);
