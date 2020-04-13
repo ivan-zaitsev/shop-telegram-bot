@@ -65,18 +65,18 @@ public class CartCommand implements Command<Long> {
                 add(new InlineKeyboardButton("\u2716").setCallbackData("cart=delete-product"));
                 add(new InlineKeyboardButton("\u2796").setCallbackData("cart=minus-product"));
                 add(new InlineKeyboardButton(cartItems.get(currentCartPage).getQuantity() + " pcs.")
-                        .setCallbackData("cart=quantity-products"));
+                        .setCallbackData("cart=product-quantity"));
                 add(new InlineKeyboardButton("\u2795").setCallbackData("cart=plus-product"));
             }});
             add(new ArrayList<InlineKeyboardButton>() {{
                 add(new InlineKeyboardButton("\u25c0").setCallbackData("cart=previous-product"));
-                add(new InlineKeyboardButton(String.format("%d/%d", currentCartPage + 1, cartItems.size()))
+                add(new InlineKeyboardButton((currentCartPage + 1) + "/" + cartItems.size())
                         .setCallbackData("cart=current-page"));
                 add(new InlineKeyboardButton("\u25b6").setCallbackData("cart=next-product"));
             }});
             add(new ArrayList<InlineKeyboardButton>() {{
                 add(new InlineKeyboardButton().setText(String.format("\u2705 Order for %.2f $ Checkout?",
-                        cartService.calculateTotalPrice(cartItems))).setCallbackData("cart=continue"));
+                        cartService.calculateTotalPrice(cartItems))).setCallbackData("cart=process-order"));
             }});
         }});
     }
@@ -177,7 +177,7 @@ public class CartCommand implements Command<Long> {
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
 
-    public void doContinue(Long chatId, Integer messageId) {
+    public void processOrder(Long chatId, Integer messageId) {
         telegramService.editMessageText(new MessageEdit(chatId, messageId, "Creating order..."));
         orderStepService.revokeOrderStep(chatId);
         orderStepService.nextOrderStep(chatId);

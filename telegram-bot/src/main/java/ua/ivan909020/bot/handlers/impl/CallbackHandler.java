@@ -54,8 +54,8 @@ class CallbackHandler implements Handler<CallbackQuery> {
             cartCommand.previousProduct(chatId, messageId);
         } else if (data.equals("cart=next-product")) {
             cartCommand.nextProduct(chatId, messageId);
-        } else if (data.equals("cart=continue")) {
-            cartCommand.doContinue(chatId, messageId);
+        } else if (data.equals("cart=process-order")) {
+            cartCommand.processOrder(chatId, messageId);
         }
     }
 
