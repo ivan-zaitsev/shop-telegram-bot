@@ -33,6 +33,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
 
     private final static int PRODUCTS_QUANTITY_PER_PAGE = 50;
     private final static int MAX_QUANTITY_PER_PRODUCT = 50;
+    private final static int MAX_PRODUCTS_QUANTITY_PER_CART = 50;
 
     private ShowProductsCommand() {
     }
@@ -130,7 +131,9 @@ public class ShowProductsCommand implements Command<InlineQuery> {
                 cartService.updateCartItem(chatId, cartItem);
             }
         } else {
-            cartService.saveCartItem(chatId, new CartItem(product, 1));
+            if (cartService.findAllCartItemsByChatId(chatId).size() < MAX_PRODUCTS_QUANTITY_PER_CART) {
+                cartService.saveCartItem(chatId, new CartItem(product, 1));
+            }
         }
         telegramService.editMessageText(new MessageEdit(
                 inlineMessageId, createProductText(chatId, product), createProductKeyboard(chatId, product)));
