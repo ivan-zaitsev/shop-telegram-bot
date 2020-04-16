@@ -31,9 +31,9 @@ public class ShowProductsCommand implements Command<InlineQuery> {
     private final ProductService productService = ProductServiceDefault.getInstance();
     private final CartService cartService = CartServiceDefault.getInstance();
 
-    private final static int PRODUCTS_QUANTITY_PER_PAGE = 50;
-    private final static int MAX_QUANTITY_PER_PRODUCT = 50;
-    private final static int MAX_PRODUCTS_QUANTITY_PER_CART = 50;
+    private static final int PRODUCTS_QUANTITY_PER_PAGE = 50;
+    private static final int MAX_QUANTITY_PER_PRODUCT = 50;
+    private static final int MAX_PRODUCTS_QUANTITY_PER_CART = 50;
 
     private ShowProductsCommand() {
     }

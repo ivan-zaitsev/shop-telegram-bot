@@ -8,7 +8,7 @@ public class ConfigReader {
 
     private static final ConfigReader INSTANCE = new ConfigReader();
 
-    private Properties properties;
+    private final Properties properties;
 
     private ConfigReader() {
         this.properties = new Properties();

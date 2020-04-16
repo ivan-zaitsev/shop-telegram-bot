@@ -6,13 +6,11 @@ import ua.ivan909020.bot.repositories.ClientRepository;
 import ua.ivan909020.bot.repositories.impl.ClientRepositoryDefault;
 import ua.ivan909020.bot.services.ClientService;
 
-import java.util.List;
-
 public class ClientServiceDefault implements ClientService {
 
     private static final ClientService INSTANCE = new ClientServiceDefault();
 
-    private ClientRepository repository = new ClientRepositoryDefault();
+    private final ClientRepository repository = new ClientRepositoryDefault();
 
     private ClientServiceDefault() {
     }
@@ -62,11 +60,6 @@ public class ClientServiceDefault implements ClientService {
             throw new IllegalArgumentException("Client should not be NULL");
         }
         repository.update(client);
-    }
-
-    @Override
-    public List<Client> findAll() {
-        return repository.findAll();
     }
 
 }

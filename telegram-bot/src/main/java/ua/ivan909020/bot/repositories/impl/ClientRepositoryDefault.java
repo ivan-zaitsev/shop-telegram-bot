@@ -9,7 +9,6 @@ import ua.ivan909020.bot.repositories.ClientRepository;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ClientRepositoryDefault implements ClientRepository {
@@ -57,14 +56,6 @@ public class ClientRepositoryDefault implements ClientRepository {
         session.update(client);
         transaction.commit();
         session.close();
-    }
-
-    @Override
-    public List<Client> findAll() {
-        Session session = sessionFactory.openSession();
-        List<Client> clients = session.createQuery("from Client", Client.class).getResultList();
-        session.close();
-        return clients;
     }
 
 }

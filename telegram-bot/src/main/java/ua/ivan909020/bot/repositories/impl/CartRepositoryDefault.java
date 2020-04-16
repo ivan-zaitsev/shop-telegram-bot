@@ -14,10 +14,10 @@ import java.util.stream.IntStream;
 
 public class CartRepositoryDefault implements CartRepository {
 
-    private AtomicInteger lastCartItemId = new AtomicInteger();
-    private Map<Long, List<CartItem>> cartItems = new HashMap<>();
+    private final AtomicInteger lastCartItemId = new AtomicInteger();
+    private final Map<Long, List<CartItem>> cartItems = new HashMap<>();
 
-    private Map<Long, Integer> cartPageNumbers = new HashMap<>();
+    private final Map<Long, Integer> cartPageNumbers = new HashMap<>();
 
     @Override
     public void saveCartItem(Long chatId, CartItem cartItem) {

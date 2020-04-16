@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class OrderStepRepositoryDefault implements OrderStepRepository {
 
-    private Map<Long, Integer> orderStepNumbers = new HashMap<>();
-    private Map<Integer, Command<Long>> orderSteps = new HashMap<>();
+    private final Map<Long, Integer> orderStepNumbers = new HashMap<>();
+    private final Map<Integer, Command<Long>> orderSteps = new HashMap<>();
 
     private final Map<Long, Order> cachedOrders = new HashMap<>();
 

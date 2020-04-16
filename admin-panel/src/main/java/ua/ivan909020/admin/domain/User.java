@@ -157,7 +157,7 @@ public class User implements UserDetails {
         ADMIN("Administrator"),
         MODER("Moderator");
 
-        private String value;
+        private final String value;
 
         Role(String value) {
             this.value = value;

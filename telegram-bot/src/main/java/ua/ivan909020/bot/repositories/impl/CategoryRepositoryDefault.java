@@ -12,14 +12,6 @@ public class CategoryRepositoryDefault implements CategoryRepository {
     private final SessionFactory sessionFactory = HibernateFactory.getSessionFactory();
 
     @Override
-    public Category findById(Integer categoryId) {
-        Session session = sessionFactory.openSession();
-        Category category = session.get(Category.class, categoryId);
-        session.close();
-        return category;
-    }
-
-    @Override
     public List<Category> findAll() {
         Session session = sessionFactory.openSession();
         List<Category> categories = session.createQuery("from Category", Category.class).getResultList();

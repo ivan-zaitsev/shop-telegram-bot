@@ -10,8 +10,6 @@ public interface TelegramService {
 
     void editMessageText(MessageEdit message);
 
-    void editMessageKeyboard(MessageEdit message);
-
     void sendInlineQuery(InlineQuerySend inlineQuery);
 
 }

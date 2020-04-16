@@ -147,11 +147,10 @@ public class CartCommand implements Command<Long> {
         }
         if (currentCartPage <= 0) {
             currentCartPage = cartItems.size() - 1;
-            cartService.setPageNumber(chatId, currentCartPage);
         } else {
             currentCartPage -= 1;
-            cartService.setPageNumber(chatId, currentCartPage);
         }
+        cartService.setPageNumber(chatId, currentCartPage);
         telegramService.editMessageText(new MessageEdit(chatId, messageId,
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
@@ -168,11 +167,10 @@ public class CartCommand implements Command<Long> {
         }
         if (currentCartPage >= cartItems.size() - 1) {
             currentCartPage = 0;
-            cartService.setPageNumber(chatId, currentCartPage);
         } else {
             currentCartPage += 1;
-            cartService.setPageNumber(chatId, currentCartPage);
         }
+        cartService.setPageNumber(chatId, currentCartPage);
         telegramService.editMessageText(new MessageEdit(chatId, messageId,
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }

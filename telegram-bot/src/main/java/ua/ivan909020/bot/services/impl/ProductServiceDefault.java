@@ -11,7 +11,7 @@ public class ProductServiceDefault implements ProductService {
 
     private static final ProductService INSTANCE = new ProductServiceDefault();
 
-    private ProductRepository repository = new ProductRepositoryDefault();
+    private final ProductRepository repository = new ProductRepositoryDefault();
 
     private ProductServiceDefault() {
     }

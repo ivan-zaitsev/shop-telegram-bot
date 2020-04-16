@@ -6,7 +6,7 @@ public enum OrderState {
     PROCESSED("Processed"),
     COMPLETED("Completed");
 
-    private String value;
+    private final String value;
 
     OrderState(String value) {
         this.value = value;

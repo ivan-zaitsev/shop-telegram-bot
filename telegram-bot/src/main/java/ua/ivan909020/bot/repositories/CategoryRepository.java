@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface CategoryRepository {
 
-    Category findById(Integer categoryId);
-
     List<Category> findAll();
 
 }

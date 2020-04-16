@@ -5,7 +5,6 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.meta.ApiContext;
 import org.telegram.telegrambots.meta.api.methods.AnswerInlineQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ua.ivan909020.bot.core.TelegramBot;
@@ -59,23 +58,6 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         }
         try {
             execute(editMessageText);
-        } catch (TelegramApiException e) {
-            throw new FailedSendMessageException(String.format("Failed edit text message %s", message), e);
-        }
-    }
-
-    @Override
-    public void editMessageKeyboard(MessageEdit message) {
-        EditMessageReplyMarkup editMessageReplyMarkup = new EditMessageReplyMarkup();
-        if (message.getMessageId() != null) {
-            editMessageReplyMarkup.setChatId(message.getChatId());
-            editMessageReplyMarkup.setMessageId(message.getMessageId());
-        } else {
-            editMessageReplyMarkup.setInlineMessageId(message.getInlineMessageId());
-        }
-        editMessageReplyMarkup.setReplyMarkup(message.getKeyboard());
-        try {
-            execute(editMessageReplyMarkup);
         } catch (TelegramApiException e) {
             throw new FailedSendMessageException(String.format("Failed edit text message %s", message), e);
         }

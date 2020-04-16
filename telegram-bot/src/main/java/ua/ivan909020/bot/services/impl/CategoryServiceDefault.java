@@ -11,21 +11,13 @@ public class CategoryServiceDefault implements CategoryService {
 
     private static final CategoryService INSTANCE = new CategoryServiceDefault();
 
-    private CategoryRepository repository = new CategoryRepositoryDefault();
+    private final CategoryRepository repository = new CategoryRepositoryDefault();
 
     private CategoryServiceDefault() {
     }
 
     public static CategoryService getInstance() {
         return INSTANCE;
-    }
-
-    @Override
-    public Category findById(Integer categoryId) {
-        if (categoryId == null) {
-            throw new IllegalArgumentException("CategoryId of Category should not be NULL");
-        }
-        return repository.findById(categoryId);
     }
 
     @Override
