@@ -29,11 +29,11 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-2">State:</label>
+        <label class="col-sm-2">Status:</label>
         <div class="col-sm-10">
-          <select class="form-control" name="state">
-            <#list order.state.values() as state>
-              <option value="${state.name()}" <#if order.state.name() == state>selected</#if>>${state.value}</option>
+          <select class="form-control" name="status">
+            <#list order.status.values() as status>
+              <option value="${status.name()}" <#if order.status.name() == status>selected</#if>>${status.value}</option>
             </#list>
           </select>
         </div>

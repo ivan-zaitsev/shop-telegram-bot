@@ -1,14 +1,15 @@
 package ua.ivan909020.bot.domain.entities;
 
-public enum OrderState {
+public enum OrderStatus {
 
     WAITING("Waiting"),
     PROCESSED("Processed"),
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+    CANCELED("Canceled");
 
     private final String value;
 
-    OrderState(String value) {
+    OrderStatus(String value) {
         this.value = value;
     }
 

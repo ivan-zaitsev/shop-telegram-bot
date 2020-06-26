@@ -3,7 +3,7 @@ package ua.ivan909020.bot.commands.impl;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.entities.Order;
-import ua.ivan909020.bot.domain.entities.OrderState;
+import ua.ivan909020.bot.domain.entities.OrderStatus;
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.*;
@@ -43,7 +43,7 @@ public class OrderProcessCommand implements Command<Long> {
         Order order = new Order();
         order.setClient(client);
         order.setCreatedDate(LocalDateTime.now());
-        order.setState(OrderState.WAITING);
+        order.setStatus(OrderStatus.WAITING);
         order.setAmount(cartService.calculateTotalPrice(cartItems));
         order.setItems(orderService.fromCartItems(cartItems));
         return order;
