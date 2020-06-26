@@ -113,7 +113,7 @@ public class CartServiceDefault implements CartService {
         }
         float totalPrice = 0;
         for (CartItem cartItem : cartItems) {
-            totalPrice += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+            totalPrice += cartItem.getTotalPrice();
         }
         return totalPrice;
     }

@@ -56,7 +56,8 @@
           <tr>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Price</th>
+            <th>Product price</th>
+            <th>Total price</th>
           </tr>
           </thead>
           <tbody>
@@ -73,6 +74,7 @@
               <td>${item.productName}</td>
               <td>${item.quantity?c} pcs.</td>
               <td>${item.productPrice} $</td>
+              <td>${item.totalPrice} $</td>
             </tr>
           </#list>
           </tbody>
