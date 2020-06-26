@@ -34,7 +34,7 @@ create table orders(
     id serial primary key,
     client_id integer references clients(id) not null,
     created_date timestamp without time zone not null,
-    state varchar(255) not null,
+    status varchar(255) not null,
     amount real not null
 );
 

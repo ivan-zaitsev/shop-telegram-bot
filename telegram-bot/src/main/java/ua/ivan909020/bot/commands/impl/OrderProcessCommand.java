@@ -3,9 +3,9 @@ package ua.ivan909020.bot.commands.impl;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.entities.Order;
-import ua.ivan909020.bot.domain.entities.OrderState;
+import ua.ivan909020.bot.domain.entities.OrderStatus;
 import ua.ivan909020.bot.domain.models.CartItem;
-import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.exceptions.EntityNotFoundException;
 import ua.ivan909020.bot.services.*;
 import ua.ivan909020.bot.services.impl.*;
 
@@ -33,7 +33,7 @@ public class OrderProcessCommand implements Command<Long> {
     public void execute(Long chatId) {
         Client client = clientService.findByChatId(chatId);
         if (client == null) {
-            telegramService.sendMessage(new MessageSend(chatId, "Error processing order. Press /start and try again."));
+            throw new EntityNotFoundException("Client with chatId '" + chatId + "' not found");
         }
         orderStepService.saveCachedOrder(chatId, buildOrder(client, cartService.findAllCartItemsByChatId(chatId)));
         orderStepService.nextOrderStep(chatId);
@@ -43,7 +43,7 @@ public class OrderProcessCommand implements Command<Long> {
         Order order = new Order();
         order.setClient(client);
         order.setCreatedDate(LocalDateTime.now());
-        order.setState(OrderState.WAITING);
+        order.setStatus(OrderStatus.WAITING);
         order.setAmount(cartService.calculateTotalPrice(cartItems));
         order.setItems(orderService.fromCartItems(cartItems));
         return order;

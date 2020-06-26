@@ -80,6 +80,10 @@ public class OrderItem {
         this.productPrice = productPrice;
     }
 
+    public Float getTotalPrice() {
+        return quantity * productPrice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

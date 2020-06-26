@@ -42,6 +42,10 @@ public class CartItem {
         this.quantity = quantity;
     }
 
+    public Float getTotalPrice() {
+        return quantity * product.getPrice();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -28,12 +28,11 @@ public class Order {
 
     @Column(name = "created_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @NotNull(message = "Fill in the created date")
     private LocalDateTime createdDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private OrderState state;
+    private OrderStatus status;
 
     @Column(nullable = false)
     @NotNull(message = "Fill in the amount")
@@ -72,12 +71,12 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public OrderState getState() {
-        return state;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setState(OrderState state) {
-        this.state = state;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public Float getAmount() {
@@ -107,14 +106,14 @@ public class Order {
         return Objects.equals(id, order.id) &&
                 Objects.equals(client, order.client) &&
                 Objects.equals(createdDate, order.createdDate) &&
-                state == order.state &&
+                status == order.status &&
                 Objects.equals(amount, order.amount) &&
                 Objects.equals(items, order.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, client, createdDate, state, amount, items);
+        return Objects.hash(id, client, createdDate, status, amount, items);
     }
 
     @Override
@@ -123,7 +122,7 @@ public class Order {
                 "id=" + id +
                 ", client=" + client +
                 ", createdDate=" + createdDate +
-                ", state=" + state +
+                ", status=" + status +
                 ", amount=" + amount +
                 ", items=" + items +
                 '}';

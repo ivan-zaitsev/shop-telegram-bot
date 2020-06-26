@@ -38,7 +38,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException(String.format("Failed send text message %s", message), e);
+            throw new FailedSendMessageException("Failed send text message " + message, e);
         }
     }
 
@@ -59,7 +59,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(editMessageText);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException(String.format("Failed edit text message %s", message), e);
+            throw new FailedSendMessageException("Failed edit text message " + message, e);
         }
     }
 
@@ -75,7 +75,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(answerInlineQuery);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException(String.format("Failed send inline query %s", inlineQuery), e);
+            throw new FailedSendMessageException("Failed send inline query " + inlineQuery, e);
         }
     }
 

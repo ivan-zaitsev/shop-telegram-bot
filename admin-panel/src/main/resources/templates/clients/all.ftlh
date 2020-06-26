@@ -20,7 +20,7 @@
           <td>${client.name!}</td>
           <td>${client.city!}</td>
           <td>
-            <a class="btn btn-xs btn-info command-edit" href="clients/edit/${client.id?c}">
+            <a class="btn btn-xs btn-info" href="clients/edit/${client.id?c}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>

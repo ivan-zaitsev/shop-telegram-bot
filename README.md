@@ -8,7 +8,9 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Postgresql
 1. Create postgres database and change the configuration in the properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
 2. Import the database schema `resources/db_schema.sql` and database data `resources/db_data.sql`
 3. Set up the telegram bot username and token in the properties for telegram bot `telegram-bot/src/main/resources/application.properties`
-4. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080`
+4. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080/admin`, credentials (admin:admin)
+
+If you are deploying the application on the server don't forget to change server url and images upload path in the properties `admin-panel/src/main/resources/application.properties`
 
 ## Screenshots
 #### Chatbot

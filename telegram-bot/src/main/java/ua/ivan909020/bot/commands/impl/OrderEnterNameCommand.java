@@ -8,6 +8,7 @@ import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.exceptions.OrderStepStateException;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
@@ -46,11 +47,12 @@ public class OrderEnterNameCommand implements Command<Long> {
 
     private void sendCurrentName(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            if (StringUtils.nonWhitespaceString(order.getClient().getName())) {
-                telegramService.sendMessage(new MessageSend(chatId,
-                        "Current name: " + order.getClient().getName(), createKeyboard(true)));
-            }
+        if (order == null || order.getClient() == null) {
+            throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
+        }
+        if (StringUtils.nonWhitespaceString(order.getClient().getName())) {
+            telegramService.sendMessage(new MessageSend(chatId,
+                    "Current name: " + order.getClient().getName(), createKeyboard(true)));
         }
     }
 
@@ -74,10 +76,11 @@ public class OrderEnterNameCommand implements Command<Long> {
             return;
         }
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            order.getClient().setName(name);
-            orderStepService.updateCachedOrder(chatId, order);
+        if (order == null || order.getClient() == null) {
+            throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+        order.getClient().setName(name);
+        orderStepService.updateCachedOrder(chatId, order);
         orderStepService.nextOrderStep(chatId);
     }
 

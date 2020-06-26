@@ -19,7 +19,7 @@ final class HibernateFactory {
         configuration.addAnnotatedClass(Client.class);
         configuration.addAnnotatedClass(Order.class);
         configuration.addAnnotatedClass(OrderItem.class);
-        configuration.addAnnotatedClass(OrderState.class);
+        configuration.addAnnotatedClass(OrderStatus.class);
         configuration.addAnnotatedClass(Product.class);
         StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
         builder.applySettings(configuration.getProperties());
