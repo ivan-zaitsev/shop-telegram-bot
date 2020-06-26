@@ -22,7 +22,7 @@
           <td>${category.id?c}</td>
           <td>${category.name!}</td>
           <td>
-            <a class="btn btn-xs btn-info command-edit" href="categories/edit/${category.id?c}">
+            <a class="btn btn-xs btn-info" href="categories/edit/${category.id?c}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>

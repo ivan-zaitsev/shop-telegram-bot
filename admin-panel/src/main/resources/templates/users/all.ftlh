@@ -26,7 +26,7 @@
           <td>${user.username}</td>
           <td>${user.role.value}</td>
           <td>
-            <a class="btn btn-xs btn-info command-edit" href="users/edit/${user.id?c}">
+            <a class="btn btn-xs btn-info" href="users/edit/${user.id?c}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>

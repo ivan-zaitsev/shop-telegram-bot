@@ -28,7 +28,7 @@
           <td><#if product.category??>${product.category.name}<#else>—</#if></td>
           <td>${product.price} $</td>
           <td>
-            <a class="btn btn-xs btn-info command-edit" href="products/edit/${product.id?c}">
+            <a class="btn btn-xs btn-info" href="products/edit/${product.id?c}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </a>
           </td>
