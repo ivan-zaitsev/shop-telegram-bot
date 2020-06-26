@@ -4,6 +4,7 @@ import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.exceptions.OrderStepStateException;
 import ua.ivan909020.bot.services.*;
 import ua.ivan909020.bot.services.impl.*;
 
@@ -27,10 +28,11 @@ public class OrderCreateCommand implements Command<Long> {
     @Override
     public void execute(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            clientService.update(order.getClient());
-            orderService.save(order);
+        if (order == null || order.getClient() == null) {
+            throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+        clientService.update(order.getClient());
+        orderService.save(order);
         clearClientCache(chatId);
         telegramService.sendMessage(new MessageSend(chatId, "Order created.", Commands.createGeneralMenuKeyboard()));
     }

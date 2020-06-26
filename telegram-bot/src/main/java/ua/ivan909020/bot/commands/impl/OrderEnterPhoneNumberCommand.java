@@ -8,6 +8,7 @@ import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.exceptions.OrderStepStateException;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
@@ -48,11 +49,12 @@ public class OrderEnterPhoneNumberCommand implements Command<Long> {
 
     private void sendCurrentPhoneNumber(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            if (StringUtils.nonWhitespaceString(order.getClient().getPhoneNumber())) {
-                telegramService.sendMessage(new MessageSend(chatId,
-                        "Current phone number: " + order.getClient().getPhoneNumber(), createKeyboard(true)));
-            }
+        if (order == null || order.getClient() == null) {
+            throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
+        }
+        if (StringUtils.nonWhitespaceString(order.getClient().getPhoneNumber())) {
+            telegramService.sendMessage(new MessageSend(chatId,
+                    "Current phone number: " + order.getClient().getPhoneNumber(), createKeyboard(true)));
         }
     }
 
@@ -81,10 +83,11 @@ public class OrderEnterPhoneNumberCommand implements Command<Long> {
             return;
         }
         Order order = orderStepService.findCachedOrderByChatId(chatId);
-        if (order != null && order.getClient() != null) {
-            order.getClient().setPhoneNumber(phoneNumber);
-            orderStepService.updateCachedOrder(chatId, order);
+        if (order == null || order.getClient() == null) {
+            throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+        order.getClient().setPhoneNumber(phoneNumber);
+        orderStepService.updateCachedOrder(chatId, order);
         orderStepService.nextOrderStep(chatId);
     }
 
