@@ -28,7 +28,6 @@ public class Order {
 
     @Column(name = "created_date", nullable = false)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @NotNull(message = "Fill in the created date")
     private LocalDateTime createdDate;
 
     @Column(nullable = false)

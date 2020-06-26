@@ -24,7 +24,6 @@
         <label class="col-sm-2">Date:</label>
         <div class="col-sm-10">
           <input class="form-control" type="datetime-local" name="createdDate" value="${order.createdDate!}" readonly>
-          <#if createdDateError??><div class="text-warning">${createdDateError}</div></#if>
         </div>
       </div>
 
