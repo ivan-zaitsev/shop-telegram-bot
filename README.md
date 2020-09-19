@@ -12,6 +12,7 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Postgresql
 5. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080/admin`, credentials (admin:admin)
 
 Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
+
 If you are deploying the application on the server don't forget to change server url and images upload path in the properties `admin-panel/src/main/resources/application.properties`
 
 ## Screenshots
