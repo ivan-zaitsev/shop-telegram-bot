@@ -17,22 +17,25 @@ import javax.validation.Valid;
 public class OrderController {
 
     private final OrderService orderService;
+    private final FormatDateTimeMethodModel dateTimeFormatter;
 
     @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+        this.dateTimeFormatter = new FormatDateTimeMethodModel();
     }
 
     @GetMapping
     public String showAllOrders(Model model) {
         model.addAttribute("orders", orderService.findAll());
-        model.addAttribute("formatDateTime", new FormatDateTimeMethodModel());
+        model.addAttribute("formatDateTime", dateTimeFormatter);
         return "orders/all";
     }
 
     @GetMapping("/edit/{order}")
     public String showEditOrder(Model model, @PathVariable Order order) {
         model.addAttribute("order", order);
+        model.addAttribute("formatDateTime", dateTimeFormatter);
         return "orders/edit";
     }
 
@@ -41,6 +44,7 @@ public class OrderController {
         if (bindingResult.hasErrors()) {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("order", order);
+            model.addAttribute("formatDateTime", dateTimeFormatter);
             return "orders/edit";
         }
 
