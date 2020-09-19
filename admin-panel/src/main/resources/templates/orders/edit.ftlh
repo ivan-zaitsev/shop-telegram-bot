@@ -23,7 +23,8 @@
       <div class="form-group row">
         <label class="col-sm-2">Date:</label>
         <div class="col-sm-10">
-          <input class="form-control" type="datetime-local" name="createdDate" value="${order.createdDate!}" readonly>
+          <input class="form-control" type="datetime-local" name="createdDate"
+                 value="${formatDateTime(order.createdDate, 'yyyy-MM-dd\'T\'HH:mm')}" readonly>
         </div>
       </div>
 
