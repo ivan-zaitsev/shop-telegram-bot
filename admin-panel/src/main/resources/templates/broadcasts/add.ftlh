@@ -13,7 +13,6 @@
       <label class="col-sm-2">Text:</label>
       <div class="col-sm-10">
         <textarea class="form-control" name="text" rows="8" maxlength="4096" required></textarea>
-        <#if textError??><div class="text-warning">${textError}</div></#if>
       </div>
     </div>
 
