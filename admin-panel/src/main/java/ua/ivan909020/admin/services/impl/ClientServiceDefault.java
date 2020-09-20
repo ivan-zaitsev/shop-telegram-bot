@@ -46,4 +46,9 @@ public class ClientServiceDefault implements ClientService {
         return repository.save(client);
     }
 
+    @Override
+    public List<Client> findAllByActive(boolean active) {
+        return repository.findAllByActive(active);
+    }
+
 }

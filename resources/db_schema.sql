@@ -13,7 +13,8 @@ create table clients(
     name varchar(255),
     phone_number varchar(255),
     city varchar(255),
-    address varchar(255)
+    address varchar(255),
+    is_active boolean not null
 );
 
 create table categories(

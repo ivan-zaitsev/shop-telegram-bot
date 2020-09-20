@@ -50,6 +50,16 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-sm-2">Active:</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="active">
+            <option value="true" <#if client.active>selected</#if>>Yes</option>
+            <option value="false" <#if !client.active>selected</#if>>No</option>
+          </select>
+        </div>
+      </div>
+
       <input type="hidden" name="_csrf" value="${_csrf.token}">
       <button class="btn btn-success" type="submit">Update</button>
     </form>

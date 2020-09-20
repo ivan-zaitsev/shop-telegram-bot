@@ -25,8 +25,11 @@ public class StartCommand implements Command<Long> {
 
     @Override
     public void execute(Long chatId) {
-        if (clientService.findByChatId(chatId) == null) {
+        Client client = clientService.findByChatId(chatId);
+        if (client == null) {
             saveClient(chatId);
+        } else if (!client.isActive()) {
+            activateClient(client);
         }
         telegramService.sendMessage(new MessageSend(chatId, "Online shop :)", Commands.createGeneralMenuKeyboard()));
     }
@@ -35,6 +38,11 @@ public class StartCommand implements Command<Long> {
         Client client = new Client();
         client.setChatId(chatId);
         clientService.save(client);
+    }
+
+    private void activateClient(Client client) {
+        client.setActive(true);
+        clientService.update(client);
     }
 
 }
