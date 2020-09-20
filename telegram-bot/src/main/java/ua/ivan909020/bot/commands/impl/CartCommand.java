@@ -81,7 +81,7 @@ public class CartCommand implements Command<Long> {
         }});
     }
 
-    public void deleteProduct(Long chatId, Integer messageId) {
+    public void doDeleteProduct(Long chatId, Integer messageId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         int currentCartPage = cartService.findPageNumberByChatId(chatId);
         if (!cartItems.isEmpty()) {
@@ -103,7 +103,7 @@ public class CartCommand implements Command<Long> {
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
 
-    public void minusProduct(Long chatId, Integer messageId) {
+    public void doMinusProduct(Long chatId, Integer messageId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         int currentCartPage = cartService.findPageNumberByChatId(chatId);
         if (cartItems.isEmpty()) {
@@ -119,7 +119,7 @@ public class CartCommand implements Command<Long> {
         }
     }
 
-    public void plusProduct(Long chatId, Integer messageId) {
+    public void doPlusProduct(Long chatId, Integer messageId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         int currentCartPage = cartService.findPageNumberByChatId(chatId);
         if (cartItems.isEmpty()) {
@@ -135,7 +135,7 @@ public class CartCommand implements Command<Long> {
         }
     }
 
-    public void previousProduct(Long chatId, Integer messageId) {
+    public void doPreviousProduct(Long chatId, Integer messageId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         int currentCartPage = cartService.findPageNumberByChatId(chatId);
         if (cartItems.isEmpty()) {
@@ -155,7 +155,7 @@ public class CartCommand implements Command<Long> {
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
 
-    public void nextProduct(Long chatId, Integer messageId) {
+    public void doNextProduct(Long chatId, Integer messageId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         int currentCartPage = cartService.findPageNumberByChatId(chatId);
         if (cartItems.isEmpty()) {
@@ -175,7 +175,7 @@ public class CartCommand implements Command<Long> {
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
 
-    public void processOrder(Long chatId, Integer messageId) {
+    public void doProcessOrder(Long chatId, Integer messageId) {
         telegramService.editMessageText(new MessageEdit(chatId, messageId, "Creating order..."));
         orderStepService.revokeOrderStep(chatId);
         orderStepService.nextOrderStep(chatId);

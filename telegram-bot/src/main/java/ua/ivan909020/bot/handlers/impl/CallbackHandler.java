@@ -45,17 +45,17 @@ class CallbackHandler implements Handler<CallbackQuery> {
         String data = callbackQuery.getData();
 
         if (data.equals("cart=delete-product")) {
-            cartCommand.deleteProduct(chatId, messageId);
+            cartCommand.doDeleteProduct(chatId, messageId);
         } else if (data.equals("cart=minus-product")) {
-            cartCommand.minusProduct(chatId, messageId);
+            cartCommand.doMinusProduct(chatId, messageId);
         } else if (data.equals("cart=plus-product")) {
-            cartCommand.plusProduct(chatId, messageId);
+            cartCommand.doPlusProduct(chatId, messageId);
         } else if (data.equals("cart=previous-product")) {
-            cartCommand.previousProduct(chatId, messageId);
+            cartCommand.doPreviousProduct(chatId, messageId);
         } else if (data.equals("cart=next-product")) {
-            cartCommand.nextProduct(chatId, messageId);
+            cartCommand.doNextProduct(chatId, messageId);
         } else if (data.equals("cart=process-order")) {
-            cartCommand.processOrder(chatId, messageId);
+            cartCommand.doProcessOrder(chatId, messageId);
         }
     }
 
