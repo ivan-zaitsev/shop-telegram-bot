@@ -17,6 +17,8 @@ public class OrderCreateCommand implements Command<Long> {
     private final CartService cartService = CartServiceDefault.getInstance();
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
     private final OrderService orderService = OrderServiceDefault.getInstance();
+    private final NotificationService notificationService = NotificationServiceDefault.getInstance();
+    private final MessageService messageService = MessageServiceCached.getInstance();
 
     private OrderCreateCommand() {
     }
@@ -31,12 +33,17 @@ public class OrderCreateCommand implements Command<Long> {
         if (order == null || order.getClient() == null) {
             throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
-        clientService.update(order.getClient());
         orderService.save(order);
+        clientService.update(order.getClient());
+        sendOrderMessageToClient(chatId);
         clearClientCache(chatId);
-        telegramService.sendMessage(new MessageSend(chatId, "Order created.", Commands.createGeneralMenuKeyboard()));
+        notificationService.notifyAdminChatAboutNewOrder(order);
     }
 
+    private void sendOrderMessageToClient(Long chatId) {
+        String message = messageService.findByName("ORDER_CREATED_MESSAGE").buildText();
+        telegramService.sendMessage(new MessageSend(chatId, message, Commands.createGeneralMenuKeyboard()));
+    }
 
     private void clearClientCache(Long chatId) {
         clientService.setActionForChatId(chatId, null);

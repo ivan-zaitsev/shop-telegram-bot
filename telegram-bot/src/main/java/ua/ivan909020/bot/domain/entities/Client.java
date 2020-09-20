@@ -27,6 +27,9 @@ public class Client {
     @Column
     private String address;
 
+    @Column(name = "is_active", nullable = false)
+    private boolean active;
+
     public Client() {
     }
 
@@ -78,12 +81,21 @@ public class Client {
         this.address = address;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(id, client.id) &&
+        return active == client.active &&
+                Objects.equals(id, client.id) &&
                 Objects.equals(chatId, client.chatId) &&
                 Objects.equals(name, client.name) &&
                 Objects.equals(phoneNumber, client.phoneNumber) &&
@@ -93,7 +105,7 @@ public class Client {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, chatId, name, phoneNumber, city, address);
+        return Objects.hash(id, chatId, name, phoneNumber, city, address, active);
     }
 
     @Override
@@ -105,6 +117,7 @@ public class Client {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", city='" + city + '\'' +
                 ", address='" + address + '\'' +
+                ", active=" + active +
                 '}';
     }
 

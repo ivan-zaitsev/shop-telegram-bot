@@ -13,7 +13,8 @@ create table clients(
     name varchar(255),
     phone_number varchar(255),
     city varchar(255),
-    address varchar(255)
+    address varchar(255),
+    is_active boolean not null
 );
 
 create table categories(
@@ -45,4 +46,11 @@ create table order_items(
     quantity integer not null,
     product_name varchar(255) not null,
     product_price real not null
+);
+
+create table messages(
+    id serial primary key,
+    name varchar(255) unique not null,
+    description varchar(255) not null,
+    text varchar(4096) not null
 );

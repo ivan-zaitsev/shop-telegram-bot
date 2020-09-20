@@ -10,6 +10,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>City</th>
+        <th>Active</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
           <td>${client.id?c}</td>
           <td>${client.name!}</td>
           <td>${client.city!}</td>
+          <td><#if client.active>Yes<#else>No</#if></td>
           <td>
             <a class="btn btn-xs btn-info" href="clients/edit/${client.id?c}">
               <i class="fa fa-pencil" aria-hidden="true"></i>
