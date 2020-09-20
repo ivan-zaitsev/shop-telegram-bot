@@ -14,10 +14,17 @@ insert into products(id, category_id, photo_url, name,  description, price) valu
 insert into messages(id, name, description, text) values
 (nextval('messages_id_seq'), 'START_MESSAGE', 'Start', 'Online shop :)'),
 (nextval('messages_id_seq'), 'ORDER_CREATED_MESSAGE', 'Order', 'Order created.'),
-(nextval('messages_id_seq'), 'CART_MESSAGE', 'Cart button', '<b>Cart</b>:
+(nextval('messages_id_seq'), 'CART_MESSAGE', 'Cart', '<b>Cart</b>:
 
 -Name: %PRODUCT_NAME%
 -Description: %PRODUCT_DESCRIPTION%
 
 Price, quantity, total:
-%PRODUCT_PRICE% $ * %PRODUCT_QUANTITY% pcs. = %PRODUCT_TOTAL_PRICE% $');
+%PRODUCT_PRICE% $ * %PRODUCT_QUANTITY% pcs. = %PRODUCT_TOTAL_PRICE% $'),
+(nextval('messages_id_seq'), 'PRODUCT_MESSAGE', 'Product', '<a href="%PRODUCT_PHOTO_URL%"> </a>
+<b>Name</b>: %PRODUCT_NAME%
+<b>Description</b>: %PRODUCT_DESCRIPTION%
+%PRODUCT_PRICES%
+Price, quantity, total:
+%PRODUCT_PRICE% $ * %PRODUCT_QUANTITY% pcs. = %PRODUCT_TOTAL_PRICE% $
+%PRODUCT_PRICES%');

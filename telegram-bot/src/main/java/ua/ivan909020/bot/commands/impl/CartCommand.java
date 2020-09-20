@@ -62,7 +62,7 @@ public class CartCommand implements Command<Long> {
             message.applyPlaceholder(of("%PRODUCT_QUANTITY%", cartItem.getQuantity()));
             message.applyPlaceholder(of("%PRODUCT_TOTAL_PRICE%", product.getPrice() * cartItem.getQuantity()));
         }
-        return message.getText();
+        return message.buildText();
     }
 
     private InlineKeyboardMarkup createCartKeyboard(List<CartItem> cartItems, int currentCartPage) {

@@ -30,6 +30,19 @@ public class Message {
         text = text.replace(placeholder.getPlaceholder(), placeholder.getReplacement().toString());
     }
 
+    public void removeTextBetweenPlaceholder(String placeholderName) {
+        text = text.replaceAll(placeholderName + "(?s).*" + placeholderName, "");
+    }
+
+    public void removeAllPlaceholders() {
+        text = text.replaceAll("%.*%", "");
+    }
+
+    public String buildText() {
+        removeAllPlaceholders();
+        return text;
+    }
+
     public Integer getId() {
         return id;
     }

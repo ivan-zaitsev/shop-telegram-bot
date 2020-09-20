@@ -49,7 +49,7 @@ public class StartCommand implements Command<Long> {
     }
 
     private void sendStartMessage(Long chatId) {
-        String message = messageService.findByName("START_MESSAGE").getText();
+        String message = messageService.findByName("START_MESSAGE").buildText();
         telegramService.sendMessage(new MessageSend(chatId, message, Commands.createGeneralMenuKeyboard()));
     }
 

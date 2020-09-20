@@ -41,7 +41,7 @@ public class OrderCreateCommand implements Command<Long> {
     }
 
     private void sendOrderMessageToClient(Long chatId) {
-        String message = messageService.findByName("ORDER_CREATED_MESSAGE").getText();
+        String message = messageService.findByName("ORDER_CREATED_MESSAGE").buildText();
         telegramService.sendMessage(new MessageSend(chatId, message, Commands.createGeneralMenuKeyboard()));
     }
 
