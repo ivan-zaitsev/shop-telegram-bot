@@ -5,8 +5,10 @@ import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Client;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
+import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientServiceDefault;
+import ua.ivan909020.bot.services.impl.MessageServiceCached;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
 public class StartCommand implements Command<Long> {
@@ -15,6 +17,7 @@ public class StartCommand implements Command<Long> {
 
     private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final ClientService clientService = ClientServiceDefault.getInstance();
+    private final MessageService messageService = MessageServiceCached.getInstance();
 
     private StartCommand() {
     }
@@ -31,7 +34,7 @@ public class StartCommand implements Command<Long> {
         } else if (!client.isActive()) {
             activateClient(client);
         }
-        telegramService.sendMessage(new MessageSend(chatId, "Online shop :)", Commands.createGeneralMenuKeyboard()));
+        sendStartMessage(chatId);
     }
 
     private void saveClient(Long chatId) {
@@ -43,6 +46,11 @@ public class StartCommand implements Command<Long> {
     private void activateClient(Client client) {
         client.setActive(true);
         clientService.update(client);
+    }
+
+    private void sendStartMessage(Long chatId) {
+        String message = messageService.findByName("START_MESSAGE").getText();
+        telegramService.sendMessage(new MessageSend(chatId, message, Commands.createGeneralMenuKeyboard()));
     }
 
 }

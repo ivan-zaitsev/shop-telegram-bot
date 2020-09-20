@@ -1,4 +1,4 @@
-<#macro table name>
+<#macro table name order = "desc">
 
     <link rel="stylesheet" href="static/css/dataTables.bootstrap.css">
     <script src="static/js/jquery.dataTables.js"></script>
@@ -8,7 +8,7 @@
     <script>
         $(document).ready(function() {
             $('table#${name}').DataTable({
-                "order": [[ 0, "desc" ]],
+                "order": [[ 0, "${order}" ]],
                 "bDeferRender": true,
                 "sPaginationType": "full_numbers",
                 "oLanguage": {

@@ -18,6 +18,7 @@ public class OrderCreateCommand implements Command<Long> {
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
     private final OrderService orderService = OrderServiceDefault.getInstance();
     private final NotificationService notificationService = NotificationServiceDefault.getInstance();
+    private final MessageService messageService = MessageServiceCached.getInstance();
 
     private OrderCreateCommand() {
     }
@@ -34,9 +35,14 @@ public class OrderCreateCommand implements Command<Long> {
         }
         orderService.save(order);
         clientService.update(order.getClient());
-        telegramService.sendMessage(new MessageSend(chatId, "Order created.", Commands.createGeneralMenuKeyboard()));
+        sendOrderMessageToClient(chatId);
         clearClientCache(chatId);
         notificationService.notifyAdminChatAboutNewOrder(order);
+    }
+
+    private void sendOrderMessageToClient(Long chatId) {
+        String message = messageService.findByName("ORDER_CREATED_MESSAGE").getText();
+        telegramService.sendMessage(new MessageSend(chatId, message, Commands.createGeneralMenuKeyboard()));
     }
 
     private void clearClientCache(Long chatId) {

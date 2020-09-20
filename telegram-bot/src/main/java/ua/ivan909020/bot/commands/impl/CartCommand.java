@@ -3,19 +3,24 @@ package ua.ivan909020.bot.commands.impl;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ua.ivan909020.bot.commands.Command;
+import ua.ivan909020.bot.domain.entities.Message;
 import ua.ivan909020.bot.domain.entities.Product;
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.domain.models.MessageEdit;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.services.CartService;
+import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.CartServiceDefault;
+import ua.ivan909020.bot.services.impl.MessageServiceCached;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ua.ivan909020.bot.domain.models.MessagePlaceholder.of;
 
 public class CartCommand implements Command<Long> {
 
@@ -24,6 +29,7 @@ public class CartCommand implements Command<Long> {
     private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final CartService cartService = CartServiceDefault.getInstance();
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
+    private final MessageService messageService = MessageServiceCached.getInstance();
 
     private final static int MAX_QUANTITY_PER_PRODUCT = 50;
 
@@ -38,7 +44,7 @@ public class CartCommand implements Command<Long> {
     public void execute(Long chatId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
         cartService.setPageNumber(chatId, 0);
-        if(cartItems.isEmpty()) {
+        if (cartItems.isEmpty()) {
             telegramService.sendMessage(new MessageSend(chatId, "Cart is empty."));
             return;
         }
@@ -47,16 +53,16 @@ public class CartCommand implements Command<Long> {
     }
 
     private String createProductText(CartItem cartItem) {
-        StringBuilder text = new StringBuilder("<b>Cart</b>:\n\n");
+        Message message = messageService.findByName("CART_MESSAGE");
         if (cartItem != null) {
             Product product = cartItem.getProduct();
-            text.append("-Name: ").append(product.getName()).append("\n");
-            text.append("-Description: ").append(product.getDescription()).append("\n\n");
-            text.append("Price, quantity, total:\n")
-                    .append(product.getPrice()).append(" $ * ").append(cartItem.getQuantity())
-                    .append(" pcs. = ").append(product.getPrice() * cartItem.getQuantity()).append(" $");
+            message.applyPlaceholder(of("%PRODUCT_NAME%", product.getName()));
+            message.applyPlaceholder(of("%PRODUCT_DESCRIPTION%", product.getDescription()));
+            message.applyPlaceholder(of("%PRODUCT_PRICE%", product.getPrice()));
+            message.applyPlaceholder(of("%PRODUCT_QUANTITY%", cartItem.getQuantity()));
+            message.applyPlaceholder(of("%PRODUCT_TOTAL_PRICE%", product.getPrice() * cartItem.getQuantity()));
         }
-        return text.toString();
+        return message.getText();
     }
 
     private InlineKeyboardMarkup createCartKeyboard(List<CartItem> cartItems, int currentCartPage) {
