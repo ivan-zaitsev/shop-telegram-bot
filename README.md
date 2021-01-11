@@ -115,7 +115,7 @@ location /admin {
 `systemctl restart nginx`
 </details>
 
-> 3. Set up telegram bot
+> 4. Set up telegram bot
 
 <details>
     <summary>Create systemd unit</summary>
