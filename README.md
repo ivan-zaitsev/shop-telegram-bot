@@ -1,5 +1,5 @@
 # shop-telegram-bot
-The shop in a telegram with the admin panel
+Shop in telegram with admin panel
 
 ## Technology stack
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
