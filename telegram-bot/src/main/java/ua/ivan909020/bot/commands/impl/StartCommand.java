@@ -40,6 +40,7 @@ public class StartCommand implements Command<Long> {
     private void saveClient(Long chatId) {
         Client client = new Client();
         client.setChatId(chatId);
+        client.setActive(true);
         clientService.save(client);
     }
 
