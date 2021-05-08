@@ -4,6 +4,10 @@ The shop in a telegram with the admin panel
 ## Technology stack
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
 
+## Demo
+Telegram bot: https://t.me/shop_telegram_demo_bot
+Admin panel: http://shop-telegram-demo-bot.herokuapp.com/admin
+
 ## Quick start guide
 1. Create postgres database and change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
 2. Import the database schema `resources/db_schema.sql` and database data `resources/db_data.sql`
@@ -11,9 +15,12 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 4. Set up the telegram bot username and token in properties `telegram-bot/src/main/resources/application.properties`
 5. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080/admin`, credentials (admin:admin)
 
+## Notes before deploy
 Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
 
-If you are deploying the application on the server don't forget to change server url and images upload path in properties `admin-panel/src/main/resources/application.properties`
+Do not forget to change server url in properties `admin-panel/src/main/resources/application.properties`
+
+Do not use `/root` folder as main, instead you can use `/home` folder
 
 ## How to deploy
 > 1. Install software
