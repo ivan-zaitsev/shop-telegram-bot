@@ -5,7 +5,7 @@ Shop in telegram with admin panel
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
 
 ## Demo
-- Admin panel: http://shop-telegram-demo-bot.herokuapp.com/admin
+- Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin
 - Telegram bot: https://t.me/shop_telegram_demo_bot
 
 ## Quick start guide
