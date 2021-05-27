@@ -5,8 +5,8 @@ Shop in telegram with admin panel
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
 
 ## Demo
-- Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin
-- Telegram bot: https://t.me/shop_telegram_demo_bot
+- Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin, credentials (admin:admin)
+- Telegram bot: https://t.me/shop_telegram_demo_bot (If bot doesn't work follow the andmin panel link to start it)
 
 ## Quick start guide
 1. Create postgres database and change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
@@ -60,7 +60,7 @@ Description=shop-admin-panel
 After=syslog.target
 
 [Service]
-WorkingDirectory=/your-directory/shop-telegram-bot/resources/
+WorkingDirectory=/your-directory/shop-telegram-bot/
 ExecStart=/usr/bin/java -jar /your-directory/shop-telegram-bot/admin-panel/target/admin-panel-1.0.0.jar
 StandardOutput=journal
 StandardError=journal
@@ -134,7 +134,7 @@ Description=shop-telegram-bot
 After=syslog.target
 
 [Service]
-WorkingDirectory=/your-directory/shop-telegram-bot/resources/
+WorkingDirectory=/your-directory/shop-telegram-bot/
 ExecStart=/usr/bin/java -jar /your-directory/shop-telegram-bot/telegram-bot/target/telegram-bot-1.0.0-jar-with-dependencies.jar
 StandardOutput=journal
 StandardError=journal
