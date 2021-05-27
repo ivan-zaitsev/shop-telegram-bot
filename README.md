@@ -6,7 +6,7 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 
 ## Demo
 - Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin, credentials (admin:admin)
-- Telegram bot: https://t.me/shop_telegram_demo_bot (If bot doesn't work follow the andmin panel link to start it)
+- Telegram bot: https://t.me/shop_telegram_demo_bot (If the bot doesn't work, follow the admin panel link to start it)
 
 ## Quick start guide
 1. Create postgres database and change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
