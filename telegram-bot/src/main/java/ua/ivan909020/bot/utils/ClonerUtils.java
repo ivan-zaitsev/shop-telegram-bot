@@ -14,7 +14,7 @@ public final class ClonerUtils {
         try {
             return (T) SerializableUtils.deepCopy(object);
         } catch (IOException | ClassNotFoundException e) {
-            throw new IllegalStateException(e);
+            throw new IllegalStateException("Failed to clone object", e);
         }
     }
 
