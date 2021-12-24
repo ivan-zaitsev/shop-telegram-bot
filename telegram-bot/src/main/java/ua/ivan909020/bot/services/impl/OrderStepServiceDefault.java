@@ -31,6 +31,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     public void previousOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
         Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
+
         if (orderStep > 1) {
             orderStep--;
             repository.setOrderStepNumber(chatId, orderStep);
@@ -42,6 +43,7 @@ public class OrderStepServiceDefault implements OrderStepService {
     public void nextOrderStep(Long chatId) {
         int orderStep = repository.findOrderStepNumberByChatId(chatId);
         Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
+
         if (orderStep < orderSteps.size()) {
             orderStep++;
             repository.setOrderStepNumber(chatId, orderStep);
@@ -54,6 +56,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId of Client should not be NULL");
         }
+
         return repository.findCachedOrderByChatId(chatId);
     }
 
@@ -65,6 +68,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         if (order.getClient() == null) {
             throw new ValidationException("Client should not be NULL");
         }
+
         repository.saveCachedOrder(chatId, order);
     }
 
@@ -76,6 +80,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         if (order.getClient() == null) {
             throw new ValidationException("Client should not be NULL");
         }
+
         repository.updateCachedOrder(chatId, order);
     }
 
@@ -84,6 +89,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId of Client should not be NULL");
         }
+
         repository.deleteCachedOrderByChatId(chatId);
     }
 

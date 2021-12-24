@@ -6,8 +6,14 @@ import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.entities.OrderStatus;
 import ua.ivan909020.bot.domain.models.CartItem;
 import ua.ivan909020.bot.exceptions.EntityNotFoundException;
-import ua.ivan909020.bot.services.*;
-import ua.ivan909020.bot.services.impl.*;
+import ua.ivan909020.bot.services.CartService;
+import ua.ivan909020.bot.services.ClientService;
+import ua.ivan909020.bot.services.OrderService;
+import ua.ivan909020.bot.services.OrderStepService;
+import ua.ivan909020.bot.services.impl.CartServiceDefault;
+import ua.ivan909020.bot.services.impl.ClientServiceDefault;
+import ua.ivan909020.bot.services.impl.OrderServiceDefault;
+import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +22,6 @@ public class OrderProcessCommand implements Command<Long> {
 
     private static final OrderProcessCommand INSTANCE = new OrderProcessCommand();
 
-    private final TelegramService telegramService = TelegramServiceDefault.getInstance();
     private final ClientService clientService = ClientServiceDefault.getInstance();
     private final CartService cartService = CartServiceDefault.getInstance();
     private final OrderStepService orderStepService = OrderStepServiceDefault.getInstance();
@@ -32,20 +37,24 @@ public class OrderProcessCommand implements Command<Long> {
     @Override
     public void execute(Long chatId) {
         Client client = clientService.findByChatId(chatId);
+
         if (client == null) {
             throw new EntityNotFoundException("Client with chatId '" + chatId + "' not found");
         }
+
         orderStepService.saveCachedOrder(chatId, buildOrder(client, cartService.findAllCartItemsByChatId(chatId)));
         orderStepService.nextOrderStep(chatId);
     }
 
     private Order buildOrder(Client client, List<CartItem> cartItems) {
         Order order = new Order();
+
         order.setClient(client);
         order.setCreatedDate(LocalDateTime.now());
         order.setStatus(OrderStatus.WAITING);
         order.setAmount(cartService.calculateTotalPrice(cartItems));
         order.setItems(orderService.fromCartItems(cartItems));
+
         return order;
     }
 

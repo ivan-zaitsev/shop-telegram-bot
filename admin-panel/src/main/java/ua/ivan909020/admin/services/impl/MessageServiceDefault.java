@@ -23,6 +23,7 @@ public class MessageServiceDefault implements MessageService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Message should not be NULL");
         }
+
         return repository.findById(id).orElse(null);
     }
 
@@ -31,6 +32,7 @@ public class MessageServiceDefault implements MessageService {
         if (message == null) {
             throw new IllegalArgumentException("Message should not be NULL");
         }
+
         return repository.save(message);
     }
 

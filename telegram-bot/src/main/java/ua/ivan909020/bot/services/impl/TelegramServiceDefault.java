@@ -2,7 +2,6 @@ package ua.ivan909020.bot.services.impl;
 
 import org.telegram.telegrambots.bots.DefaultAbsSender;
 import org.telegram.telegrambots.bots.DefaultBotOptions;
-import org.telegram.telegrambots.meta.ApiContext;
 import org.telegram.telegrambots.meta.api.methods.AnswerInlineQuery;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
@@ -19,7 +18,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
     private static final TelegramService INSTANCE = new TelegramServiceDefault();
 
     private TelegramServiceDefault() {
-        super(ApiContext.getInstance(DefaultBotOptions.class));
+        super(new DefaultBotOptions());
     }
 
     public static TelegramService getInstance() {
@@ -29,12 +28,13 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
     @Override
     public void sendMessage(MessageSend message) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(message.getChatId());
+        sendMessage.setChatId(String.valueOf(message.getChatId()));
         sendMessage.setText(message.getText());
         sendMessage.setParseMode("HTML");
         if (message.getKeyboard() != null) {
             sendMessage.setReplyMarkup(message.getKeyboard());
         }
+
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
@@ -46,7 +46,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
     public void editMessageText(MessageEdit message) {
         EditMessageText editMessageText = new EditMessageText();
         if (message.getMessageId() != null) {
-            editMessageText.setChatId(message.getChatId());
+            editMessageText.setChatId(String.valueOf(message.getChatId()));
             editMessageText.setMessageId(message.getMessageId());
         } else {
             editMessageText.setInlineMessageId(message.getInlineMessageId());
@@ -56,6 +56,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         if (message.getKeyboard() != null) {
             editMessageText.setReplyMarkup(message.getKeyboard());
         }
+
         try {
             execute(editMessageText);
         } catch (TelegramApiException e) {
@@ -72,6 +73,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         if (inlineQuery.getOffset() != null) {
             answerInlineQuery.setNextOffset(Integer.toString(inlineQuery.getOffset()));
         }
+
         try {
             execute(answerInlineQuery);
         } catch (TelegramApiException e) {

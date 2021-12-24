@@ -22,6 +22,7 @@ public class CategoryServiceDefault implements CategoryService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Category should not be NULL");
         }
+
         return repository.findById(id).orElse(null);
     }
 
@@ -38,6 +39,7 @@ public class CategoryServiceDefault implements CategoryService {
         if (category.getId() != null) {
             throw new ValidationException("Id of Category should be NULL");
         }
+
         return repository.save(category);
     }
 
@@ -49,6 +51,7 @@ public class CategoryServiceDefault implements CategoryService {
         if (category.getId() == null) {
             throw new ValidationException("Id of Category should not be NULL");
         }
+
         return repository.save(category);
     }
 
@@ -57,6 +60,7 @@ public class CategoryServiceDefault implements CategoryService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Category should not be NULL");
         }
+
         repository.deleteById(id);
     }
 

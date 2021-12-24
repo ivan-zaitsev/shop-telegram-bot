@@ -12,10 +12,12 @@ public class MessageRepositoryDefault implements MessageRepository {
     @Override
     public Message findByName(String messageName) {
         Session session = sessionFactory.openSession();
+
         Message message = session.createQuery("from Message where name = :name", Message.class)
                 .setParameter("name", messageName)
                 .setMaxResults(1)
                 .uniqueResult();
+
         session.close();
         return message;
     }

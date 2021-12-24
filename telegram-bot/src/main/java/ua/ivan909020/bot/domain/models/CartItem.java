@@ -2,9 +2,10 @@ package ua.ivan909020.bot.domain.models;
 
 import ua.ivan909020.bot.domain.entities.Product;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class CartItem {
+public class CartItem implements Serializable {
 
     private Integer id;
     private Product product;

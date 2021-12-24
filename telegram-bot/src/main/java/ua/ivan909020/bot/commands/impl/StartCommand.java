@@ -29,11 +29,13 @@ public class StartCommand implements Command<Long> {
     @Override
     public void execute(Long chatId) {
         Client client = clientService.findByChatId(chatId);
+
         if (client == null) {
             saveClient(chatId);
         } else if (!client.isActive()) {
             activateClient(client);
         }
+
         sendStartMessage(chatId);
     }
 

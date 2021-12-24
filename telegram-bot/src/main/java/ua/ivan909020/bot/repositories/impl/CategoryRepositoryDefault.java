@@ -14,7 +14,9 @@ public class CategoryRepositoryDefault implements CategoryRepository {
     @Override
     public List<Category> findAll() {
         Session session = sessionFactory.openSession();
+
         List<Category> categories = session.createQuery("from Category", Category.class).getResultList();
+
         session.close();
         return categories;
     }

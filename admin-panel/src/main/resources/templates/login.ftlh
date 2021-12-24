@@ -29,6 +29,13 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <label class="col-sm-2">Remember me:</label>
+      <div class="col-sm-10">
+        <input type="checkbox" name="remember-me" checked>
+      </div>
+    </div>
+
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <button type="submit" class="btn btn-primary">Sign In</button>
   </form>

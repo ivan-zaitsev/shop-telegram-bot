@@ -40,6 +40,7 @@ public class ProductServiceDefault implements ProductService {
         if (product.getId() != null) {
             throw new ValidationException("Id of Product should be NULL");
         }
+
         return repository.save(product);
     }
 
@@ -51,6 +52,7 @@ public class ProductServiceDefault implements ProductService {
         if (product.getId() == null) {
             throw new ValidationException("Id of Product should not be NULL");
         }
+
         return repository.save(product);
     }
 
@@ -59,6 +61,7 @@ public class ProductServiceDefault implements ProductService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Product should not be NULL");
         }
+
         repository.deleteById(id);
     }
 

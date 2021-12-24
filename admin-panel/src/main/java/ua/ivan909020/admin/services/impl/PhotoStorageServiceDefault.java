@@ -24,13 +24,16 @@ public class PhotoStorageServiceDefault implements PhotoStorageService {
         if (photo == null) {
             throw new IllegalArgumentException("Photo should not be NULL");
         }
+
         String fileName = UUID.randomUUID() + ".jpg";
         String filePath = imagesUploadPath + "/" + fileName;
+
         try {
             photo.transferTo(new File(filePath));
         } catch (IOException e) {
             throw new FailedSaveFileException("Failed save photo", e);
         }
+
         return serverUrl + "/images/" + fileName;
     }
 

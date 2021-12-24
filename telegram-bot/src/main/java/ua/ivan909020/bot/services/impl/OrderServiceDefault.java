@@ -28,12 +28,14 @@ public class OrderServiceDefault implements OrderService {
         if (order == null) {
             throw new IllegalArgumentException("Order should not be NULL");
         }
+
         repository.save(order);
     }
 
     @Override
     public List<OrderItem> fromCartItems(List<CartItem> cartItems) {
         List<OrderItem> orderItems = new ArrayList<>();
+
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();
             orderItem.setProduct(cartItem.getProduct());
@@ -42,6 +44,7 @@ public class OrderServiceDefault implements OrderService {
             orderItem.setProductPrice(cartItem.getProduct().getPrice());
             orderItems.add(orderItem);
         }
+
         return orderItems;
     }
 

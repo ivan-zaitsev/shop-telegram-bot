@@ -1,6 +1,8 @@
 package ua.ivan909020.bot.domain.entities;
 
-public enum OrderStatus {
+import java.io.Serializable;
+
+public enum OrderStatus implements Serializable {
 
     WAITING("Waiting"),
     PROCESSED("Processed"),

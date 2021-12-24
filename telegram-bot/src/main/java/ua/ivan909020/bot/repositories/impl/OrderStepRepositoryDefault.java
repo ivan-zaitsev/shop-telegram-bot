@@ -1,7 +1,12 @@
 package ua.ivan909020.bot.repositories.impl;
 
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.commands.impl.*;
+import ua.ivan909020.bot.commands.impl.OrderCreateCommand;
+import ua.ivan909020.bot.commands.impl.OrderEnterAddressCommand;
+import ua.ivan909020.bot.commands.impl.OrderEnterCityCommand;
+import ua.ivan909020.bot.commands.impl.OrderEnterNameCommand;
+import ua.ivan909020.bot.commands.impl.OrderEnterPhoneNumberCommand;
+import ua.ivan909020.bot.commands.impl.OrderProcessCommand;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
 import ua.ivan909020.bot.utils.ClonerUtils;

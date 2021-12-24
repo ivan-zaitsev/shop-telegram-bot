@@ -14,7 +14,9 @@ public class OrderRepositoryDefault implements OrderRepository {
     public void save(Order order) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+
         session.save(order);
+
         transaction.commit();
         session.close();
     }
