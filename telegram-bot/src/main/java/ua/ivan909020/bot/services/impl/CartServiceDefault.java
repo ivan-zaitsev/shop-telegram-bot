@@ -32,6 +32,7 @@ public class CartServiceDefault implements CartService {
         if (cartItem.getProduct() == null) {
             throw new ValidationException("Product of CartItem should not be NULL");
         }
+
         repository.saveCartItem(chatId, cartItem);
     }
 
@@ -46,6 +47,7 @@ public class CartServiceDefault implements CartService {
         if (cartItem.getProduct() == null) {
             throw new ValidationException("Product of CartItem should not be NULL");
         }
+
         repository.updateCartItem(chatId, cartItem);
     }
 
@@ -57,6 +59,7 @@ public class CartServiceDefault implements CartService {
         if (cartItemId == null) {
             throw new IllegalArgumentException("CartItemId should not be NULL");
         }
+
         repository.deleteCartItem(chatId, cartItemId);
     }
 
@@ -68,6 +71,7 @@ public class CartServiceDefault implements CartService {
         if (productId == null) {
             throw new IllegalArgumentException("ProductId should not be NULL");
         }
+
         return repository.findCartItemByChatIdAndProductId(chatId, productId);
     }
 
@@ -76,6 +80,7 @@ public class CartServiceDefault implements CartService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
         }
+
         return repository.findAllCartItemsByChatId(chatId);
     }
 
@@ -84,6 +89,7 @@ public class CartServiceDefault implements CartService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
         }
+
         repository.deleteAllCartItemsByChatId(chatId);
     }
 
@@ -95,6 +101,7 @@ public class CartServiceDefault implements CartService {
         if (pageNumber == null) {
             throw new IllegalArgumentException("PageNumber should not be NULL");
         }
+
         repository.setPageNumber(chatId, pageNumber);
     }
 
@@ -103,6 +110,7 @@ public class CartServiceDefault implements CartService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
         }
+
         return repository.findPageNumberByChatId(chatId);
     }
 
@@ -111,6 +119,7 @@ public class CartServiceDefault implements CartService {
         if (cartItems == null) {
             throw new IllegalArgumentException("CartItems should not be NULL");
         }
+
         float totalPrice = 0;
         for (CartItem cartItem : cartItems) {
             totalPrice += cartItem.getTotalPrice();

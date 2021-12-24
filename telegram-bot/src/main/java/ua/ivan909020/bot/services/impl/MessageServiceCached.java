@@ -38,11 +38,13 @@ public class MessageServiceCached implements MessageService {
         if (messageName == null) {
             throw new IllegalArgumentException("MessageName should not be NULL");
         }
+
         Message message = cachedMessages.get(messageName);
         if (message == null) {
             message = repository.findByName(messageName);
             cachedMessages.put(messageName, message);
         }
+
         return ClonerUtils.cloneObject(message);
     }
 

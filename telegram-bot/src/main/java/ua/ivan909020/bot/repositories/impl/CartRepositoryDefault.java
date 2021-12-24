@@ -22,13 +22,15 @@ public class CartRepositoryDefault implements CartRepository {
     @Override
     public void saveCartItem(Long chatId, CartItem cartItem) {
         cartItems.computeIfAbsent(chatId, orderItems -> new ArrayList<>());
+
         cartItem.setId(lastCartItemId.incrementAndGet());
         cartItems.get(chatId).add(ClonerUtils.cloneObject(cartItem));
     }
 
     @Override
     public void updateCartItem(Long chatId, CartItem cartItem) {
-        cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
+        cartItems.computeIfAbsent(chatId, value -> new ArrayList<>());
+
         List<CartItem> receivedCartItems = cartItems.get(chatId);
         IntStream.range(0, receivedCartItems.size())
                 .filter(i -> cartItem.getId().equals(receivedCartItems.get(i).getId()))
@@ -38,7 +40,8 @@ public class CartRepositoryDefault implements CartRepository {
 
     @Override
     public void deleteCartItem(Long chatId, Integer cartItemId) {
-        cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
+        cartItems.computeIfAbsent(chatId, value -> new ArrayList<>());
+
         List<CartItem> receivedCartItems = cartItems.get(chatId);
         receivedCartItems.stream()
                 .filter(cartItem -> cartItem.getId().equals(cartItemId))
@@ -48,7 +51,8 @@ public class CartRepositoryDefault implements CartRepository {
 
     @Override
     public CartItem findCartItemByChatIdAndProductId(Long chatId, Integer productId) {
-        cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
+        cartItems.computeIfAbsent(chatId, value -> new ArrayList<>());
+
         return cartItems.get(chatId).stream()
                 .filter(cartItem -> cartItem.getProduct().getId().equals(productId))
                 .findFirst()
@@ -58,7 +62,8 @@ public class CartRepositoryDefault implements CartRepository {
 
     @Override
     public List<CartItem> findAllCartItemsByChatId(Long chatId) {
-        cartItems.computeIfAbsent(chatId, cartItems -> new ArrayList<>());
+        cartItems.computeIfAbsent(chatId, value -> new ArrayList<>());
+
         return cartItems.get(chatId).stream()
                 .map(ClonerUtils::cloneObject)
                 .collect(Collectors.toList());

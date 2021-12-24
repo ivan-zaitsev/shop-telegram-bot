@@ -20,9 +20,11 @@ public class ClientRepositoryDefault implements ClientRepository {
     @Override
     public String findActionByChatId(Long chatId) {
         ClientAction clientAction = clientsAction.get(chatId);
+
         if (clientAction != null && LocalDateTime.now().isAfter(clientAction.getCreatedTime().plusMinutes(5))) {
             clientAction = null;
         }
+
         return clientAction == null ? null : clientAction.getAction();
     }
 
@@ -34,8 +36,10 @@ public class ClientRepositoryDefault implements ClientRepository {
     @Override
     public Client findByChatId(Long chatId) {
         Session session = sessionFactory.openSession();
+
         Client client = (Client) session.createQuery("from Client where chatId = :chatId")
                 .setParameter("chatId", chatId).setMaxResults(1).uniqueResult();
+
         session.close();
         return client;
     }
@@ -44,7 +48,9 @@ public class ClientRepositoryDefault implements ClientRepository {
     public void save(Client client) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+
         session.save(client);
+
         transaction.commit();
         session.close();
     }
@@ -53,7 +59,9 @@ public class ClientRepositoryDefault implements ClientRepository {
     public void update(Client client) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
+
         session.update(client);
+
         transaction.commit();
         session.close();
     }

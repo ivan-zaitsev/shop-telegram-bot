@@ -24,6 +24,7 @@ public class ClientServiceDefault implements ClientService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
         }
+
         return repository.findActionByChatId(chatId);
     }
 
@@ -32,6 +33,7 @@ public class ClientServiceDefault implements ClientService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
         }
+
         repository.setActionForChatId(chatId, action);
     }
 
@@ -40,6 +42,7 @@ public class ClientServiceDefault implements ClientService {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId of Client should not be NULL");
         }
+
         return repository.findByChatId(chatId);
     }
 
@@ -51,6 +54,7 @@ public class ClientServiceDefault implements ClientService {
         if (client.getChatId() == null) {
             throw new ValidationException("ChatId of Client should not be NULL");
         }
+
         repository.save(client);
     }
 
@@ -59,6 +63,7 @@ public class ClientServiceDefault implements ClientService {
         if (client == null) {
             throw new IllegalArgumentException("Client should not be NULL");
         }
+
         repository.update(client);
     }
 

@@ -1,7 +1,6 @@
 package ua.ivan909020.bot.commands.impl;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.domain.entities.Category;
 import ua.ivan909020.bot.domain.models.MessageSend;
@@ -10,8 +9,9 @@ import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.CategoryServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
 
 public class CatalogCommand implements Command<Long> {
 
@@ -33,14 +33,17 @@ public class CatalogCommand implements Command<Long> {
     }
 
     private InlineKeyboardMarkup createCategoriesKeyboard() {
-        return new InlineKeyboardMarkup().setKeyboard(new ArrayList<List<InlineKeyboardButton>>() {{
-            for (Category category : categoryService.findAll()) {
-                add(new ArrayList<InlineKeyboardButton>() {{
-                    String categoryName = category.getName();
-                    add(new InlineKeyboardButton(categoryName).setSwitchInlineQueryCurrentChat(categoryName));
-                }});
-            }
-        }});
+        InlineKeyboardMarkup.InlineKeyboardMarkupBuilder keyboardBuilder = InlineKeyboardMarkup.builder();
+
+        for (Category category : categoryService.findAll()) {
+            String categoryName = category.getName();
+
+            keyboardBuilder.keyboardRow(Arrays.asList(
+                    builder().text(categoryName).switchInlineQueryCurrentChat(categoryName).build()
+            ));
+        }
+
+        return keyboardBuilder.build();
     }
 
 }

@@ -10,9 +10,7 @@ class InlineQueryHandler implements Handler<InlineQuery> {
 
     @Override
     public void handle(InlineQuery inlineQuery) {
-        if (inlineQuery.hasQuery()) {
-            showProductsCommand.execute(inlineQuery);
-        }
+        showProductsCommand.execute(inlineQuery);
     }
 
 }

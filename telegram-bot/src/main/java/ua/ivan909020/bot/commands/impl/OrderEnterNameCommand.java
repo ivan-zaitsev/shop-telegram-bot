@@ -2,7 +2,6 @@ package ua.ivan909020.bot.commands.impl;
 
 import com.mchange.v2.lang.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
@@ -15,11 +14,12 @@ import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
-import ua.ivan909020.bot.utils.KeyboardUtils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton.builder;
 
 public class OrderEnterNameCommand implements Command<Long> {
 
@@ -41,15 +41,19 @@ public class OrderEnterNameCommand implements Command<Long> {
     @Override
     public void execute(Long chatId) {
         clientService.setActionForChatId(chatId, "order=enter-client-name");
+
         telegramService.sendMessage(new MessageSend(chatId, "Enter your name", createKeyboard(false)));
+
         sendCurrentName(chatId);
     }
 
     private void sendCurrentName(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
+
         if (order == null || order.getClient() == null) {
             throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+
         if (StringUtils.nonWhitespaceString(order.getClient().getName())) {
             telegramService.sendMessage(new MessageSend(chatId,
                     "Current name: " + order.getClient().getName(), createKeyboard(true)));
@@ -57,16 +61,21 @@ public class OrderEnterNameCommand implements Command<Long> {
     }
 
     private ReplyKeyboardMarkup createKeyboard(boolean skipStep) {
-        return KeyboardUtils.create(new ArrayList<KeyboardRow>() {{
-            if (skipStep) {
-                add(new KeyboardRow() {{
-                    add(new KeyboardButton(Commands.ORDER_NEXT_STEP_COMMAND));
-                }});
-            }
-            add(new KeyboardRow() {{
-                add(new KeyboardButton(Commands.ORDER_CANCEL_COMMAND));
-            }});
-        }});
+        ReplyKeyboardMarkup.ReplyKeyboardMarkupBuilder keyboardBuilder = ReplyKeyboardMarkup.builder();
+        keyboardBuilder.resizeKeyboard(true);
+        keyboardBuilder.selective(true);
+
+        if (skipStep) {
+            keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
+                    builder().text(Commands.ORDER_NEXT_STEP_COMMAND).build()
+            )));
+        }
+
+        keyboardBuilder.keyboardRow(new KeyboardRow(Arrays.asList(
+                builder().text(Commands.ORDER_CANCEL_COMMAND).build()
+        )));
+
+        return keyboardBuilder.build();
     }
 
     public void doEnterName(Long chatId, String name) {
@@ -75,10 +84,12 @@ public class OrderEnterNameCommand implements Command<Long> {
             telegramService.sendMessage(new MessageSend(chatId, "You entered the incorrect name, try again."));
             return;
         }
+
         Order order = orderStepService.findCachedOrderByChatId(chatId);
         if (order == null || order.getClient() == null) {
             throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+
         order.getClient().setName(name);
         orderStepService.updateCachedOrder(chatId, order);
         orderStepService.nextOrderStep(chatId);

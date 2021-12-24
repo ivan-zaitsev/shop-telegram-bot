@@ -1,16 +1,21 @@
 package ua.ivan909020.bot.utils;
 
-import com.rits.cloning.Cloner;
+import com.mchange.v2.ser.SerializableUtils;
+
+import java.io.IOException;
 
 public final class ClonerUtils {
-
-    private static final Cloner CLONER = new Cloner();
 
     private ClonerUtils() {
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T cloneObject(T object) {
-        return CLONER.deepClone(object);
+        try {
+            return (T) SerializableUtils.deepCopy(object);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
 }

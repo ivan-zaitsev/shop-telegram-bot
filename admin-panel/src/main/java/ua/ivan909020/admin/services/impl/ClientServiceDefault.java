@@ -24,6 +24,7 @@ public class ClientServiceDefault implements ClientService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Client should not be NULL");
         }
+
         return repository.findById(id).orElse(null);
     }
 
@@ -43,6 +44,7 @@ public class ClientServiceDefault implements ClientService {
         if (client.getChatId() == null) {
             throw new ValidationException("ChatId if Client should not be NULL");
         }
+
         return repository.save(client);
     }
 

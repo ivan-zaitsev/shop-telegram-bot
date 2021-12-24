@@ -25,6 +25,7 @@ public class ProductServiceDefault implements ProductService {
         if (productId == null) {
             throw new IllegalArgumentException("Id of Product should not be NULL");
         }
+
         return repository.findById(productId);
     }
 
@@ -39,6 +40,7 @@ public class ProductServiceDefault implements ProductService {
         if (size < 1) {
             throw new IllegalArgumentException("Size should be more than 1");
         }
+
         return repository.findAllByCategoryName(categoryName, offset, size);
     }
 

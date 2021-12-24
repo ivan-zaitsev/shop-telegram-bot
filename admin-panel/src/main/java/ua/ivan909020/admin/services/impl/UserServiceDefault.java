@@ -23,6 +23,7 @@ public class UserServiceDefault implements UserService {
         if (id == null) {
             throw new IllegalArgumentException("Id of User should not be NULL");
         }
+
         return repository.findById(id).orElse(null);
     }
 
@@ -39,6 +40,7 @@ public class UserServiceDefault implements UserService {
         if (user.getId() != null) {
             throw new ValidationException("Id of User should be NULL");
         }
+
         return repository.save(user);
     }
 
@@ -50,6 +52,7 @@ public class UserServiceDefault implements UserService {
         if (user.getId() == null) {
             throw new ValidationException("Id of User should not be NULL");
         }
+
         return repository.save(user);
     }
 
@@ -58,6 +61,7 @@ public class UserServiceDefault implements UserService {
         if (id == null) {
             throw new IllegalArgumentException("Id of User should not be NULL");
         }
+
         repository.deleteById(id);
     }
 

@@ -24,6 +24,7 @@ public class OrderServiceDefault implements OrderService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Order should not be NULL");
         }
+
         return repository.findById(id).orElse(null);
     }
 
@@ -40,6 +41,7 @@ public class OrderServiceDefault implements OrderService {
         if (order.getId() != null) {
             throw new ValidationException("Id of Order should be NULL");
         }
+
         return repository.save(order);
     }
 
@@ -51,6 +53,7 @@ public class OrderServiceDefault implements OrderService {
         if (order.getId() == null) {
             throw new ValidationException("Id of Order should not be NULL");
         }
+
         return repository.save(order);
     }
 
@@ -59,6 +62,7 @@ public class OrderServiceDefault implements OrderService {
         if (id == null) {
             throw new IllegalArgumentException("Id of Order should not be NULL");
         }
+
         repository.deleteById(id);
     }
 

@@ -5,8 +5,20 @@ import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Order;
 import ua.ivan909020.bot.domain.models.MessageSend;
 import ua.ivan909020.bot.exceptions.OrderStepStateException;
-import ua.ivan909020.bot.services.*;
-import ua.ivan909020.bot.services.impl.*;
+import ua.ivan909020.bot.services.CartService;
+import ua.ivan909020.bot.services.ClientService;
+import ua.ivan909020.bot.services.MessageService;
+import ua.ivan909020.bot.services.NotificationService;
+import ua.ivan909020.bot.services.OrderService;
+import ua.ivan909020.bot.services.OrderStepService;
+import ua.ivan909020.bot.services.TelegramService;
+import ua.ivan909020.bot.services.impl.CartServiceDefault;
+import ua.ivan909020.bot.services.impl.ClientServiceDefault;
+import ua.ivan909020.bot.services.impl.MessageServiceCached;
+import ua.ivan909020.bot.services.impl.NotificationServiceDefault;
+import ua.ivan909020.bot.services.impl.OrderServiceDefault;
+import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
+import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
 public class OrderCreateCommand implements Command<Long> {
 
@@ -33,10 +45,13 @@ public class OrderCreateCommand implements Command<Long> {
         if (order == null || order.getClient() == null) {
             throw new OrderStepStateException("Order step state error for client with chatId" + chatId);
         }
+
         orderService.save(order);
         clientService.update(order.getClient());
+
         sendOrderMessageToClient(chatId);
         clearClientCache(chatId);
+
         notificationService.notifyAdminChatAboutNewOrder(order);
     }
 

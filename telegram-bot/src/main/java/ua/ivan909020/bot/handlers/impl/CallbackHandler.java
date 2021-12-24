@@ -23,7 +23,7 @@ class CallbackHandler implements Handler<CallbackQuery> {
     }
 
     private void handleInline(CallbackQuery callbackQuery) {
-        Long chatId = callbackQuery.getFrom().getId().longValue();
+        Long chatId = callbackQuery.getFrom().getId();
         String inlineMessageId = callbackQuery.getInlineMessageId();
         String data = callbackQuery.getData();
 

@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.objects.inlinequery.inputmessageconten
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResultArticle;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.domain.entities.Message;
@@ -23,9 +22,11 @@ import ua.ivan909020.bot.services.impl.MessageServiceCached;
 import ua.ivan909020.bot.services.impl.ProductServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static java.util.Arrays.asList;
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
 import static ua.ivan909020.bot.domain.models.MessagePlaceholder.of;
 
 public class ShowProductsCommand implements Command<InlineQuery> {
@@ -50,7 +51,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
 
     @Override
     public void execute(InlineQuery inlineQuery) {
-        Long chatId = inlineQuery.getFrom().getId().longValue();
+        Long chatId = inlineQuery.getFrom().getId();
         String inlineQueryId = inlineQuery.getId();
         String categoryName = inlineQuery.getQuery();
 
@@ -63,59 +64,66 @@ public class ShowProductsCommand implements Command<InlineQuery> {
     }
 
     private void sendProductsQuery(Long chatId, String inlineQueryId, List<Product> products, Integer nextOffset) {
-        telegramService.sendInlineQuery(
-                new InlineQuerySend(inlineQueryId, createProductsInlineQuery(chatId, products), nextOffset));
+        List<InlineQueryResult> queryResults = products.stream()
+                .map(product -> buildProductArticle(chatId, product)).collect(Collectors.toList());
+
+        telegramService.sendInlineQuery(new InlineQuerySend(inlineQueryId, queryResults, nextOffset));
     }
 
-    private List<InlineQueryResult> createProductsInlineQuery(Long chatId, List<Product> products) {
-        List<InlineQueryResult> productsResult = new ArrayList<>();
-        for (Product product : products) {
-            productsResult.add(new InlineQueryResultArticle().setId(product.getId().toString())
-                    .setThumbUrl(product.getPhotoUrl()).setThumbHeight(48).setThumbWidth(48)
-                    .setTitle(product.getName()).setDescription(product.getDescription())
-                    .setReplyMarkup(createProductKeyboard(chatId, product))
-                    .setInputMessageContent(new InputTextMessageContent()
-                            .setParseMode("HTML").setMessageText(createProductText(chatId, product))));
-        }
-        return productsResult;
+    private InlineQueryResultArticle buildProductArticle(Long chatId, Product product) {
+        return InlineQueryResultArticle.builder()
+                .id(product.getId().toString())
+                .thumbUrl(product.getPhotoUrl())
+                .thumbHeight(48)
+                .thumbWidth(48)
+                .title(product.getName())
+                .description(product.getDescription())
+                .replyMarkup(createProductKeyboard(chatId, product))
+                .inputMessageContent(
+                        InputTextMessageContent.builder()
+                                .parseMode("HTML")
+                                .messageText(createProductText(chatId, product))
+                                .build()
+                )
+                .build();
     }
 
     private InlineKeyboardMarkup createProductKeyboard(Long chatId, Product product) {
-        List<List<InlineKeyboardButton>> rows = new ArrayList<List<InlineKeyboardButton>>() {{
-            CartItem cartItem = cartService.findCartItemByChatIdAndProductId(chatId, product.getId());
-            if (cartItem != null) {
-                add(new ArrayList<InlineKeyboardButton>() {{
-                    add(new InlineKeyboardButton("\u2796")
-                            .setCallbackData("show-products=minus-product_" + product.getId()));
-                    add(new InlineKeyboardButton(cartItem.getQuantity() + " pcs.")
-                            .setCallbackData("show-products=quantity-products"));
-                    add(new InlineKeyboardButton("\u2795")
-                            .setCallbackData("show-products=plus-product_" + product.getId()));
-                }});
-                add(new ArrayList<InlineKeyboardButton>() {{
-                    add(new InlineKeyboardButton(Commands.CATALOG_COMMAND)
-                            .setCallbackData("show-products=open-catalog"));
-                    add(new InlineKeyboardButton(Commands.CART_COMMAND)
-                            .setCallbackData("show-products=open-cart"));
-                }});
-            } else {
-                add(new ArrayList<InlineKeyboardButton>() {{
-                    add(new InlineKeyboardButton(
-                            String.format("\uD83D\uDCB5 Price: %.2f $ \uD83D\uDECD Add to cart", product.getPrice()))
-                            .setCallbackData("show-products=plus-product_" + product.getId()));
-                }});
-            }
-        }};
-        return new InlineKeyboardMarkup().setKeyboard(rows);
+        InlineKeyboardMarkup.InlineKeyboardMarkupBuilder keyboardBuilder = InlineKeyboardMarkup.builder();
+
+        CartItem cartItem = cartService.findCartItemByChatIdAndProductId(chatId, product.getId());
+
+        if (cartItem != null) {
+            keyboardBuilder.keyboardRow(asList(
+                    builder().text("\u2796").callbackData("show-products=minus-product_" + product.getId()).build(),
+                    builder().text(cartItem.getQuantity() + " pcs.").callbackData("show-products=quantity-products").build(),
+                    builder().text("\u2795").callbackData("show-products=plus-product_" + product.getId()).build()
+            ));
+            keyboardBuilder.keyboardRow(asList(
+                    builder().text(Commands.CATALOG_COMMAND).callbackData("show-products=open-catalog").build(),
+                    builder().text(Commands.CART_COMMAND).callbackData("show-products=open-cart").build()
+            ));
+        } else {
+            keyboardBuilder.keyboardRow(asList(
+                    builder()
+                            .text(String.format("\uD83D\uDCB5 Price: %.2f $ \uD83D\uDECD Add to cart", product.getPrice()))
+                            .callbackData("show-products=plus-product_" + product.getId())
+                            .build()
+            ));
+        }
+
+        return keyboardBuilder.build();
     }
 
     private String createProductText(Long chatId, Product product) {
         Message message = messageService.findByName("PRODUCT_MESSAGE");
+
         message.applyPlaceholder(of("%PRODUCT_PHOTO_URL%", product.getPhotoUrl()));
         message.applyPlaceholder(of("%PRODUCT_NAME%", product.getName()));
         message.applyPlaceholder(of("%PRODUCT_DESCRIPTION%", product.getDescription()));
 
         CartItem cartItem = cartService.findCartItemByChatIdAndProductId(chatId, product.getId());
+
         if (cartItem == null) {
             message.removeTextBetweenPlaceholder("%PRODUCT_PRICES%");
         } else {
@@ -123,6 +131,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
             message.applyPlaceholder(of("%PRODUCT_QUANTITY%", cartItem.getQuantity()));
             message.applyPlaceholder(of("%PRODUCT_TOTAL_PRICE%", product.getPrice() * cartItem.getQuantity()));
         }
+
         return message.buildText();
     }
 
@@ -130,9 +139,11 @@ public class ShowProductsCommand implements Command<InlineQuery> {
         Integer productId = Integer.parseInt(data.split("_")[1]);
         CartItem cartItem = cartService.findCartItemByChatIdAndProductId(chatId, productId);
         Product product = cartItem != null ? cartItem.getProduct() : productService.findById(productId);
+
         if (product == null) {
             return;
         }
+
         if (cartItem != null) {
             if (cartItem.getQuantity() < MAX_QUANTITY_PER_PRODUCT) {
                 cartItem.setQuantity(cartItem.getQuantity() + 1);
@@ -143,6 +154,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
                 cartService.saveCartItem(chatId, new CartItem(product, 1));
             }
         }
+
         telegramService.editMessageText(new MessageEdit(
                 inlineMessageId, createProductText(chatId, product), createProductKeyboard(chatId, product)));
     }
@@ -151,9 +163,11 @@ public class ShowProductsCommand implements Command<InlineQuery> {
         Integer productId = Integer.parseInt(data.split("_")[1]);
         CartItem cartItem = cartService.findCartItemByChatIdAndProductId(chatId, productId);
         Product product = cartItem != null ? cartItem.getProduct() : productService.findById(productId);
+
         if (product == null) {
             return;
         }
+
         if (cartItem != null) {
             if (cartItem.getQuantity() > 1) {
                 cartItem.setQuantity(cartItem.getQuantity() - 1);
@@ -162,6 +176,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
                 cartService.deleteCartItem(chatId, cartItem.getId());
             }
         }
+
         telegramService.editMessageText(new MessageEdit(
                 inlineMessageId, createProductText(chatId, product), createProductKeyboard(chatId, product)));
     }

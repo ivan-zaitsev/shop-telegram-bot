@@ -63,12 +63,15 @@ public class NotificationServiceDefault implements NotificationService {
 
     private String buildOrderItemsInformation(List<OrderItem> orderItems) {
         StringBuilder result = new StringBuilder();
+
         for (int i = 0; i < orderItems.size(); i++) {
             OrderItem orderItem = orderItems.get(i);
+
             result.append(i + 1).append(") ").append(orderItem.getProductName()).append(" — ")
                     .append(orderItem.getQuantity()).append(" pcs. = ")
                     .append(orderItem.getProductPrice() * orderItem.getQuantity()).append(" $\n");
         }
+
         return result.toString();
     }
 
