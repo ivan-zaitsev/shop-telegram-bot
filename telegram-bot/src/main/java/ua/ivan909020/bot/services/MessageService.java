@@ -1,6 +1,6 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.entities.Message;
+import ua.ivan909020.bot.models.entities.Message;
 
 public interface MessageService {
 

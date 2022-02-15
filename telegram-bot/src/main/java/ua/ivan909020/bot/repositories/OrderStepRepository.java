@@ -1,21 +1,15 @@
 package ua.ivan909020.bot.repositories;
 
-import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.domain.entities.Order;
-
-import java.util.Map;
+import ua.ivan909020.bot.commands.CommandSequence;
+import ua.ivan909020.bot.models.entities.Order;
 
 public interface OrderStepRepository {
 
-    void setOrderStepNumber(Long chatId, Integer orderStep);
+    CommandSequence<Long> findOrderStepByClientChatId(Long chatId);
 
-    Integer findOrderStepNumberByChatId(Long chatId);
-
-    Map<Integer, Command<Long>> getOrderSteps();
+    void updateOrderStepByChatId(Long chatId, CommandSequence<Long> orderStep);
 
     Order findCachedOrderByChatId(Long chatId);
-
-    void saveCachedOrder(Long chatId, Order order);
 
     void updateCachedOrder(Long chatId, Order order);
 

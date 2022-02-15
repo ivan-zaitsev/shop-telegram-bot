@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.ivan909020.admin.domain.Client;
+import ua.ivan909020.admin.models.entities.Client;
 import ua.ivan909020.admin.services.ClientService;
 import ua.ivan909020.admin.utils.ControllerUtils;
 
@@ -28,13 +28,13 @@ public class ClientController {
     @GetMapping
     public String showAllClients(Model model) {
         model.addAttribute("clients", clientService.findAll());
-        return "clients/all";
+        return "main/clients/all";
     }
 
     @GetMapping("/edit/{client}")
     public String showEditClient(Model model, @PathVariable Client client) {
         model.addAttribute("client", client);
-        return "clients/edit";
+        return "main/clients/edit";
     }
 
     @PostMapping("/update")
@@ -42,7 +42,7 @@ public class ClientController {
         if (bindingResult.hasErrors()) {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("client", client);
-            return "clients/edit";
+            return "main/clients/edit";
         }
 
         clientService.update(client);

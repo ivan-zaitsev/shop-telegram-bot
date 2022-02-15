@@ -2,19 +2,27 @@ package ua.ivan909020.bot.handlers.impl;
 
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import ua.ivan909020.bot.commands.impl.CartCommand;
 import ua.ivan909020.bot.commands.impl.CatalogCommand;
 import ua.ivan909020.bot.commands.impl.ShowProductsCommand;
 import ua.ivan909020.bot.handlers.Handler;
 
-class CallbackHandler implements Handler<CallbackQuery> {
+class CallbackHandler implements Handler {
 
     private final ShowProductsCommand showProductsCommand = ShowProductsCommand.getInstance();
     private final CatalogCommand catalogCommand = CatalogCommand.getInstance();
     private final CartCommand cartCommand = CartCommand.getInstance();
 
     @Override
-    public void handle(CallbackQuery callbackQuery) {
+    public boolean supports(Update update) {
+        return update.hasCallbackQuery();
+    }
+
+    @Override
+    public void handle(Update update) {
+        CallbackQuery callbackQuery = update.getCallbackQuery();
+
         if (callbackQuery.getMessage() == null) {
             handleInline(callbackQuery);
         } else {

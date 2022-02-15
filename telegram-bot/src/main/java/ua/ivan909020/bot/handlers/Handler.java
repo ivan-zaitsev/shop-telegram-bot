@@ -1,7 +1,11 @@
 package ua.ivan909020.bot.handlers;
 
-public interface Handler<T> {
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-    void handle(T t);
+public interface Handler {
+
+    boolean supports(Update update);
+
+    void handle(Update update);
 
 }

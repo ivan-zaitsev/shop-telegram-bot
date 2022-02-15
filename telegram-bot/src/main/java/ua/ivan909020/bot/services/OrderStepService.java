@@ -1,18 +1,19 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.entities.Order;
+import ua.ivan909020.bot.commands.CommandSequence;
+import ua.ivan909020.bot.models.entities.Order;
 
 public interface OrderStepService {
 
-    void revokeOrderStep(Long chatId);
+    void updateOrderStepByChatId(Long chatId, CommandSequence<Long> orderStep);
 
-    void previousOrderStep(Long chatId);
+    void executePreviousOrderStep(Long chatId);
 
-    void nextOrderStep(Long chatId);
+    void executeCurrentOrderStep(Long chatId);
+
+    void executeNextOrderStep(Long chatId);
 
     Order findCachedOrderByChatId(Long chatId);
-
-    void saveCachedOrder(Long chatId, Order order);
 
     void updateCachedOrder(Long chatId, Order order);
 

@@ -1,10 +1,10 @@
 package ua.ivan909020.bot.services.impl;
 
 import ua.ivan909020.bot.core.ConfigReader;
-import ua.ivan909020.bot.domain.entities.Client;
-import ua.ivan909020.bot.domain.entities.Order;
-import ua.ivan909020.bot.domain.entities.OrderItem;
-import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.models.entities.Client;
+import ua.ivan909020.bot.models.entities.Order;
+import ua.ivan909020.bot.models.entities.OrderItem;
+import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.services.NotificationService;
 import ua.ivan909020.bot.services.TelegramService;
 

@@ -8,11 +8,11 @@ import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQuery
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
-import ua.ivan909020.bot.domain.entities.Message;
-import ua.ivan909020.bot.domain.entities.Product;
-import ua.ivan909020.bot.domain.models.CartItem;
-import ua.ivan909020.bot.domain.models.InlineQuerySend;
-import ua.ivan909020.bot.domain.models.MessageEdit;
+import ua.ivan909020.bot.models.entities.Message;
+import ua.ivan909020.bot.models.entities.Product;
+import ua.ivan909020.bot.models.domain.CartItem;
+import ua.ivan909020.bot.models.domain.InlineQuerySend;
+import ua.ivan909020.bot.models.domain.MessageEdit;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.ProductService;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
-import static ua.ivan909020.bot.domain.models.MessagePlaceholder.of;
+import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
 
 public class ShowProductsCommand implements Command<InlineQuery> {
 
@@ -106,7 +106,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
         } else {
             keyboardBuilder.keyboardRow(asList(
                     builder()
-                            .text(String.format("\uD83D\uDCB5 Price: %.2f $ \uD83D\uDECD Add to cart", product.getPrice()))
+                            .text(String.format("\uD83D\uDCB5 Price: %d $ \uD83D\uDECD Add to cart", product.getPrice()))
                             .callbackData("show-products=plus-product_" + product.getId())
                             .build()
             ));

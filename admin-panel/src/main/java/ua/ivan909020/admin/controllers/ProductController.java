@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import ua.ivan909020.admin.domain.Product;
+import ua.ivan909020.admin.models.entities.Product;
 import ua.ivan909020.admin.services.CategoryService;
 import ua.ivan909020.admin.services.PhotoStorageService;
 import ua.ivan909020.admin.services.ProductService;
@@ -36,20 +40,20 @@ public class ProductController {
     @GetMapping
     public String showAllProducts(Model model) {
         model.addAttribute("products", productService.findAll());
-        return "products/all";
+        return "main/products/all";
     }
 
     @GetMapping("/add")
     public String showAddProduct(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-        return "products/add";
+        return "main/products/add";
     }
 
     @GetMapping("/edit/{product}")
     public String showEditProduct(Model model, @PathVariable Product product) {
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.findAll());
-        return "products/edit";
+        return "main/products/edit";
     }
 
     @PostMapping("/create")
@@ -63,7 +67,7 @@ public class ProductController {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("product", product);
             model.addAttribute("categories", categoryService.findAll());
-            return "products/add";
+            return "main/products/add";
         }
 
         product.setPhotoUrl(photoStorageService.store(photo));
@@ -82,7 +86,7 @@ public class ProductController {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("product", product);
             model.addAttribute("categories", categoryService.findAll());
-            return "products/edit";
+            return "main/products/edit";
         }
 
         if (!photo.isEmpty()) {

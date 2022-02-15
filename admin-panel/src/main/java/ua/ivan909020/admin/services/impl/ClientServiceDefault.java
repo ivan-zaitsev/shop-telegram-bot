@@ -2,8 +2,8 @@ package ua.ivan909020.admin.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ivan909020.admin.domain.Client;
 import ua.ivan909020.admin.exceptions.ValidationException;
+import ua.ivan909020.admin.models.entities.Client;
 import ua.ivan909020.admin.repositories.ClientRepository;
 import ua.ivan909020.admin.services.ClientService;
 

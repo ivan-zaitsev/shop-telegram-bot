@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import ua.ivan909020.admin.domain.Category;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ua.ivan909020.admin.models.entities.Category;
 import ua.ivan909020.admin.services.CategoryService;
 import ua.ivan909020.admin.utils.ControllerUtils;
 
@@ -25,18 +29,18 @@ public class CategoryController {
     @GetMapping
     public String showAllCategories(Model model) {
         model.addAttribute("categories", categoryService.findAll());
-        return "categories/all";
+        return "main/categories/all";
     }
 
     @GetMapping("/add")
     public String showAddCategory() {
-        return "categories/add";
+        return "main/categories/add";
     }
 
     @GetMapping("/edit/{category}")
     public String showEditCategory(Model model, @PathVariable Category category) {
         model.addAttribute("category", category);
-        return "categories/edit";
+        return "main/categories/edit";
     }
 
     @PostMapping("/create")
@@ -44,7 +48,7 @@ public class CategoryController {
         if (bindingResult.hasErrors()) {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("category", category);
-            return "categories/add";
+            return "main/categories/add";
         }
 
         categoryService.save(category);
@@ -56,7 +60,7 @@ public class CategoryController {
         if (bindingResult.hasErrors()) {
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
             model.addAttribute("category", category);
-            return "categories/edit";
+            return "main/categories/edit";
         }
 
         categoryService.update(category);

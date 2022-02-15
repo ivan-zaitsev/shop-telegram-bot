@@ -2,7 +2,7 @@ package ua.ivan909020.admin.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ivan909020.admin.domain.Message;
+import ua.ivan909020.admin.models.entities.Message;
 import ua.ivan909020.admin.repositories.MessageRepository;
 import ua.ivan909020.admin.services.MessageService;
 

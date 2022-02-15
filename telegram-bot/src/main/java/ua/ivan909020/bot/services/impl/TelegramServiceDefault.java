@@ -7,10 +7,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ua.ivan909020.bot.core.TelegramBot;
-import ua.ivan909020.bot.domain.models.InlineQuerySend;
-import ua.ivan909020.bot.domain.models.MessageEdit;
-import ua.ivan909020.bot.domain.models.MessageSend;
-import ua.ivan909020.bot.exceptions.FailedSendMessageException;
+import ua.ivan909020.bot.models.domain.InlineQuerySend;
+import ua.ivan909020.bot.models.domain.MessageEdit;
+import ua.ivan909020.bot.models.domain.MessageSend;
+import ua.ivan909020.bot.exceptions.SendMessageException;
 import ua.ivan909020.bot.services.TelegramService;
 
 public class TelegramServiceDefault extends DefaultAbsSender implements TelegramService {
@@ -38,7 +38,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(sendMessage);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException("Failed send text message " + message, e);
+            throw new SendMessageException("Failed send text message " + message, e);
         }
     }
 
@@ -60,7 +60,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(editMessageText);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException("Failed edit text message " + message, e);
+            throw new SendMessageException("Failed edit text message " + message, e);
         }
     }
 
@@ -77,7 +77,7 @@ public class TelegramServiceDefault extends DefaultAbsSender implements Telegram
         try {
             execute(answerInlineQuery);
         } catch (TelegramApiException e) {
-            throw new FailedSendMessageException("Failed send inline query " + inlineQuery, e);
+            throw new SendMessageException("Failed send inline query " + inlineQuery, e);
         }
     }
 

@@ -1,4 +1,4 @@
-<#import "macros/home.ftlh" as h>
+<#import "common/home.ftlh" as h>
 
 <@h.home "Authorization">
 

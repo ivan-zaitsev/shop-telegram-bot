@@ -1,6 +1,6 @@
 package ua.ivan909020.bot.repositories;
 
-import ua.ivan909020.bot.domain.entities.Category;
+import ua.ivan909020.bot.models.entities.Category;
 
 import java.util.List;
 

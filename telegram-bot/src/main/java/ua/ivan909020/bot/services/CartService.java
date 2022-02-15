@@ -1,6 +1,6 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.models.CartItem;
+import ua.ivan909020.bot.models.domain.CartItem;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ public interface CartService {
 
     void deleteAllCartItemsByChatId(Long chatId);
 
-    void setPageNumber(Long chatId, Integer pageNumber);
+    void updatePageNumberByChatId(Long chatId, Integer pageNumber);
 
     Integer findPageNumberByChatId(Long chatId);
 
-    float calculateTotalPrice(List<CartItem> cartItems);
+    long calculateTotalPrice(List<CartItem> cartItems);
 
 }

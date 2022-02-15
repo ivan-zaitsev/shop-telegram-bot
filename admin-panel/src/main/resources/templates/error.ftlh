@@ -1,5 +1,5 @@
-<#import "macros/home.ftlh" as h>
-<#include "macros/security.ftlh">
+<#import "common/home.ftlh" as h>
+<#include "common/security.ftlh">
 
 <@h.home "Error">
 

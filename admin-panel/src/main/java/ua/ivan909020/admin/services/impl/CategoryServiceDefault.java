@@ -1,8 +1,8 @@
 package ua.ivan909020.admin.services.impl;
 
 import org.springframework.stereotype.Service;
-import ua.ivan909020.admin.domain.Category;
 import ua.ivan909020.admin.exceptions.ValidationException;
+import ua.ivan909020.admin.models.entities.Category;
 import ua.ivan909020.admin.repositories.CategoryRepository;
 import ua.ivan909020.admin.services.CategoryService;
 

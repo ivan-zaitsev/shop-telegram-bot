@@ -1,10 +1,10 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.domain.entities.Message;
+import ua.ivan909020.bot.models.entities.Message;
 import ua.ivan909020.bot.repositories.MessageRepository;
-import ua.ivan909020.bot.repositories.impl.MessageRepositoryDefault;
+import ua.ivan909020.bot.repositories.database.MessageRepositoryDefault;
 import ua.ivan909020.bot.services.MessageService;
-import ua.ivan909020.bot.utils.ClonerUtils;
+import ua.ivan909020.bot.utils.CloneUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class MessageServiceCached implements MessageService {
             cachedMessages.put(messageName, message);
         }
 
-        return ClonerUtils.cloneObject(message);
+        return CloneUtils.cloneObject(message);
     }
 
 }

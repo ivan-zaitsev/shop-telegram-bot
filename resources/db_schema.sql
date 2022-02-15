@@ -28,7 +28,7 @@ create table products(
     photo_url varchar(255) not null,
     name varchar(255) not null,
     description varchar(2550) not null,
-    price real not null
+    price bigint not null
 );
 
 create table orders(
@@ -36,16 +36,16 @@ create table orders(
     client_id integer references clients(id) not null,
     created_date timestamp without time zone not null,
     status varchar(255) not null,
-    amount real not null
+    amount bigint not null
 );
 
-create table order_items(
+create table orders_items(
     id serial primary key,
     order_id integer references orders(id) on delete cascade not null,
     product_id integer references products(id) on delete set null,
     quantity integer not null,
     product_name varchar(255) not null,
-    product_price real not null
+    product_price bigint not null
 );
 
 create table messages(

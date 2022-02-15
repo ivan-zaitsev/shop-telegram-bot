@@ -2,11 +2,12 @@ package ua.ivan909020.bot.commands.impl;
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.domain.entities.Message;
-import ua.ivan909020.bot.domain.entities.Product;
-import ua.ivan909020.bot.domain.models.CartItem;
-import ua.ivan909020.bot.domain.models.MessageEdit;
-import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.commands.impl.order.OrderProcessCommand;
+import ua.ivan909020.bot.models.entities.Message;
+import ua.ivan909020.bot.models.entities.Product;
+import ua.ivan909020.bot.models.domain.CartItem;
+import ua.ivan909020.bot.models.domain.MessageEdit;
+import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.OrderStepService;
@@ -20,7 +21,7 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
-import static ua.ivan909020.bot.domain.models.MessagePlaceholder.of;
+import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
 
 public class CartCommand implements Command<Long> {
 
@@ -43,7 +44,7 @@ public class CartCommand implements Command<Long> {
     @Override
     public void execute(Long chatId) {
         List<CartItem> cartItems = cartService.findAllCartItemsByChatId(chatId);
-        cartService.setPageNumber(chatId, 0);
+        cartService.updatePageNumberByChatId(chatId, 0);
 
         if (cartItems.isEmpty()) {
             telegramService.sendMessage(new MessageSend(chatId, "Cart is empty."));
@@ -85,7 +86,7 @@ public class CartCommand implements Command<Long> {
 
         keyboardBuilder.keyboardRow(asList(
                 builder()
-                        .text(String.format("\u2705 Order for %.2f $ Checkout?", cartService.calculateTotalPrice(cartItems)))
+                        .text(String.format("\u2705 Order for %d $ Checkout?", cartService.calculateTotalPrice(cartItems)))
                         .callbackData("cart=process-order")
                         .build()
         ));
@@ -112,7 +113,7 @@ public class CartCommand implements Command<Long> {
 
         if (cartItems.size() == currentCartPage) {
             currentCartPage -= 1;
-            cartService.setPageNumber(chatId, currentCartPage);
+            cartService.updatePageNumberByChatId(chatId, currentCartPage);
         }
 
         telegramService.editMessageText(new MessageEdit(chatId, messageId,
@@ -176,7 +177,7 @@ public class CartCommand implements Command<Long> {
         } else {
             currentCartPage -= 1;
         }
-        cartService.setPageNumber(chatId, currentCartPage);
+        cartService.updatePageNumberByChatId(chatId, currentCartPage);
 
         telegramService.editMessageText(new MessageEdit(chatId, messageId,
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
@@ -199,16 +200,21 @@ public class CartCommand implements Command<Long> {
         } else {
             currentCartPage += 1;
         }
-        cartService.setPageNumber(chatId, currentCartPage);
+        cartService.updatePageNumberByChatId(chatId, currentCartPage);
 
         telegramService.editMessageText(new MessageEdit(chatId, messageId,
                 createProductText(cartItems.get(currentCartPage)), createCartKeyboard(cartItems, currentCartPage)));
     }
 
     public void doProcessOrder(Long chatId, Integer messageId) {
+        if (cartService.findAllCartItemsByChatId(chatId).isEmpty()) {
+            telegramService.editMessageText(new MessageEdit(chatId, messageId, "Cart is empty." ));
+            return;
+        }
+
         telegramService.editMessageText(new MessageEdit(chatId, messageId, "Creating order..."));
-        orderStepService.revokeOrderStep(chatId);
-        orderStepService.nextOrderStep(chatId);
+        orderStepService.updateOrderStepByChatId(chatId, OrderProcessCommand.getInstance());
+        orderStepService.executeCurrentOrderStep(chatId);
     }
 
 }

@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.domain.entities.Product;
+import ua.ivan909020.bot.models.entities.Product;
 import ua.ivan909020.bot.repositories.ProductRepository;
-import ua.ivan909020.bot.repositories.impl.ProductRepositoryDefault;
+import ua.ivan909020.bot.repositories.database.ProductRepositoryDefault;
 import ua.ivan909020.bot.services.ProductService;
 
 import java.util.List;
