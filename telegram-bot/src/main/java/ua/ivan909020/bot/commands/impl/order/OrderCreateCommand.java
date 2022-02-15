@@ -64,8 +64,8 @@ public class OrderCreateCommand implements Command<Long> {
 
     private void clearClientOrderCache(Long chatId) {
         clientActionService.deleteActionByChatId(chatId);
-        cartService.deleteAllCartItemsByChatId(chatId);
         orderStepService.deleteCachedOrderByChatId(chatId);
+        cartService.deleteAllCartItemsByChatId(chatId);
     }
 
 }

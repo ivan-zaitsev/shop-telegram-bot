@@ -129,10 +129,6 @@ public class User implements UserDetails {
         return isActive();
     }
 
-    public boolean isAdmin() {
-        return getRole().equals(UserRole.ADMIN);
-    }
-
     public boolean hasAnyAuthority(String... authorities) {
         Set<String> roles = getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
         return Arrays.stream(authorities).anyMatch(roles::contains);
