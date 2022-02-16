@@ -71,6 +71,8 @@
     </dependencies>
 
     <build>
+        <finalName>shop-admin-panel</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

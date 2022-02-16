@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+
+  postgresql:
+    image: postgres
+    container_name: shop-postgresql
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_ROOT_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+
+  shop-admin-panel:
+    image: shop-admin-panel
+    container_name: shop-admin-panel
+    ports:
+      - '8080:8080'
+    environment:
+      - 'DATABASE_URL=jdbc:postgresql://postgresql:5432/shop_telegram_bot'
+      - 'DATABASE_USERNAME=postgres'
+      - 'DATABASE_PASSWORD=postgres'
+    depends_on:
+      - postgresql
+
+  shop-telegram-bot:
+    image: shop-telegram-bot
+    container_name: shop-telegram-bot
+    environment:
+      - 'DATABASE_URL=jdbc:postgresql://postgresql:5432/shop_telegram_bot'
+      - 'DATABASE_USERNAME=postgres'
+      - 'DATABASE_PASSWORD=postgres'
+    depends_on:
+      - postgresql
