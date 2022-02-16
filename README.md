@@ -16,8 +16,8 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 mvn -f shop-telegram-bot/admin-panel/ package
 mvn -f shop-telegram-bot/telegram-bot/ package
 
-docker build -t shop-admin-panel shop-telegram-bot/admin-panel
-docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot
+docker build -t shop-admin-panel shop-telegram-bot/admin-panel/
+docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot/
 
 docker-compose -f shop-telegram-bot/docker-compose.yml up -d postgresql
 
