@@ -19,7 +19,7 @@
     <properties>
         <java.version>1.8</java.version>
         <telegrambots.version>5.5.0</telegrambots.version>
-        <postgresql.version>42.3.2</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
     </properties>
 
     <dependencies>
