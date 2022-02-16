@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.entities.Order;
-import ua.ivan909020.bot.domain.entities.OrderItem;
-import ua.ivan909020.bot.domain.models.CartItem;
+import ua.ivan909020.bot.models.entities.Order;
+import ua.ivan909020.bot.models.entities.OrderItem;
+import ua.ivan909020.bot.models.domain.CartItem;
 
 import java.util.List;
 

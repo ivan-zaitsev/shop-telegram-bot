@@ -21,7 +21,7 @@ public class BroadcastController {
 
     @GetMapping("/add")
     public String showAddBroadcast() {
-        return "broadcasts/add";
+        return "main/broadcasts/add";
     }
 
     @PostMapping("/send")

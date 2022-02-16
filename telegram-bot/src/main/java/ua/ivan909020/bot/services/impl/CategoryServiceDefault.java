@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.domain.entities.Category;
+import ua.ivan909020.bot.models.entities.Category;
 import ua.ivan909020.bot.repositories.CategoryRepository;
-import ua.ivan909020.bot.repositories.impl.CategoryRepositoryDefault;
+import ua.ivan909020.bot.repositories.database.CategoryRepositoryDefault;
 import ua.ivan909020.bot.services.CategoryService;
 
 import java.util.List;

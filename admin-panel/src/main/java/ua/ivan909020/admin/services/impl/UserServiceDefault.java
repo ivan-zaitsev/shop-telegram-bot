@@ -2,8 +2,8 @@ package ua.ivan909020.admin.services.impl;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import ua.ivan909020.admin.domain.User;
 import ua.ivan909020.admin.exceptions.ValidationException;
+import ua.ivan909020.admin.models.entities.User;
 import ua.ivan909020.admin.repositories.UserRepository;
 import ua.ivan909020.admin.services.UserService;
 

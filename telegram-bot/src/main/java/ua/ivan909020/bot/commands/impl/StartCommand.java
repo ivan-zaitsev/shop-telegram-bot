@@ -2,8 +2,8 @@ package ua.ivan909020.bot.commands.impl;
 
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
-import ua.ivan909020.bot.domain.entities.Client;
-import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.models.entities.Client;
+import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.TelegramService;

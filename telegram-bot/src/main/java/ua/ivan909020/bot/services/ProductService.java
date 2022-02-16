@@ -1,6 +1,6 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.entities.Product;
+import ua.ivan909020.bot.models.entities.Product;
 
 import java.util.List;
 

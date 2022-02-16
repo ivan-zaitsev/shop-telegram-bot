@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.ivan909020.admin.domain.Client;
+import ua.ivan909020.admin.models.entities.Client;
 import ua.ivan909020.admin.services.BroadcastService;
 import ua.ivan909020.admin.services.ClientService;
 import ua.ivan909020.admin.services.TelegramService;

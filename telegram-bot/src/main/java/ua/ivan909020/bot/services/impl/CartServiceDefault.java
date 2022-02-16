@@ -1,9 +1,9 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.domain.models.CartItem;
+import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.exceptions.ValidationException;
 import ua.ivan909020.bot.repositories.CartRepository;
-import ua.ivan909020.bot.repositories.impl.CartRepositoryDefault;
+import ua.ivan909020.bot.repositories.memory.CartRepositoryDefault;
 import ua.ivan909020.bot.services.CartService;
 
 import java.util.List;
@@ -94,18 +94,6 @@ public class CartServiceDefault implements CartService {
     }
 
     @Override
-    public void setPageNumber(Long chatId, Integer pageNumber) {
-        if (chatId == null) {
-            throw new IllegalArgumentException("ChatId should not be NULL");
-        }
-        if (pageNumber == null) {
-            throw new IllegalArgumentException("PageNumber should not be NULL");
-        }
-
-        repository.setPageNumber(chatId, pageNumber);
-    }
-
-    @Override
     public Integer findPageNumberByChatId(Long chatId) {
         if (chatId == null) {
             throw new IllegalArgumentException("ChatId should not be NULL");
@@ -115,15 +103,28 @@ public class CartServiceDefault implements CartService {
     }
 
     @Override
-    public float calculateTotalPrice(List<CartItem> cartItems) {
+    public void updatePageNumberByChatId(Long chatId, Integer pageNumber) {
+        if (chatId == null) {
+            throw new IllegalArgumentException("ChatId should not be NULL");
+        }
+        if (pageNumber == null) {
+            throw new IllegalArgumentException("PageNumber should not be NULL");
+        }
+
+        repository.updatePageNumberByChatId(chatId, pageNumber);
+    }
+
+    @Override
+    public long calculateTotalPrice(List<CartItem> cartItems) {
         if (cartItems == null) {
             throw new IllegalArgumentException("CartItems should not be NULL");
         }
 
-        float totalPrice = 0;
+        long totalPrice = 0;
         for (CartItem cartItem : cartItems) {
             totalPrice += cartItem.getTotalPrice();
         }
+
         return totalPrice;
     }
 

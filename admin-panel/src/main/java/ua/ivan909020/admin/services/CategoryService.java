@@ -1,8 +1,14 @@
 package ua.ivan909020.admin.services;
 
-import ua.ivan909020.admin.domain.Category;
+import ua.ivan909020.admin.models.entities.Category;
 
-public interface CategoryService extends CrudService<Category> {
+import java.util.List;
+
+public interface CategoryService {
+
+    Category findById(Integer id);
+
+    List<Category> findAll();
 
     Category save(Category category);
 

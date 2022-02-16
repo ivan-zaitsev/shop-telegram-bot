@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.services;
 
-import ua.ivan909020.bot.domain.models.InlineQuerySend;
-import ua.ivan909020.bot.domain.models.MessageEdit;
-import ua.ivan909020.bot.domain.models.MessageSend;
+import ua.ivan909020.bot.models.domain.InlineQuerySend;
+import ua.ivan909020.bot.models.domain.MessageEdit;
+import ua.ivan909020.bot.models.domain.MessageSend;
 
 public interface TelegramService {
 

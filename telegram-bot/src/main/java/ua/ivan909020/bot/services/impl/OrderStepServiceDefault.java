@@ -1,13 +1,11 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.domain.entities.Order;
+import ua.ivan909020.bot.commands.CommandSequence;
+import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.exceptions.ValidationException;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
-import ua.ivan909020.bot.repositories.impl.OrderStepRepositoryDefault;
+import ua.ivan909020.bot.repositories.memory.OrderStepRepositoryDefault;
 import ua.ivan909020.bot.services.OrderStepService;
-
-import java.util.Map;
 
 public class OrderStepServiceDefault implements OrderStepService {
 
@@ -23,31 +21,34 @@ public class OrderStepServiceDefault implements OrderStepService {
     }
 
     @Override
-    public void revokeOrderStep(Long chatId) {
-        repository.setOrderStepNumber(chatId, 0);
+    public void updateOrderStepByChatId(Long chatId, CommandSequence<Long> orderStep) {
+        repository.updateOrderStepByChatId(chatId, orderStep);
     }
 
     @Override
-    public void previousOrderStep(Long chatId) {
-        int orderStep = repository.findOrderStepNumberByChatId(chatId);
-        Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
+    public void executePreviousOrderStep(Long chatId) {
+        CommandSequence<Long> orderStep = repository.findOrderStepByClientChatId(chatId);
 
-        if (orderStep > 1) {
-            orderStep--;
-            repository.setOrderStepNumber(chatId, orderStep);
-            orderSteps.get(orderStep).execute(chatId);
+        if (orderStep != null) {
+            orderStep.executePrevious(chatId);
         }
     }
 
     @Override
-    public void nextOrderStep(Long chatId) {
-        int orderStep = repository.findOrderStepNumberByChatId(chatId);
-        Map<Integer, Command<Long>> orderSteps = repository.getOrderSteps();
+    public void executeCurrentOrderStep(Long chatId) {
+        CommandSequence<Long> orderStep = repository.findOrderStepByClientChatId(chatId);
 
-        if (orderStep < orderSteps.size()) {
-            orderStep++;
-            repository.setOrderStepNumber(chatId, orderStep);
-            orderSteps.get(orderStep).execute(chatId);
+        if (orderStep != null) {
+            orderStep.execute(chatId);
+        }
+    }
+
+    @Override
+    public void executeNextOrderStep(Long chatId) {
+        CommandSequence<Long> orderStep = repository.findOrderStepByClientChatId(chatId);
+
+        if (orderStep != null) {
+            orderStep.executeNext(chatId);
         }
     }
 
@@ -58,18 +59,6 @@ public class OrderStepServiceDefault implements OrderStepService {
         }
 
         return repository.findCachedOrderByChatId(chatId);
-    }
-
-    @Override
-    public void saveCachedOrder(Long chatId, Order order) {
-        if (order == null) {
-            throw new IllegalArgumentException("Order should not be NULL");
-        }
-        if (order.getClient() == null) {
-            throw new ValidationException("Client should not be NULL");
-        }
-
-        repository.saveCachedOrder(chatId, order);
     }
 
     @Override

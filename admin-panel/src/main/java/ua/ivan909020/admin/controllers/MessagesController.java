@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.ivan909020.admin.domain.Message;
+import ua.ivan909020.admin.models.entities.Message;
 import ua.ivan909020.admin.services.MessageService;
 import ua.ivan909020.admin.utils.ControllerUtils;
 
@@ -28,13 +28,13 @@ public class MessagesController {
     @GetMapping
     public String showAllMessages(Model model) {
         model.addAttribute("messages", messageService.findAll());
-        return "messages/all";
+        return "main/messages/all";
     }
 
     @GetMapping("/edit/{message}")
     public String showEditMessage(Model model, @PathVariable Message message) {
         model.addAttribute("message", message);
-        return "messages/edit";
+        return "main/messages/edit";
     }
 
     @PostMapping("/update")
@@ -42,7 +42,7 @@ public class MessagesController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("message", message);
             model.mergeAttributes(ControllerUtils.findErrors(bindingResult));
-            return "messages/edit";
+            return "main/messages/edit";
         }
 
         messageService.update(message);

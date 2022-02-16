@@ -1,9 +1,15 @@
 package ua.ivan909020.admin.services;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
-import ua.ivan909020.admin.domain.User;
+import ua.ivan909020.admin.models.entities.User;
 
-public interface UserService extends CrudService<User>, UserDetailsService {
+import java.util.List;
+
+public interface UserService extends UserDetailsService {
+
+    User findById(Integer id);
+
+    List<User> findAll();
 
     User save(User user);
 
