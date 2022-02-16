@@ -2,9 +2,9 @@ package ua.ivan909020.bot.commands.impl.order;
 
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
-import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.domain.MessageSend;
-import ua.ivan909020.bot.repositories.hibernate.HibernateFactory;
+import ua.ivan909020.bot.models.entities.Order;
+import ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.ClientActionService;
 import ua.ivan909020.bot.services.ClientService;
@@ -46,7 +46,7 @@ public class OrderCreateCommand implements Command<Long> {
     public void execute(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
 
-        HibernateFactory.inTransactionVoid(session -> {
+        HibernateTransactionFactory.inTransactionVoid(session -> {
             orderService.save(order);
             clientService.update(order.getClient());
         });

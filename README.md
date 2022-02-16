@@ -8,18 +8,24 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 - Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin, credentials (admin:admin)
 - Telegram bot: https://t.me/shop_telegram_demo_bot (If the bot doesn't work, follow the admin panel link to start it)
 
-## Quick start guide
-1. Create postgres database and change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml` and `admin-panel/src/main/resources/application.properties`
-2. Import the database schema `resources/db_schema.sql` and database data `resources/db_data.sql`
-3. Create a telegram bot and enable inline mode in settings
-4. Set up the telegram bot username and token in properties `telegram-bot/src/main/resources/application.properties`
-5. Run the telegram bot and admin panel, web UI is accessible on `http://localhost:8080/admin`, credentials (admin:admin)
-
 ## Notes before deploy
 - Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
-- Do not use `/root` folder as main, instead you can use `/home` folder
 
-## How to deploy
+## How to deploy with docker
+```
+docker build -t shop-admin-panel shop-telegram-bot/admin-panel
+docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot
+
+docker-compose -f shop-telegram-bot/docker-compose.yml up -d postgresql
+
+docker exec -i shop-postgresql psql -U postgres -c "CREATE DATABASE shop_telegram_bot"
+docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_schema.sql
+docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_data.sql
+
+docker-compose -f shop-telegram-bot/docker-compose.yml up -d shop-admin-panel shop-telegram-bot
+```
+
+## How to deploy manually
 > 1. Install software
 
 - Update and upgrade `sudo apt-get update && sudo apt-get upgrade`
@@ -32,7 +38,24 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 - Package admin panel `mvn -f shop-telegram-bot/admin-panel/ package`
 - Package telegram bot `mvn -f shop-telegram-bot/telegram-bot/ package`
 
-> 2. Set up database
+> 2. Set environment variables
+
+Add database environment variables.
+
+- DATABASE_URL (jdbc:postgresql://localhost:5432/shop_telegram_bot)
+- DATABASE_USERNAME (postgres)
+- DATABASE_USERNAME (postgres)
+
+Or you can manually change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml`
+ and `admin-panel/src/main/resources/application.properties`
+
+> 3. Create telegram bot
+
+- Create a telegram bot [here](https://t.me/BotFather) and enable inline mode in settings
+- Add telegram bot username and token to properties `telegram-bot/src/main/resources/application.properties`
+- To receive notifications about new orders you need specify your chat id in properties
+
+> 4. Set up database
 
 Replace `your-directory` with directory where the cloned repository is located
 
@@ -45,7 +68,7 @@ Replace `your-directory` with directory where the cloned repository is located
 - Import database data `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/db_data.sql`
 - Exit from postgres user `exit`
 
-> 3. Set up admin panel
+> 5. Set up admin panel
 
 <details>
     <summary>Create systemd unit</summary>
@@ -119,7 +142,9 @@ location /admin {
 `systemctl restart nginx`
 </details>
 
-> 4. Set up telegram bot
+Web UI is accessible on `http://localhost:8080/admin`, default credentials - admin:admin
+
+> 6. Set up telegram bot
 
 <details>
     <summary>Create systemd unit</summary>
