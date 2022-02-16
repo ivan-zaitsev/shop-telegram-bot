@@ -11,7 +11,7 @@ services:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
 
-  shop-admin-panel:
+  admin-panel:
     image: shop-admin-panel
     container_name: shop-admin-panel
     ports:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - postgresql
 
-  shop-telegram-bot:
+  telegram-bot:
     image: shop-telegram-bot
     container_name: shop-telegram-bot
     environment:
