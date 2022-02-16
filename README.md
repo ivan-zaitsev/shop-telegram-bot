@@ -47,7 +47,7 @@ Add database environment variables.
 
 - DATABASE_URL (jdbc:postgresql://localhost:5432/shop_telegram_bot)
 - DATABASE_USERNAME (postgres)
-- DATABASE_USERNAME (postgres)
+- DATABASE_PASSWORD (postgres)
 
 Or you can manually change configuration in properties `telegram-bot/src/main/resources/hibernate.cfg.xml`
  and `admin-panel/src/main/resources/application.properties`
