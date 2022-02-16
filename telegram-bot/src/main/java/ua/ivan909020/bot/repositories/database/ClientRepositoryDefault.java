@@ -1,14 +1,10 @@
 package ua.ivan909020.bot.repositories.database;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.repositories.ClientRepository;
-import ua.ivan909020.bot.repositories.hibernate.HibernateFactory;
 
-import static ua.ivan909020.bot.repositories.hibernate.HibernateFactory.inTransaction;
-import static ua.ivan909020.bot.repositories.hibernate.HibernateFactory.inTransactionVoid;
+import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
+import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransactionVoid;
 
 public class ClientRepositoryDefault implements ClientRepository {
 

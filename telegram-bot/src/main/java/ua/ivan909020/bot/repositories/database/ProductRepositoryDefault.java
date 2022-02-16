@@ -5,7 +5,7 @@ import ua.ivan909020.bot.repositories.ProductRepository;
 
 import java.util.List;
 
-import static ua.ivan909020.bot.repositories.hibernate.HibernateFactory.inTransaction;
+import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
 
 public class ProductRepositoryDefault implements ProductRepository {
 
