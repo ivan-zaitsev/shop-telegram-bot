@@ -25,7 +25,7 @@ docker exec -i shop-postgresql psql -U postgres -c "CREATE DATABASE shop_telegra
 docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_schema.sql
 docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_data.sql
 
-docker-compose -f shop-telegram-bot/docker-compose.yml up -d shop-admin-panel shop-telegram-bot
+docker-compose -f shop-telegram-bot/docker-compose.yml up -d admin-panel telegram-bot
 ```
 
 ## How to deploy manually
