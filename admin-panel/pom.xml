@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
 
         <no.api.freemarker.version>2.0.0</no.api.freemarker.version>
-        <postgresql.version>42.3.2</postgresql.version>
+        <postgresql.version>42.3.3</postgresql.version>
         <telegrambots.version>5.5.0</telegrambots.version>
     </properties>
 
