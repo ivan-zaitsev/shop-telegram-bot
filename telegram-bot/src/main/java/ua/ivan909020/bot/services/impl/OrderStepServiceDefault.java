@@ -30,7 +30,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         CommandSequence<Long> orderStep = repository.findOrderStepByClientChatId(chatId);
 
         if (orderStep != null) {
-            orderStep.doPreviousCommand(chatId);
+            orderStep.executePrevious(chatId);
         }
     }
 
@@ -48,7 +48,7 @@ public class OrderStepServiceDefault implements OrderStepService {
         CommandSequence<Long> orderStep = repository.findOrderStepByClientChatId(chatId);
 
         if (orderStep != null) {
-            orderStep.doNextCommand(chatId);
+            orderStep.executeNext(chatId);
         }
     }
 

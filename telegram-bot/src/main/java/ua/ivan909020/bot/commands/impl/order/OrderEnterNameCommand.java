@@ -3,7 +3,6 @@ package ua.ivan909020.bot.commands.impl.order;
 import com.mchange.v2.lang.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.CommandSequence;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.models.domain.ClientAction;
@@ -87,16 +86,16 @@ public class OrderEnterNameCommand implements CommandSequence<Long> {
         order.getClient().setName(name);
         orderStepService.updateCachedOrder(chatId, order);
 
-        doNextCommand(chatId);
+        executeNext(chatId);
     }
 
     @Override
-    public void doPreviousCommand(Long chatId) {
+    public void executePrevious(Long chatId) {
         OrderProcessCommand.getInstance().execute(chatId);
     }
 
     @Override
-    public void doNextCommand(Long chatId) {
+    public void executeNext(Long chatId) {
         OrderEnterPhoneNumberCommand.getInstance().execute(chatId);
     }
 

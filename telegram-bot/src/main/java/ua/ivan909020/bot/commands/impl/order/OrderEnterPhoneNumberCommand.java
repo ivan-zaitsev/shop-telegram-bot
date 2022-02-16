@@ -3,18 +3,15 @@ package ua.ivan909020.bot.commands.impl.order;
 import com.mchange.v2.lang.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.CommandSequence;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.models.domain.ClientAction;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.services.ClientActionService;
-import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientActionServiceDefault;
-import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
 
@@ -97,16 +94,16 @@ public class OrderEnterPhoneNumberCommand implements CommandSequence<Long> {
         order.getClient().setPhoneNumber(phoneNumber);
         orderStepService.updateCachedOrder(chatId, order);
 
-        doNextCommand(chatId);
+        executeNext(chatId);
     }
 
     @Override
-    public void doPreviousCommand(Long chatId) {
+    public void executePrevious(Long chatId) {
         OrderEnterNameCommand.getInstance().execute(chatId);
     }
 
     @Override
-    public void doNextCommand(Long chatId) {
+    public void executeNext(Long chatId) {
         OrderEnterCityCommand.getInstance().execute(chatId);
     }
 

@@ -1,6 +1,5 @@
 package ua.ivan909020.bot.commands.impl.order;
 
-import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.CommandSequence;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.models.entities.Order;
@@ -46,7 +45,7 @@ public class OrderProcessCommand implements CommandSequence<Long> {
         Order order = buildOrder(client, cartService.findAllCartItemsByChatId(chatId));
         orderStepService.updateCachedOrder(chatId, order);
 
-        doNextCommand(chatId);
+        executeNext(chatId);
     }
 
     private Order buildOrder(Client client, List<CartItem> cartItems) {
@@ -62,12 +61,12 @@ public class OrderProcessCommand implements CommandSequence<Long> {
     }
 
     @Override
-    public void doPreviousCommand(Long chatId) {
+    public void executePrevious(Long chatId) {
         OrderCancelCommand.getInstance().execute(chatId);
     }
 
     @Override
-    public void doNextCommand(Long chatId) {
+    public void executeNext(Long chatId) {
         OrderEnterNameCommand.getInstance().execute(chatId);
     }
 
