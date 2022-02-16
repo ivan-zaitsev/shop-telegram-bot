@@ -13,6 +13,9 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 
 ## How to deploy with docker
 ```
+mvn -f shop-telegram-bot/admin-panel/ package
+mvn -f shop-telegram-bot/telegram-bot/ package
+
 docker build -t shop-admin-panel shop-telegram-bot/admin-panel
 docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot
 
