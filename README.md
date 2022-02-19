@@ -22,8 +22,8 @@ docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot/
 docker-compose -f shop-telegram-bot/docker-compose.yml up -d postgresql
 
 docker exec -i shop-postgresql psql -U postgres -c "CREATE DATABASE shop_telegram_bot"
-docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_schema.sql
-docker exec -i shop-postgresql psql -U postgres < shop-telegram-bot/resources/db_data.sql
+docker exec -i shop-postgresql psql -U postgres shop_telegram_bot < shop-telegram-bot/resources/db_schema.sql
+docker exec -i shop-postgresql psql -U postgres shop_telegram_bot < shop-telegram-bot/resources/db_data.sql
 
 docker-compose -f shop-telegram-bot/docker-compose.yml up -d admin-panel telegram-bot
 ```
