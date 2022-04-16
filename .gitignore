@@ -23,3 +23,8 @@ out/
 # IntelliJ Idea
 .idea/
 *.iml
+
+# Eclipse
+.settings/
+.classpath
+.project
