@@ -10,7 +10,7 @@ Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate,
 
 ## Notes before deploy
 - Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
-- Telegram bot does not support raw ip address, you should use domain instead
+- Telegram bot does not support raw ip address for sending images, you should use domain instead
 
 ## How to deploy with docker
 ```
