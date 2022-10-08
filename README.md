@@ -4,10 +4,6 @@ Shop in telegram with admin panel
 ## Technology stack
 Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
 
-## Demo
-- Admin panel: https://shop-telegram-demo-bot.herokuapp.com/admin, credentials (admin:admin)
-- Telegram bot: https://t.me/shop_telegram_demo_bot (If the bot doesn't work, follow the admin panel link to start it)
-
 ## Notes before deploy
 - Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
 - Telegram bot does not support raw ip address for sending images, you should use domain instead
