@@ -58,8 +58,8 @@ Replace `your-directory` with directory where the cloned repository is located
 - Change password `\password`
 - Create database `create database shop_telegram_bot;`
 - Exit from postgres database `\q`
-- Import database schema `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/db_schema.sql`
-- Import database data `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/db_data.sql`
+- Import database schema `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/1_db_schema.sql`
+- Import database data `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/2_db_data.sql`
 - Exit from postgres user `exit`
 
 > 5. Set up admin panel
