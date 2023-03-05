@@ -1,17 +1,18 @@
 package ua.ivan909020.admin.services.impl;
 
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ua.ivan909020.admin.models.entities.Client;
 import ua.ivan909020.admin.services.BroadcastService;
 import ua.ivan909020.admin.services.ClientService;
 import ua.ivan909020.admin.services.TelegramService;
-
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @Service
 public class BroadcastServiceDefault implements BroadcastService {

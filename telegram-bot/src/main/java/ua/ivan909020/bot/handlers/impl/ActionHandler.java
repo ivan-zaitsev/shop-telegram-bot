@@ -2,6 +2,7 @@ package ua.ivan909020.bot.handlers.impl;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 import ua.ivan909020.bot.commands.impl.order.OrderEnterAddressCommand;
 import ua.ivan909020.bot.commands.impl.order.OrderEnterCityCommand;
 import ua.ivan909020.bot.commands.impl.order.OrderEnterNameCommand;
@@ -9,9 +10,7 @@ import ua.ivan909020.bot.commands.impl.order.OrderEnterPhoneNumberCommand;
 import ua.ivan909020.bot.handlers.Handler;
 import ua.ivan909020.bot.models.domain.ClientAction;
 import ua.ivan909020.bot.services.ClientActionService;
-import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.impl.ClientActionServiceDefault;
-import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 
 class ActionHandler implements Handler {
 

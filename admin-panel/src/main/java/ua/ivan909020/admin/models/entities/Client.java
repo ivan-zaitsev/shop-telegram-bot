@@ -1,15 +1,16 @@
 package ua.ivan909020.admin.models.entities;
 
+import java.util.Objects;
+
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import java.util.Objects;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
@@ -103,15 +104,19 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Client client = (Client) o;
-        return active == client.active &&
-                Objects.equals(id, client.id) &&
-                Objects.equals(chatId, client.chatId) &&
-                Objects.equals(name, client.name) &&
-                Objects.equals(phoneNumber, client.phoneNumber) &&
-                Objects.equals(city, client.city) &&
+        return active == client.active && 
+                Objects.equals(id, client.id) && 
+                Objects.equals(chatId, client.chatId) && 
+                Objects.equals(name, client.name) && 
+                Objects.equals(phoneNumber, client.phoneNumber) && 
+                Objects.equals(city, client.city) && 
                 Objects.equals(address, client.address);
     }
 
@@ -122,15 +127,13 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", chatId=" + chatId +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", active=" + active +
-                '}';
+        return "Client [id=" + id + 
+                ", chatId=" + chatId + 
+                ", name=" + name + 
+                ", phoneNumber=" + phoneNumber + 
+                ", city=" + city + 
+                ", address=" + address + 
+                ", active=" + active + "]";
     }
 
 }

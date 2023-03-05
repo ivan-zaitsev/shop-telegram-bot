@@ -1,10 +1,10 @@
 package ua.ivan909020.bot.repositories.database;
 
-import ua.ivan909020.bot.models.entities.Client;
-import ua.ivan909020.bot.repositories.ClientRepository;
-
 import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
 import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransactionVoid;
+
+import ua.ivan909020.bot.models.entities.Client;
+import ua.ivan909020.bot.repositories.ClientRepository;
 
 public class ClientRepositoryDefault implements ClientRepository {
 
@@ -22,12 +22,12 @@ public class ClientRepositoryDefault implements ClientRepository {
 
     @Override
     public void save(Client client) {
-        inTransactionVoid(session -> session.save(client));
+        inTransactionVoid(session -> session.persist(client));
     }
 
     @Override
     public void update(Client client) {
-        inTransactionVoid(session -> session.update(client));
+        inTransactionVoid(session -> session.merge(client));
     }
 
 }

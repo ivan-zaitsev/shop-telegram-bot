@@ -3,7 +3,6 @@ package ua.ivan909020.admin.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 import ua.ivan909020.admin.models.entities.User;
 import ua.ivan909020.admin.models.entities.UserRole;
 import ua.ivan909020.admin.services.UserService;
 import ua.ivan909020.admin.utils.ControllerUtils;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -25,12 +24,10 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping
@@ -64,8 +61,6 @@ public class UserController {
             return "main/users/add";
         }
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(true);
         userService.save(user);
         return "redirect:/users";
     }
@@ -87,14 +82,7 @@ public class UserController {
             return "main/users/edit";
         }
 
-        User receivedUser = userService.findById(user.getId());
-        receivedUser.setName(user.getName());
-        receivedUser.setUsername(user.getUsername());
-        if (!user.getPassword().isEmpty()) {
-            receivedUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        receivedUser.setRole(user.getRole());
-        userService.update(receivedUser);
+        userService.update(user);
         return "redirect:/users/edit/" + user.getId();
     }
 

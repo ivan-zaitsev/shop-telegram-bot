@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.models.domain;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-
 import java.util.Objects;
+
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 public class MessageSend {
 
@@ -36,11 +36,15 @@ public class MessageSend {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MessageSend that = (MessageSend) o;
-        return Objects.equals(chatId, that.chatId) &&
-                Objects.equals(text, that.text) &&
+        return Objects.equals(chatId, that.chatId) && 
+                Objects.equals(text, that.text) && 
                 Objects.equals(keyboard, that.keyboard);
     }
 
@@ -51,11 +55,7 @@ public class MessageSend {
 
     @Override
     public String toString() {
-        return "MessageSend{" +
-                "chatId=" + chatId +
-                ", text='" + text + '\'' +
-                ", keyboard=" + keyboard +
-                '}';
+        return "MessageSend [chatId=" + chatId + ", text=" + text + ", keyboard=" + keyboard + "]";
     }
 
 }

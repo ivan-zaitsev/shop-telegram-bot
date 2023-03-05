@@ -26,11 +26,14 @@ public class MessagePlaceholder {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MessagePlaceholder that = (MessagePlaceholder) o;
-        return Objects.equals(placeholder, that.placeholder) &&
-                Objects.equals(replacement, that.replacement);
+        return Objects.equals(placeholder, that.placeholder) && Objects.equals(replacement, that.replacement);
     }
 
     @Override
@@ -40,10 +43,7 @@ public class MessagePlaceholder {
 
     @Override
     public String toString() {
-        return "MessagePlaceholder{" +
-                "placeholder='" + placeholder + '\'' +
-                ", replacement='" + replacement + '\'' +
-                '}';
+        return "MessagePlaceholder [placeholder=" + placeholder + ", replacement=" + replacement + "]";
     }
 
 }

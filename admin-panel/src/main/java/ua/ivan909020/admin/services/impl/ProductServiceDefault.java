@@ -1,22 +1,28 @@
 package ua.ivan909020.admin.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import ua.ivan909020.admin.exceptions.ValidationException;
 import ua.ivan909020.admin.models.entities.Product;
 import ua.ivan909020.admin.repositories.ProductRepository;
+import ua.ivan909020.admin.services.PhotoStorageService;
 import ua.ivan909020.admin.services.ProductService;
-
-import java.util.List;
 
 @Service
 public class ProductServiceDefault implements ProductService {
 
     private final ProductRepository repository;
+    
+    private final PhotoStorageService photoStorageService;
 
     @Autowired
-    public ProductServiceDefault(ProductRepository repository) {
+    public ProductServiceDefault(ProductRepository repository, PhotoStorageService photoStorageService) {
         this.repository = repository;
+        this.photoStorageService = photoStorageService;
     }
 
     @Override
@@ -33,7 +39,7 @@ public class ProductServiceDefault implements ProductService {
     }
 
     @Override
-    public Product save(Product product) {
+    public Product save(Product product, MultipartFile photo) {
         if (product == null) {
             throw new IllegalArgumentException("Product should not be NULL");
         }
@@ -41,11 +47,12 @@ public class ProductServiceDefault implements ProductService {
             throw new ValidationException("Id of Product should be NULL");
         }
 
+        product.setPhotoUrl(photoStorageService.store(photo));
         return repository.save(product);
     }
 
     @Override
-    public Product update(Product product) {
+    public Product update(Product product, MultipartFile photo) {
         if (product == null) {
             throw new IllegalArgumentException("Product should not be NULL");
         }
@@ -53,6 +60,9 @@ public class ProductServiceDefault implements ProductService {
             throw new ValidationException("Id of Product should not be NULL");
         }
 
+        if (!photo.isEmpty()) {
+            product.setPhotoUrl(photoStorageService.store(photo));
+        }
         return repository.save(product);
     }
 

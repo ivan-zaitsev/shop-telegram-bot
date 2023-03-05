@@ -1,14 +1,14 @@
 package ua.ivan909020.bot.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.entities.OrderItem;
-import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.repositories.OrderRepository;
 import ua.ivan909020.bot.repositories.database.OrderRepositoryDefault;
 import ua.ivan909020.bot.services.OrderService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrderServiceDefault implements OrderService {
 

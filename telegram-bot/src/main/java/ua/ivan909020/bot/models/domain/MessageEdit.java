@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.models.domain;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-
 import java.util.Objects;
+
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 public class MessageEdit {
 
@@ -58,13 +58,17 @@ public class MessageEdit {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         MessageEdit that = (MessageEdit) o;
-        return Objects.equals(chatId, that.chatId) &&
-                Objects.equals(messageId, that.messageId) &&
-                Objects.equals(inlineMessageId, that.inlineMessageId) &&
-                Objects.equals(text, that.text) &&
+        return Objects.equals(chatId, that.chatId) && 
+                Objects.equals(messageId, that.messageId) && 
+                Objects.equals(inlineMessageId, that.inlineMessageId) && 
+                Objects.equals(text, that.text) && 
                 Objects.equals(keyboard, that.keyboard);
     }
 
@@ -75,13 +79,11 @@ public class MessageEdit {
 
     @Override
     public String toString() {
-        return "MessageEdit{" +
-                "chatId=" + chatId +
-                ", messageId=" + messageId +
-                ", inlineMessageId=" + inlineMessageId +
-                ", text='" + text + '\'' +
-                ", keyboard=" + keyboard +
-                '}';
+        return "MessageEdit [chatId=" + chatId + 
+                ", messageId=" + messageId + 
+                ", inlineMessageId=" + inlineMessageId + 
+                ", text=" + text + 
+                ", keyboard=" + keyboard + "]";
     }
 
 }

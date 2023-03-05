@@ -1,9 +1,9 @@
 package ua.ivan909020.bot.repositories.database;
 
+import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
+
 import ua.ivan909020.bot.models.entities.Message;
 import ua.ivan909020.bot.repositories.MessageRepository;
-
-import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
 
 public class MessageRepositoryDefault implements MessageRepository {
 

@@ -1,12 +1,12 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.models.domain.CartItem;
+import java.util.List;
+
 import ua.ivan909020.bot.exceptions.ValidationException;
+import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.repositories.CartRepository;
 import ua.ivan909020.bot.repositories.memory.CartRepositoryDefault;
 import ua.ivan909020.bot.services.CartService;
-
-import java.util.List;
 
 public class CartServiceDefault implements CartService {
 

@@ -1,11 +1,14 @@
 package ua.ivan909020.bot.commands.impl.order;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import ua.ivan909020.bot.commands.CommandSequence;
+import ua.ivan909020.bot.exceptions.EntityNotFoundException;
+import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.entities.OrderStatus;
-import ua.ivan909020.bot.models.domain.CartItem;
-import ua.ivan909020.bot.exceptions.EntityNotFoundException;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderService;
@@ -14,9 +17,6 @@ import ua.ivan909020.bot.services.impl.CartServiceDefault;
 import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class OrderProcessCommand implements CommandSequence<Long> {
 

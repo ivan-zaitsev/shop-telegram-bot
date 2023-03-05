@@ -1,11 +1,13 @@
 package ua.ivan909020.bot.models.domain;
 
-import ua.ivan909020.bot.models.entities.Product;
-
 import java.io.Serializable;
 import java.util.Objects;
 
+import ua.ivan909020.bot.models.entities.Product;
+
 public class CartItem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
     private Product product;
@@ -49,11 +51,15 @@ public class CartItem implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CartItem cartItem = (CartItem) o;
-        return Objects.equals(id, cartItem.id) &&
-                Objects.equals(product, cartItem.product) &&
+        return Objects.equals(id, cartItem.id) && 
+                Objects.equals(product, cartItem.product) && 
                 Objects.equals(quantity, cartItem.quantity);
     }
 
@@ -64,11 +70,7 @@ public class CartItem implements Serializable {
 
     @Override
     public String toString() {
-        return "CartItem{" +
-                "id=" + id +
-                ", product=" + product +
-                ", quantity=" + quantity +
-                '}';
+        return "CartItem [id=" + id + ", product=" + product + ", quantity=" + quantity + "]";
     }
 
 }

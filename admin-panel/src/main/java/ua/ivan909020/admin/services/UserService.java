@@ -1,9 +1,10 @@
 package ua.ivan909020.admin.services;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
-import ua.ivan909020.admin.models.entities.User;
-
 import java.util.List;
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import ua.ivan909020.admin.models.entities.User;
 
 public interface UserService extends UserDetailsService {
 

@@ -1,22 +1,25 @@
 package ua.ivan909020.bot.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders_items")
 public class OrderItem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "orders_items_seq")
@@ -97,14 +100,18 @@ public class OrderItem implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(id, orderItem.id) &&
-                Objects.equals(order, orderItem.order) &&
-                Objects.equals(product, orderItem.product) &&
-                Objects.equals(quantity, orderItem.quantity) &&
-                Objects.equals(productName, orderItem.productName) &&
+        return Objects.equals(id, orderItem.id) && 
+                Objects.equals(order, orderItem.order) && 
+                Objects.equals(product, orderItem.product) && 
+                Objects.equals(quantity, orderItem.quantity) && 
+                Objects.equals(productName, orderItem.productName) && 
                 Objects.equals(productPrice, orderItem.productPrice);
     }
 
@@ -115,14 +122,12 @@ public class OrderItem implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderItem{" +
-                "id=" + id +
-                ", order=" + order +
-                ", product=" + product +
-                ", quantity=" + quantity +
-                ", productName='" + productName + '\'' +
-                ", productPrice=" + productPrice +
-                '}';
+        return "OrderItem [id=" + id + 
+                ", order=" + order + 
+                ", product=" + product + 
+                ", quantity=" + quantity + 
+                ", productName=" + productName + 
+                ", productPrice=" + productPrice + "]";
     }
 
 }

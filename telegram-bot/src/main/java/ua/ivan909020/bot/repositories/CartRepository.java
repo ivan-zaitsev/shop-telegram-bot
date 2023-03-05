@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.repositories;
 
-import ua.ivan909020.bot.models.domain.CartItem;
-
 import java.util.List;
+
+import ua.ivan909020.bot.models.domain.CartItem;
 
 public interface CartRepository {
 

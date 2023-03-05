@@ -1,10 +1,11 @@
 package ua.ivan909020.admin.configs;
 
-import no.api.freemarker.java8.Java8ObjectWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import no.api.freemarker.java8.Java8ObjectWrapper;
 
 @Configuration
 public class FreemarkerConfig implements BeanPostProcessor {

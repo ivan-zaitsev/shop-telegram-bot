@@ -1,7 +1,7 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.exceptions.ValidationException;
+import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.repositories.ClientRepository;
 import ua.ivan909020.bot.repositories.database.ClientRepositoryDefault;
 import ua.ivan909020.bot.services.ClientService;

@@ -1,14 +1,14 @@
 package ua.ivan909020.bot.services.impl;
 
+import java.util.List;
+
 import ua.ivan909020.bot.core.ConfigReader;
+import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.entities.OrderItem;
-import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.services.NotificationService;
 import ua.ivan909020.bot.services.TelegramService;
-
-import java.util.List;
 
 public class NotificationServiceDefault implements NotificationService {
 

@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.repositories;
 
-import ua.ivan909020.bot.models.entities.Product;
-
 import java.util.List;
+
+import ua.ivan909020.bot.models.entities.Product;
 
 public interface ProductRepository {
 

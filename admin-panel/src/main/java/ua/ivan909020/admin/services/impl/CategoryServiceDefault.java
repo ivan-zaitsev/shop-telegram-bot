@@ -1,12 +1,13 @@
 package ua.ivan909020.admin.services.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import ua.ivan909020.admin.exceptions.ValidationException;
 import ua.ivan909020.admin.models.entities.Category;
 import ua.ivan909020.admin.repositories.CategoryRepository;
 import ua.ivan909020.admin.services.CategoryService;
-
-import java.util.List;
 
 @Service
 public class CategoryServiceDefault implements CategoryService {

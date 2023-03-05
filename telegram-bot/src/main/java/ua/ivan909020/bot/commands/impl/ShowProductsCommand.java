@@ -1,18 +1,26 @@
 package ua.ivan909020.bot.commands.impl;
 
-import com.mchange.lang.IntegerUtils;
+import static java.util.Arrays.asList;
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
+import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.math.NumberUtils;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.inputmessagecontent.InputTextMessageContent;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResultArticle;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
-import ua.ivan909020.bot.models.entities.Message;
-import ua.ivan909020.bot.models.entities.Product;
 import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.models.domain.InlineQuerySend;
 import ua.ivan909020.bot.models.domain.MessageEdit;
+import ua.ivan909020.bot.models.entities.Message;
+import ua.ivan909020.bot.models.entities.Product;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.ProductService;
@@ -21,13 +29,6 @@ import ua.ivan909020.bot.services.impl.CartServiceDefault;
 import ua.ivan909020.bot.services.impl.MessageServiceCached;
 import ua.ivan909020.bot.services.impl.ProductServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Arrays.asList;
-import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
-import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
 
 public class ShowProductsCommand implements Command<InlineQuery> {
 
@@ -55,7 +56,7 @@ public class ShowProductsCommand implements Command<InlineQuery> {
         String inlineQueryId = inlineQuery.getId();
         String categoryName = inlineQuery.getQuery();
 
-        int offset = IntegerUtils.parseInt(inlineQuery.getOffset(), 0);
+        int offset = NumberUtils.toInt(inlineQuery.getOffset(), 0);
         List<Product> products = productService.findAllByCategoryName(categoryName, offset, PRODUCTS_QUANTITY_PER_PAGE);
         if (!products.isEmpty()) {
             int nextOffset = offset + PRODUCTS_QUANTITY_PER_PAGE;

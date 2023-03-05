@@ -1,17 +1,18 @@
 package ua.ivan909020.bot.commands.impl;
 
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
+
+import java.util.Arrays;
+
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
 import ua.ivan909020.bot.commands.Command;
-import ua.ivan909020.bot.models.entities.Category;
 import ua.ivan909020.bot.models.domain.MessageSend;
+import ua.ivan909020.bot.models.entities.Category;
 import ua.ivan909020.bot.services.CategoryService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.CategoryServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
-
-import java.util.Arrays;
-
-import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
 
 public class CatalogCommand implements Command<Long> {
 

@@ -1,13 +1,20 @@
 package ua.ivan909020.bot.commands.impl;
 
+import static java.util.Arrays.asList;
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
+import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
+
+import java.util.List;
+
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.impl.order.OrderProcessCommand;
-import ua.ivan909020.bot.models.entities.Message;
-import ua.ivan909020.bot.models.entities.Product;
 import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.models.domain.MessageEdit;
 import ua.ivan909020.bot.models.domain.MessageSend;
+import ua.ivan909020.bot.models.entities.Message;
+import ua.ivan909020.bot.models.entities.Product;
 import ua.ivan909020.bot.services.CartService;
 import ua.ivan909020.bot.services.MessageService;
 import ua.ivan909020.bot.services.OrderStepService;
@@ -16,12 +23,6 @@ import ua.ivan909020.bot.services.impl.CartServiceDefault;
 import ua.ivan909020.bot.services.impl.MessageServiceCached;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
-
-import java.util.List;
-
-import static java.util.Arrays.asList;
-import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton.builder;
-import static ua.ivan909020.bot.models.domain.MessagePlaceholder.of;
 
 public class CartCommand implements Command<Long> {
 

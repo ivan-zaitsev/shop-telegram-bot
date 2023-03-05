@@ -2,6 +2,7 @@ package ua.ivan909020.bot.handlers.impl;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery;
+
 import ua.ivan909020.bot.commands.impl.ShowProductsCommand;
 import ua.ivan909020.bot.handlers.Handler;
 

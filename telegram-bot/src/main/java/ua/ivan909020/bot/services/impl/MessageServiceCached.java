@@ -1,16 +1,17 @@
 package ua.ivan909020.bot.services.impl;
 
-import ua.ivan909020.bot.models.entities.Message;
-import ua.ivan909020.bot.repositories.MessageRepository;
-import ua.ivan909020.bot.repositories.database.MessageRepositoryDefault;
-import ua.ivan909020.bot.services.MessageService;
-import ua.ivan909020.bot.utils.CloneUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import ua.ivan909020.bot.models.entities.Message;
+import ua.ivan909020.bot.repositories.MessageRepository;
+import ua.ivan909020.bot.repositories.database.MessageRepositoryDefault;
+import ua.ivan909020.bot.services.MessageService;
 
 public class MessageServiceCached implements MessageService {
 
@@ -45,7 +46,7 @@ public class MessageServiceCached implements MessageService {
             cachedMessages.put(messageName, message);
         }
 
-        return CloneUtils.cloneObject(message);
+        return SerializationUtils.clone(message);
     }
 
 }

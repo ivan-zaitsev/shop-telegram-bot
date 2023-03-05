@@ -1,11 +1,11 @@
 package ua.ivan909020.bot.repositories.database;
 
-import ua.ivan909020.bot.models.entities.Product;
-import ua.ivan909020.bot.repositories.ProductRepository;
+import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
 
 import java.util.List;
 
-import static ua.ivan909020.bot.repositories.hibernate.HibernateTransactionFactory.inTransaction;
+import ua.ivan909020.bot.models.entities.Product;
+import ua.ivan909020.bot.repositories.ProductRepository;
 
 public class ProductRepositoryDefault implements ProductRepository {
 

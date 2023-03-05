@@ -2,6 +2,8 @@ package ua.ivan909020.bot.exceptions;
 
 public class EntityNotFoundException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public EntityNotFoundException() {
     }
 
