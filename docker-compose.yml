@@ -36,5 +36,6 @@ services:
       - 'DATABASE_PASSWORD=postgres'
     depends_on:
       - postgresql
+
 volumes:
   postgresql-data:
