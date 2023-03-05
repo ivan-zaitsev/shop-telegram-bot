@@ -16,13 +16,7 @@ mvn -f shop-telegram-bot/telegram-bot/ package
 docker build -t shop-admin-panel shop-telegram-bot/admin-panel/
 docker build -t shop-telegram-bot shop-telegram-bot/telegram-bot/
 
-docker-compose -f shop-telegram-bot/docker-compose.yml up -d postgresql
-
-docker exec -i shop-postgresql psql -U postgres -c "CREATE DATABASE shop_telegram_bot"
-docker exec -i shop-postgresql psql -U postgres shop_telegram_bot < shop-telegram-bot/resources/db_schema.sql
-docker exec -i shop-postgresql psql -U postgres shop_telegram_bot < shop-telegram-bot/resources/db_data.sql
-
-docker-compose -f shop-telegram-bot/docker-compose.yml up -d admin-panel telegram-bot
+docker-compose -f shop-telegram-bot/docker-compose.yml up -d
 ```
 
 ## How to deploy manually
@@ -64,8 +58,8 @@ Replace `your-directory` with directory where the cloned repository is located
 - Change password `\password`
 - Create database `create database shop_telegram_bot;`
 - Exit from postgres database `\q`
-- Import database schema `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/db_schema.sql`
-- Import database data `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/db_data.sql`
+- Import database schema `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/1_db_schema.sql`
+- Import database data `psql -d shop_telegram_bot < /your-directory/shop-telegram-bot/resources/2_db_data.sql`
 - Exit from postgres user `exit`
 
 > 5. Set up admin panel

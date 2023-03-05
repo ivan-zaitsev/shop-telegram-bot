@@ -10,6 +10,10 @@ services:
       - 'POSTGRES_ROOT_PASSWORD=postgres'
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_DB=shop_telegram_bot'
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data
+      - ./resources/:/docker-entrypoint-initdb.d/
 
   admin-panel:
     image: shop-admin-panel
@@ -32,3 +36,6 @@ services:
       - 'DATABASE_PASSWORD=postgres'
     depends_on:
       - postgresql
+
+volumes:
+  postgresql-data:
