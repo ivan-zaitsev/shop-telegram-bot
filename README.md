@@ -2,7 +2,7 @@
 Shop in telegram with admin panel
 
 ## Technology stack
-Java 8, Maven, Spring Boot, Spring MVC, Spring Data, Spring Security, Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
+Java 17, Maven, Spring 3 (Boot, MVC, Data, Security), Hibernate, Postgresql, Freemarker, HTML, Telegram Bots
 
 ## Notes before deploy
 - Telegram bot sends images as a link, if they are uploaded from the localhost, the bot will not be able to send them
@@ -25,7 +25,7 @@ docker-compose -f shop-telegram-bot/docker-compose.yml up -d
 - Update and upgrade `sudo apt-get update && sudo apt-get upgrade`
 - Install git `apt-get install git`
 - Install maven `apt-get install maven`
-- Install jdk 8 `apt-get install openjdk-8-jdk`
+- Install jdk 17 `apt-get install openjdk-17-jdk`
 - Install postgres `apt-get install postgresql postgresql-contrib`
 - Install nginx `apt-get install nginx`
 - Clone repository `git clone https://github.com/ivan909020/shop-telegram-bot.git`
