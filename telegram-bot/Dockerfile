@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM openjdk:17
 
 COPY target/shop-telegram-bot-jar-with-dependencies.jar shop-telegram-bot.jar
 

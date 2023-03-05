@@ -1,8 +1,8 @@
 package ua.ivan909020.admin.services;
 
-import ua.ivan909020.admin.models.entities.Client;
-
 import java.util.List;
+
+import ua.ivan909020.admin.models.entities.Client;
 
 public interface ClientService {
 

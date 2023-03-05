@@ -1,10 +1,10 @@
 package ua.ivan909020.bot.services;
 
+import java.util.List;
+
+import ua.ivan909020.bot.models.domain.CartItem;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.entities.OrderItem;
-import ua.ivan909020.bot.models.domain.CartItem;
-
-import java.util.List;
 
 public interface OrderService {
 

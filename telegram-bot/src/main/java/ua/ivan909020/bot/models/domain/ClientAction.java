@@ -6,6 +6,8 @@ import java.util.Objects;
 
 public class ClientAction implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private final String action;
     private final LocalDateTime createdTime = LocalDateTime.now();
 
@@ -23,11 +25,14 @@ public class ClientAction implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ClientAction that = (ClientAction) o;
-        return Objects.equals(action, that.action) &&
-                Objects.equals(createdTime, that.createdTime);
+        return Objects.equals(action, that.action) && Objects.equals(createdTime, that.createdTime);
     }
 
     @Override
@@ -37,10 +42,7 @@ public class ClientAction implements Serializable {
 
     @Override
     public String toString() {
-        return "ClientAction{" +
-                "action='" + action + '\'' +
-                ", createdTime=" + createdTime +
-                '}';
+        return "ClientAction [action=" + action + ", createdTime=" + createdTime + "]";
     }
 
 }

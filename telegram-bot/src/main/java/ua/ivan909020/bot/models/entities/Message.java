@@ -1,20 +1,22 @@
 package ua.ivan909020.bot.models.entities;
 
-import ua.ivan909020.bot.models.domain.MessagePlaceholder;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import ua.ivan909020.bot.models.domain.MessagePlaceholder;
 
 @Entity
 @Table(name = "messages")
 public class Message implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "messages_seq")
@@ -84,12 +86,16 @@ public class Message implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Message message = (Message) o;
-        return Objects.equals(id, message.id) &&
-                Objects.equals(name, message.name) &&
-                Objects.equals(description, message.description) &&
+        return Objects.equals(id, message.id) && 
+                Objects.equals(name, message.name) && 
+                Objects.equals(description, message.description) && 
                 Objects.equals(text, message.text);
     }
 
@@ -100,12 +106,10 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", text='" + text + '\'' +
-                '}';
+        return "Message [id=" + id + 
+                ", name=" + name + 
+                ", description=" + description + 
+                ", text=" + text + "]";
     }
 
 }

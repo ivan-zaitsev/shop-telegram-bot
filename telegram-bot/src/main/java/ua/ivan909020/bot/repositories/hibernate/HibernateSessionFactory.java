@@ -3,6 +3,7 @@ package ua.ivan909020.bot.repositories.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+
 import ua.ivan909020.bot.models.entities.Category;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.models.entities.Message;

@@ -1,13 +1,14 @@
 package ua.ivan909020.bot.repositories.memory;
 
-import ua.ivan909020.bot.models.domain.ClientAction;
-import ua.ivan909020.bot.repositories.ClientActionRepository;
-import ua.ivan909020.bot.utils.CloneUtils;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import ua.ivan909020.bot.models.domain.ClientAction;
+import ua.ivan909020.bot.repositories.ClientActionRepository;
 
 public class ClientActionRepositoryDefault implements ClientActionRepository {
 
@@ -23,12 +24,12 @@ public class ClientActionRepositoryDefault implements ClientActionRepository {
             clientAction = null;
         }
 
-        return CloneUtils.cloneObject(clientAction);
+        return SerializationUtils.clone(clientAction);
     }
 
     @Override
     public void updateActionByChatId(Long chatId, ClientAction clientAction) {
-        clientsAction.put(chatId, CloneUtils.cloneObject(clientAction));
+        clientsAction.put(chatId, SerializationUtils.clone(clientAction));
     }
 
     @Override

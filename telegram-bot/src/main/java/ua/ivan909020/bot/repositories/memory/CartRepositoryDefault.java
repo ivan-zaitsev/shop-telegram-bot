@@ -1,9 +1,5 @@
 package ua.ivan909020.bot.repositories.memory;
 
-import ua.ivan909020.bot.models.domain.CartItem;
-import ua.ivan909020.bot.repositories.CartRepository;
-import ua.ivan909020.bot.utils.CloneUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +7,11 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import org.apache.commons.lang3.SerializationUtils;
+
+import ua.ivan909020.bot.models.domain.CartItem;
+import ua.ivan909020.bot.repositories.CartRepository;
 
 public class CartRepositoryDefault implements CartRepository {
 
@@ -24,7 +25,7 @@ public class CartRepositoryDefault implements CartRepository {
         cartItems.computeIfAbsent(chatId, orderItems -> new ArrayList<>());
 
         cartItem.setId(lastCartItemId.incrementAndGet());
-        cartItems.get(chatId).add(CloneUtils.cloneObject(cartItem));
+        cartItems.get(chatId).add(SerializationUtils.clone(cartItem));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class CartRepositoryDefault implements CartRepository {
         IntStream.range(0, receivedCartItems.size())
                 .filter(i -> cartItem.getId().equals(receivedCartItems.get(i).getId()))
                 .findFirst()
-                .ifPresent(i -> receivedCartItems.set(i, CloneUtils.cloneObject(cartItem)));
+                .ifPresent(i -> receivedCartItems.set(i, SerializationUtils.clone(cartItem)));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class CartRepositoryDefault implements CartRepository {
         return cartItems.get(chatId).stream()
                 .filter(cartItem -> cartItem.getProduct().getId().equals(productId))
                 .findFirst()
-                .map(CloneUtils::cloneObject)
+                .map(SerializationUtils::clone)
                 .orElse(null);
     }
 
@@ -65,7 +66,7 @@ public class CartRepositoryDefault implements CartRepository {
         cartItems.computeIfAbsent(chatId, value -> new ArrayList<>());
 
         return cartItems.get(chatId).stream()
-                .map(CloneUtils::cloneObject)
+                .map(SerializationUtils::clone)
                 .collect(Collectors.toList());
     }
 

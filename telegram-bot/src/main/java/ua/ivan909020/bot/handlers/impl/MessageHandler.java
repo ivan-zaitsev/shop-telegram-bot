@@ -1,7 +1,11 @@
 package ua.ivan909020.bot.handlers.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+
 import ua.ivan909020.bot.commands.Command;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.commands.impl.CartCommand;
@@ -9,13 +13,8 @@ import ua.ivan909020.bot.commands.impl.CatalogCommand;
 import ua.ivan909020.bot.commands.impl.StartCommand;
 import ua.ivan909020.bot.commands.impl.order.OrderCancelCommand;
 import ua.ivan909020.bot.handlers.Handler;
-import ua.ivan909020.bot.services.ClientService;
 import ua.ivan909020.bot.services.OrderStepService;
-import ua.ivan909020.bot.services.impl.ClientServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
-
-import java.util.HashMap;
-import java.util.Map;
 
 class MessageHandler implements Handler {
 

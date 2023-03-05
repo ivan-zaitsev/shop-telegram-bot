@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 import ua.ivan909020.admin.models.entities.Category;
 import ua.ivan909020.admin.services.CategoryService;
 import ua.ivan909020.admin.utils.ControllerUtils;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/categories")

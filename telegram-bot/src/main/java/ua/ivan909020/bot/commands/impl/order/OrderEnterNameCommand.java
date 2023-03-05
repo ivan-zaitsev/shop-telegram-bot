@@ -1,25 +1,26 @@
 package ua.ivan909020.bot.commands.impl.order;
 
-import com.mchange.v2.lang.StringUtils;
+import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton.builder;
+
+import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+
 import ua.ivan909020.bot.commands.CommandSequence;
 import ua.ivan909020.bot.commands.Commands;
 import ua.ivan909020.bot.models.domain.ClientAction;
-import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.domain.MessageSend;
+import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.services.ClientActionService;
 import ua.ivan909020.bot.services.OrderStepService;
 import ua.ivan909020.bot.services.TelegramService;
 import ua.ivan909020.bot.services.impl.ClientActionServiceDefault;
 import ua.ivan909020.bot.services.impl.OrderStepServiceDefault;
 import ua.ivan909020.bot.services.impl.TelegramServiceDefault;
-
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton.builder;
 
 public class OrderEnterNameCommand implements CommandSequence<Long> {
 
@@ -51,7 +52,7 @@ public class OrderEnterNameCommand implements CommandSequence<Long> {
     private void sendCurrentName(Long chatId) {
         Order order = orderStepService.findCachedOrderByChatId(chatId);
 
-        if (StringUtils.nonWhitespaceString(order.getClient().getName())) {
+        if (!StringUtils.isBlank(order.getClient().getName())) {
             telegramService.sendMessage(new MessageSend(chatId,
                     "Current name: " + order.getClient().getName(), createKeyboard(true)));
         }

@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
 import ua.ivan909020.admin.models.entities.Message;
 import ua.ivan909020.admin.services.MessageService;
 import ua.ivan909020.admin.utils.ControllerUtils;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/messages")

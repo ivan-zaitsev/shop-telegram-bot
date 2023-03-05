@@ -12,6 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${admin.images-upload-path}")
     private String imagesUploadPath;
 
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }

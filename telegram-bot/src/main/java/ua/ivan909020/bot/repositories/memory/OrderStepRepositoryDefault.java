@@ -1,12 +1,13 @@
 package ua.ivan909020.bot.repositories.memory;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.SerializationUtils;
+
 import ua.ivan909020.bot.commands.CommandSequence;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
-import ua.ivan909020.bot.utils.CloneUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class OrderStepRepositoryDefault implements OrderStepRepository {
 
@@ -26,12 +27,12 @@ public class OrderStepRepositoryDefault implements OrderStepRepository {
 
     @Override
     public Order findCachedOrderByChatId(Long chatId) {
-        return CloneUtils.cloneObject(cachedOrders.get(chatId));
+        return SerializationUtils.clone(cachedOrders.get(chatId));
     }
 
     @Override
     public void updateCachedOrder(Long chatId, Order order) {
-        cachedOrders.put(chatId, CloneUtils.cloneObject(order));
+        cachedOrders.put(chatId, SerializationUtils.clone(order));
     }
 
     @Override

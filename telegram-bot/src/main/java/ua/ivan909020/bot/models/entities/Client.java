@@ -1,18 +1,21 @@
 package ua.ivan909020.bot.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
 public class Client implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_seq")
@@ -98,15 +101,19 @@ public class Client implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Client client = (Client) o;
-        return active == client.active &&
-                Objects.equals(id, client.id) &&
-                Objects.equals(chatId, client.chatId) &&
-                Objects.equals(name, client.name) &&
-                Objects.equals(phoneNumber, client.phoneNumber) &&
-                Objects.equals(city, client.city) &&
+        return active == client.active && 
+                Objects.equals(id, client.id) && 
+                Objects.equals(chatId, client.chatId) && 
+                Objects.equals(name, client.name) && 
+                Objects.equals(phoneNumber, client.phoneNumber) && 
+                Objects.equals(city, client.city) && 
                 Objects.equals(address, client.address);
     }
 
@@ -117,15 +124,13 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", chatId=" + chatId +
-                ", name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", city='" + city + '\'' +
-                ", address='" + address + '\'' +
-                ", active=" + active +
-                '}';
+        return "Client [id=" + id + 
+                ", chatId=" + chatId + 
+                ", name=" + name + 
+                ", phoneNumber=" + phoneNumber + 
+                ", city=" + city + 
+                ", address=" + address + 
+                ", active=" + active + "]";
     }
 
 }

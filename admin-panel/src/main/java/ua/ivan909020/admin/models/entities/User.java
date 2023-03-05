@@ -1,19 +1,5 @@
 package ua.ivan909020.admin.models.entities;
 
-import org.hibernate.validator.constraints.Length;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,9 +7,26 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
@@ -136,14 +139,18 @@ public class User implements UserDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return active == user.active &&
-                Objects.equals(id, user.id) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(username, user.username) &&
+        return Objects.equals(id, user.id) && 
+                Objects.equals(name, user.name) && 
+                Objects.equals(username, user.username) && 
                 Objects.equals(password, user.password) &&
+                active == user.active &&
                 role == user.role;
     }
 
@@ -154,14 +161,12 @@ public class User implements UserDetails {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", active=" + active +
-                ", role=" + role +
-                '}';
+        return "User [id=" + id + 
+                ", name=" + name + 
+                ", username=" + username + 
+                ", password=" + password + 
+                ", active=" + active + 
+                ", role=" + role + "]";
     }
 
 }

@@ -7,8 +7,8 @@
 
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.6.6</version>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.0.4</version>
         <relativePath/>
     </parent>
 
@@ -17,11 +17,12 @@
     <packaging>jar</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <no.api.freemarker.version>2.0.0</no.api.freemarker.version>
-        <postgresql.version>42.4.3</postgresql.version>
-        <telegrambots.version>5.7.1</telegrambots.version>
+        <freemarker.time.version>2.1.0</freemarker.time.version>
+        <telegrambots.version>6.5.0</telegrambots.version>
     </properties>
 
     <dependencies>
@@ -54,13 +55,12 @@
         <dependency>
             <groupId>no.api.freemarker</groupId>
             <artifactId>freemarker-java8</artifactId>
-            <version>${no.api.freemarker.version}</version>
+            <version>${freemarker.time.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
         </dependency>
 
         <dependency>
@@ -75,23 +75,8 @@
 
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -1,8 +1,8 @@
 package ua.ivan909020.bot.services.impl;
 
 import ua.ivan909020.bot.commands.CommandSequence;
-import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.exceptions.ValidationException;
+import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.repositories.OrderStepRepository;
 import ua.ivan909020.bot.repositories.memory.OrderStepRepositoryDefault;
 import ua.ivan909020.bot.services.OrderStepService;

@@ -1,13 +1,13 @@
 package ua.ivan909020.bot.handlers.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import ua.ivan909020.bot.handlers.Handler;
-
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.telegram.telegrambots.meta.api.objects.Update;
+
+import ua.ivan909020.bot.handlers.Handler;
 
 public class UpdateHandler implements Handler {
 

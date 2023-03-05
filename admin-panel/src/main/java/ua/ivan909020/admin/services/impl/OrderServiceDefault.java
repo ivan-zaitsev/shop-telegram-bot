@@ -1,13 +1,14 @@
 package ua.ivan909020.admin.services.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ua.ivan909020.admin.exceptions.ValidationException;
 import ua.ivan909020.admin.models.entities.Order;
 import ua.ivan909020.admin.repositories.OrderRepository;
 import ua.ivan909020.admin.services.OrderService;
-
-import java.util.List;
 
 @Service
 public class OrderServiceDefault implements OrderService {

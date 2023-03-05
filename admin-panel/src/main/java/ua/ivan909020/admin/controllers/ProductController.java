@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import jakarta.validation.Valid;
 import ua.ivan909020.admin.models.entities.Product;
 import ua.ivan909020.admin.services.CategoryService;
-import ua.ivan909020.admin.services.PhotoStorageService;
 import ua.ivan909020.admin.services.ProductService;
 import ua.ivan909020.admin.utils.ControllerUtils;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/products")
@@ -24,17 +23,11 @@ public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
-    private final PhotoStorageService photoStorageService;
 
     @Autowired
-    public ProductController(
-            ProductService productService,
-            CategoryService categoryService,
-            PhotoStorageService photoStorageService
-    ) {
+    public ProductController(ProductService productService, CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
-        this.photoStorageService = photoStorageService;
     }
 
     @GetMapping
@@ -70,8 +63,7 @@ public class ProductController {
             return "main/products/add";
         }
 
-        product.setPhotoUrl(photoStorageService.store(photo));
-        productService.save(product);
+        productService.save(product, photo);
         return "redirect:/products";
     }
 
@@ -89,10 +81,7 @@ public class ProductController {
             return "main/products/edit";
         }
 
-        if (!photo.isEmpty()) {
-            product.setPhotoUrl(photoStorageService.store(photo));
-        }
-        productService.update(product);
+        productService.update(product, photo);
         return "redirect:/products/edit/" + product.getId();
     }
 

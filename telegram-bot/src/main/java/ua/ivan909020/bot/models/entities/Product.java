@@ -1,21 +1,24 @@
 package ua.ivan909020.bot.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "products_seq")
@@ -91,14 +94,18 @@ public class Product implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Product product = (Product) o;
-        return Objects.equals(id, product.id) &&
-                Objects.equals(category, product.category) &&
-                Objects.equals(photoUrl, product.photoUrl) &&
-                Objects.equals(name, product.name) &&
-                Objects.equals(description, product.description) &&
+        return Objects.equals(id, product.id) && 
+                Objects.equals(category, product.category) && 
+                Objects.equals(photoUrl, product.photoUrl) && 
+                Objects.equals(name, product.name) && 
+                Objects.equals(description, product.description) && 
                 Objects.equals(price, product.price);
     }
 
@@ -109,14 +116,12 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", category=" + category +
-                ", photoUrl='" + photoUrl + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+        return "Product [id=" + id + 
+                ", category=" + category + 
+                ", photoUrl=" + photoUrl + 
+                ", name=" + name + 
+                ", description=" + description + 
+                ", price=" + price + "]";
     }
 
 }

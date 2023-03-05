@@ -1,9 +1,9 @@
 package ua.ivan909020.bot.models.domain;
 
-import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
-
 import java.util.List;
 import java.util.Objects;
+
+import org.telegram.telegrambots.meta.api.objects.inlinequery.result.InlineQueryResult;
 
 public class InlineQuerySend {
 
@@ -37,11 +37,15 @@ public class InlineQuerySend {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         InlineQuerySend that = (InlineQuerySend) o;
-        return Objects.equals(inlineQueryId, that.inlineQueryId) &&
-                Objects.equals(inlineQueryResults, that.inlineQueryResults) &&
+        return Objects.equals(inlineQueryId, that.inlineQueryId) && 
+                Objects.equals(inlineQueryResults, that.inlineQueryResults) && 
                 Objects.equals(offset, that.offset);
     }
 
@@ -52,11 +56,9 @@ public class InlineQuerySend {
 
     @Override
     public String toString() {
-        return "InlineQuerySend{" +
-                "inlineQueryId='" + inlineQueryId + '\'' +
-                ", inlineQueryResults=" + inlineQueryResults +
-                ", offset=" + offset +
-                '}';
+        return "InlineQuerySend [inlineQueryId=" + inlineQueryId + 
+                ", inlineQueryResults=" + inlineQueryResults + 
+                ", offset=" + offset + "]";
     }
 
 }
