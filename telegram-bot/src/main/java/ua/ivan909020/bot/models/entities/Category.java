@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,6 +16,7 @@ import jakarta.persistence.Table;
 @Table(name = "categories")
 public class Category implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -53,7 +55,8 @@ public class Category implements Serializable {
             return false;
         }
         Category category = (Category) o;
-        return Objects.equals(id, category.id) && Objects.equals(name, category.name);
+        return Objects.equals(id, category.id) &&
+                Objects.equals(name, category.name);
     }
 
     @Override
@@ -63,7 +66,8 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category [id=" + id + ", name=" + name + "]";
+        return "Category [id=" + id +
+                ", name=" + name + "]";
     }
 
 }

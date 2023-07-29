@@ -1,18 +1,26 @@
 package ua.ivan909020.bot.models.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class ClientAction implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
+    private final Command command;
     private final String action;
     private final LocalDateTime createdTime = LocalDateTime.now();
 
-    public ClientAction(String action) {
+    public ClientAction(Command command, String action) {
+        this.command = command;
         this.action = action;
+    }
+
+    public Command getCommand() {
+        return command;
     }
 
     public String getAction() {
@@ -32,17 +40,21 @@ public class ClientAction implements Serializable {
             return false;
         }
         ClientAction that = (ClientAction) o;
-        return Objects.equals(action, that.action) && Objects.equals(createdTime, that.createdTime);
+        return Objects.equals(command, that.command) &&
+                Objects.equals(action, that.action) &&
+                Objects.equals(createdTime, that.createdTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(action, createdTime);
+        return Objects.hash(command, action, createdTime);
     }
 
     @Override
     public String toString() {
-        return "ClientAction [action=" + action + ", createdTime=" + createdTime + "]";
+        return "ClientAction [command=" + command +
+                ", action=" + action +
+                ", createdTime=" + createdTime + "]";
     }
 
 }

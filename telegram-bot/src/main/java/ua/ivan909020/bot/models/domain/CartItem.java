@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.models.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -7,6 +8,7 @@ import ua.ivan909020.bot.models.entities.Product;
 
 public class CartItem implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -70,7 +72,9 @@ public class CartItem implements Serializable {
 
     @Override
     public String toString() {
-        return "CartItem [id=" + id + ", product=" + product + ", quantity=" + quantity + "]";
+        return "CartItem [id=" + id +
+                ", product=" + product +
+                ", quantity=" + quantity + "]";
     }
 
 }

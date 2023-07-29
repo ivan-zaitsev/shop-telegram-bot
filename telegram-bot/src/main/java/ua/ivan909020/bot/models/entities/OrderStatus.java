@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public enum OrderStatus implements Serializable {
@@ -8,6 +9,9 @@ public enum OrderStatus implements Serializable {
     PROCESSED("Processed"),
     COMPLETED("Completed"),
     CANCELED("Canceled");
+    
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private final String value;
 

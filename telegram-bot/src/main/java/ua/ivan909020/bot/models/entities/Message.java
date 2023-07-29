@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ import ua.ivan909020.bot.models.domain.MessagePlaceholder;
 @Table(name = "messages")
 public class Message implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

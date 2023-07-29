@@ -1,11 +1,9 @@
 package ua.ivan909020.bot.handlers;
 
-import org.telegram.telegrambots.meta.api.objects.Update;
+import ua.ivan909020.bot.models.domain.Command;
 
 public interface Handler {
 
-    boolean supports(Update update);
-
-    void handle(Update update);
+    Command getCommand();
 
 }

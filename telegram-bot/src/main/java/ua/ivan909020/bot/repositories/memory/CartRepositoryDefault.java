@@ -1,9 +1,9 @@
 package ua.ivan909020.bot.repositories.memory;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -16,9 +16,9 @@ import ua.ivan909020.bot.repositories.CartRepository;
 public class CartRepositoryDefault implements CartRepository {
 
     private final AtomicInteger lastCartItemId = new AtomicInteger();
-    private final Map<Long, List<CartItem>> cartItems = new HashMap<>();
+    private final Map<Long, List<CartItem>> cartItems = new ConcurrentHashMap<>();
 
-    private final Map<Long, Integer> cartPageNumbers = new HashMap<>();
+    private final Map<Long, Integer> cartPageNumbers = new ConcurrentHashMap<>();
 
     @Override
     public void saveCartItem(Long chatId, CartItem cartItem) {

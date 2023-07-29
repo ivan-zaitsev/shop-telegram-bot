@@ -2,35 +2,47 @@ package ua.ivan909020.bot.services.impl;
 
 import java.util.List;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.bots.AbsSender;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
 import ua.ivan909020.bot.core.ConfigReader;
-import ua.ivan909020.bot.models.domain.MessageSend;
 import ua.ivan909020.bot.models.entities.Client;
 import ua.ivan909020.bot.models.entities.Order;
 import ua.ivan909020.bot.models.entities.OrderItem;
 import ua.ivan909020.bot.services.NotificationService;
-import ua.ivan909020.bot.services.TelegramService;
 
 public class NotificationServiceDefault implements NotificationService {
 
-    private static final NotificationService INSTANCE = new NotificationServiceDefault();
+    private final String adminPanelBaseUrl;
+    private final Long telegramAdminChatId;
 
-    private final TelegramService telegramService = TelegramServiceDefault.getInstance();
-
-    private static final ConfigReader CONFIG = ConfigReader.getInstance();
-    private static final String ADMIN_PANEL_BASE_URL = CONFIG.get("admin-panel.base-url");
-    private static final Long TELEGRAM_ADMIN_CHAT_ID = Long.parseLong(CONFIG.get("telegram.admin.chat-id"));
-
-    private NotificationServiceDefault() {
-    }
-
-    public static NotificationService getInstance() {
-        return INSTANCE;
+    public NotificationServiceDefault(ConfigReader configReader) {
+        this.adminPanelBaseUrl = configReader.get("admin-panel.base-url");
+        this.telegramAdminChatId = Long.parseLong(configReader.get("telegram.admin.chat-id"));
     }
 
     @Override
-    public void notifyAdminChatAboutNewOrder(Order order) {
-        telegramService.sendMessage(new MessageSend(TELEGRAM_ADMIN_CHAT_ID, createOrderAndClientInformation(order)));
-        telegramService.sendMessage(new MessageSend(TELEGRAM_ADMIN_CHAT_ID, createOrderItemsInformation(order)));
+    public void notifyAdminChatAboutNewOrder(AbsSender absSender, Order order) throws TelegramApiException {
+        sendOrderAndClientInformationMessage(absSender, order);
+        sendOrderItemsInformationMessage(absSender, order);
+    }
+    private void sendOrderAndClientInformationMessage(AbsSender absSender, Order order) throws TelegramApiException {
+        SendMessage message = SendMessage.builder()
+                .chatId(telegramAdminChatId)
+                .text(createOrderAndClientInformation(order))
+                .parseMode("HTML")
+                .build();
+        absSender.execute(message);
+    }
+
+    private void sendOrderItemsInformationMessage(AbsSender absSender, Order order) throws TelegramApiException {
+        SendMessage message = SendMessage.builder()
+                .chatId(telegramAdminChatId)
+                .text(createOrderItemsInformation(order))
+                .parseMode("HTML")
+                .build();
+        absSender.execute(message);
     }
 
     private String createOrderAndClientInformation(Order order) {
@@ -41,7 +53,7 @@ public class NotificationServiceDefault implements NotificationService {
     }
 
     private String buildOrderUrl(Integer orderId) {
-        return ADMIN_PANEL_BASE_URL + "/orders/edit/" + orderId;
+        return adminPanelBaseUrl + "/orders/edit/" + orderId;
     }
 
     private String buildOrderInformation(Order order) {

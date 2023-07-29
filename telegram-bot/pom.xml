@@ -19,7 +19,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <telegrambots.version>6.5.0</telegrambots.version>
+        <telegrambots.version>6.7.0</telegrambots.version>
         <hibernate.version>6.1.7.Final</hibernate.version>
         <postgresql.version>42.5.4</postgresql.version>
         <apache.commons.version>3.12.0</apache.commons.version>
@@ -34,7 +34,6 @@
             <artifactId>telegrambots</artifactId>
             <version>${telegrambots.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -50,13 +49,11 @@
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>${apache.commons.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>

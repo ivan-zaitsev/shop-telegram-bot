@@ -33,7 +33,8 @@ public class MessagePlaceholder {
             return false;
         }
         MessagePlaceholder that = (MessagePlaceholder) o;
-        return Objects.equals(placeholder, that.placeholder) && Objects.equals(replacement, that.replacement);
+        return Objects.equals(placeholder, that.placeholder) &&
+                Objects.equals(replacement, that.replacement);
     }
 
     @Override
@@ -43,7 +44,8 @@ public class MessagePlaceholder {
 
     @Override
     public String toString() {
-        return "MessagePlaceholder [placeholder=" + placeholder + ", replacement=" + replacement + "]";
+        return "MessagePlaceholder [placeholder=" + placeholder +
+                ", replacement=" + replacement + "]";
     }
 
 }

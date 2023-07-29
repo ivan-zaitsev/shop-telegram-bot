@@ -1,5 +1,6 @@
 package ua.ivan909020.bot.models.entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -14,11 +15,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import ua.ivan909020.bot.models.domain.CartItem;
 
 @Entity
 @Table(name = "orders_items")
 public class OrderItem implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -44,6 +47,15 @@ public class OrderItem implements Serializable {
     private Long productPrice;
 
     public OrderItem() {
+    }
+
+    public static OrderItem from(CartItem cartItem) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(cartItem.getProduct());
+        orderItem.setQuantity(cartItem.getQuantity());
+        orderItem.setProductName(cartItem.getProduct().getName());
+        orderItem.setProductPrice(cartItem.getProduct().getPrice());
+        return orderItem;
     }
 
     public Integer getId() {

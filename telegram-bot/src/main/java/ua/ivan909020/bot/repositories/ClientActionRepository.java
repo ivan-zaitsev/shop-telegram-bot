@@ -4,10 +4,10 @@ import ua.ivan909020.bot.models.domain.ClientAction;
 
 public interface ClientActionRepository {
 
-    ClientAction findActionByChatId(Long chatId);
+    ClientAction findByChatId(Long chatId);
 
-    void updateActionByChatId(Long chatId, ClientAction clientAction);
+    void updateByChatId(Long chatId, ClientAction clientAction);
 
-    void deleteActionByChatId(Long chatId);
+    void deleteByChatId(Long chatId);
 
 }
