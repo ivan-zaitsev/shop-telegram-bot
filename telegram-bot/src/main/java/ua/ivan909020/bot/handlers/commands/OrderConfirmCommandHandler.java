@@ -73,10 +73,10 @@ public class OrderConfirmCommandHandler implements CommandHandler, ActionHandler
     public void executeCommand(AbsSender absSender, Update update, Long chatId) throws TelegramApiException {
         clientActionRepository.updateByChatId(chatId, new ClientAction(getCommand(), CONFIRM_ORDER_ACTION));
 
-        sendConfirmMessage(absSender, chatId);
+        sendConfirmOrderMessage(absSender, chatId);
     }
 
-    private void sendConfirmMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendConfirmOrderMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId)
                 .parseMode("HTML")

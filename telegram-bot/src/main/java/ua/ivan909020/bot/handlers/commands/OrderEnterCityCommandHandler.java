@@ -55,11 +55,11 @@ public class OrderEnterCityCommandHandler implements CommandHandler, ActionHandl
     public void executeCommand(AbsSender absSender, Update update, Long chatId) throws TelegramApiException {
         clientActionRepository.updateByChatId(chatId, new ClientAction(getCommand(), ENTER_CITY_ACTION));
 
-        sendEnterNameMessage(absSender, chatId);
-        sendCurrentNameMessage(absSender, chatId);
+        sendEnterCityMessage(absSender, chatId);
+        sendCurrentCityMessage(absSender, chatId);
     }
 
-    private void sendEnterNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendEnterCityMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId)
                 .text("Enter your city")
@@ -68,7 +68,7 @@ public class OrderEnterCityCommandHandler implements CommandHandler, ActionHandl
         absSender.execute(message);
     }
 
-    private void sendCurrentNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendCurrentCityMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         ClientOrder clientOrder = clientOrderStateRepository.findByChatId(chatId);
         if (StringUtils.isBlank(clientOrder.getCity())) {
             return;

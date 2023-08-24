@@ -55,11 +55,11 @@ public class OrderEnterAddressCommandHandler implements CommandHandler, ActionHa
     public void executeCommand(AbsSender absSender, Update update, Long chatId) throws TelegramApiException {
         clientActionRepository.updateByChatId(chatId, new ClientAction(getCommand(), ENTER_ADDRESS_ACTION));
 
-        sendEnterNameMessage(absSender, chatId);
-        sendCurrentNameMessage(absSender, chatId);
+        sendEnterAddressMessage(absSender, chatId);
+        sendCurrentAddressMessage(absSender, chatId);
     }
 
-    private void sendEnterNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendEnterAddressMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId)
                 .text("Enter your address")
@@ -68,7 +68,7 @@ public class OrderEnterAddressCommandHandler implements CommandHandler, ActionHa
         absSender.execute(message);
     }
 
-    private void sendCurrentNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendCurrentAddressMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         ClientOrder clientOrder = clientOrderStateRepository.findByChatId(chatId);
         if (StringUtils.isBlank(clientOrder.getAddress())) {
             return;

@@ -57,11 +57,11 @@ public class OrderEnterPhoneNumberCommandHandler implements CommandHandler, Upda
     public void executeCommand(AbsSender absSender, Update update, Long chatId) throws TelegramApiException {
         clientActionRepository.updateByChatId(chatId, new ClientAction(getCommand(), ENTER_PHONE_NUMBER_ACTION));
 
-        sendEnterNameMessage(absSender, chatId);
-        sendCurrentNameMessage(absSender, chatId);
+        sendEnterPhoneNumberMessage(absSender, chatId);
+        sendCurrentPhoneNumberMessage(absSender, chatId);
     }
 
-    private void sendEnterNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendEnterPhoneNumberMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         SendMessage message = SendMessage.builder()
                 .chatId(chatId)
                 .text("Enter your phone number or press button")
@@ -70,7 +70,7 @@ public class OrderEnterPhoneNumberCommandHandler implements CommandHandler, Upda
         absSender.execute(message);
     }
 
-    private void sendCurrentNameMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
+    private void sendCurrentPhoneNumberMessage(AbsSender absSender, Long chatId) throws TelegramApiException {
         ClientOrder clientOrder = clientOrderStateRepository.findByChatId(chatId);
         if (StringUtils.isBlank(clientOrder.getPhoneNumber())) {
             return;
