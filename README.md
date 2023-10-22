@@ -28,7 +28,7 @@ docker-compose -f shop-telegram-bot/docker-compose.yml up -d
 - Install jdk 17 `apt-get install openjdk-17-jdk`
 - Install postgres `apt-get install postgresql postgresql-contrib`
 - Install nginx `apt-get install nginx`
-- Clone repository `git clone https://github.com/ivan909020/shop-telegram-bot.git`
+- Clone repository `git clone https://github.com/ivan-zaitsev/shop-telegram-bot.git`
 - Package admin panel `mvn -f shop-telegram-bot/admin-panel/ package`
 - Package telegram bot `mvn -f shop-telegram-bot/telegram-bot/ package`
 

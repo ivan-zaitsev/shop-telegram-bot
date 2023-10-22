@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>ua.ivan909020</groupId>
+        <groupId>ua.ivanzaitsev</groupId>
         <artifactId>shop-telegram-bot</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -75,7 +75,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ua.ivan909020.bot.Application</mainClass>
+                            <mainClass>ua.ivanzaitsev.bot.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

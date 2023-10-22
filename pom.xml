@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ua.ivan909020</groupId>
+    <groupId>ua.ivanzaitsev</groupId>
     <artifactId>shop-telegram-bot</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
